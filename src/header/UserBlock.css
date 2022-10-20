@@ -1,0 +1,41 @@
+
+
+#userBlock {
+
+    width: 359px;
+    height: 135px;
+    background: #91ABA5;
+    border-radius: 28px;
+    position: absolute;
+    top: -30px;
+    left: 20px;
+    z-index: -10;
+}
+
+
+#userName{
+    font-family:'Quicksand';
+    font-size:32px;
+}
+
+#userBlock_elements {
+    margin-right: 20px;
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -30px;
+    
+
+}
+
+#headerUserBlock {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 359px;
+    height: 125px;
+    position: relative;
+    overflow: hidden;
+
+}

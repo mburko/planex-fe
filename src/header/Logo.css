@@ -1,0 +1,54 @@
+
+
+body {
+    --lightgreen: #91aba5;
+    --lightbeige: #EAD7BB;
+
+}
+
+.circle {
+
+    clip-path: circle(50%);
+}
+
+
+.logo {
+    margin-top:40px;
+    margin-left:10px;
+    position: relative;
+    height: 50px;
+    justify-self: flex-start;
+
+}
+
+#name {
+    position: absolute;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px;
+    color: #000000;
+    text-align: center;
+    z-index: 10;
+    top:-50px;
+    left:0px;
+}
+
+#big {
+    position: absolute;
+    background-color: var(--lightgreen);
+    width: 62px;
+    height: 62px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#small {
+    position: absolute;
+    z-index: 5;
+    top: -20px;
+    left: 40px;
+    background-color: var(--lightbeige);
+    width: 39px;
+    height: 39px;
+}
