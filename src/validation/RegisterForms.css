@@ -1,13 +1,11 @@
-
-
 .RegisterForm {
-    --white:#FFFFFF;
+    --white: #FFFFFF;
     --lightgreen: #91aba5;
     --darkgreen: #607568;
     --darkgrey: #1E1E1E;
     --lightbeige: #FCFCFC;
     --error_color: #D2042D;
-   
+
 
 
     min-width: 100%;
@@ -26,18 +24,18 @@
 }
 
 
-@media screen and (min-width: 350px) {
-    .container {
-        align-self: center;
-        justify-self: center;
-        margin: auto;
-        padding: 40px;
-        background: var(--darkgrey);
-        border-radius: 32px;
-        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 
-    }
+.container {
+    align-self: center;
+    justify-self: center;
+    margin: auto;
+    padding: 4vw 5vh;
+    background: var(--darkgrey);
+    border-radius: 32px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
 }
+
 
 .form_title {
 
