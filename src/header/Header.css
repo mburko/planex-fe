@@ -6,3 +6,28 @@
     justify-content: space-between;
 }
 
+#headerLogo {
+    width: 145px;
+}
+
+#headerUserBlock {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 359px;
+    height: 125px;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.headerLeft {
+    display: flex;
+
+}
+
+#headerBars {
+    margin-top: 18px;
+    margin-left: 15px;
+
+}
