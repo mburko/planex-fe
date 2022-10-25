@@ -3,12 +3,12 @@
 export const Logo = (props) => {
     return (
 
-        <div className="logo">
-             <div id="small" className="circle">
+        <div className={props.className}>
+            <div id={props.id} className="circle small">
             </div >
-            <div id="big" className="circle">
+            <div id="green" className="circle big">
             </div >
-           
+
             <p id="name">Planex</p>
 
 

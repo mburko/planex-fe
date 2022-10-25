@@ -29,7 +29,7 @@
     align-self: center;
     justify-self: center;
     margin: auto;
-    padding: 4vw 5vh;
+    padding: 3vw 3vh;
     background: var(--darkgrey);
     border-radius: 32px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
@@ -132,7 +132,7 @@ button:disabled:hover {
 }
 
 .form_button:active {
-    transform: scale(0.95);
+    transform: scale(1.1);
 }
 
 .form_text,
