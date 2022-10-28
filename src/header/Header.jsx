@@ -9,7 +9,7 @@ export const Header = (props) => {
             
             <div className="headerLeft">
                 <div id="headerLogo">
-                    <Logo />
+                    <Logo id="beige" className="logo_top"/>
                 </div>
                 <div id="headerBars">
                     <Bars showSidebar={props.showSidebar} />
