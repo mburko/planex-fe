@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import Axios from 'axios';
 import './validation/RegisterForms.css';
 import './header/Logo.css';
@@ -13,7 +14,7 @@ import { Settings } from './Settings'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Sidebar } from './sidemenu/Sidebar';
 import { MonthCalendar } from './pages/MonthCalendar';
-
+import Home  from './pages/Home';
 
 function App() {
 
@@ -35,9 +36,12 @@ function App() {
             <Route path='/settings' element={<Settings />} />
           </Routes>
         </BrowserRouter>
-
-        <RegisterForms />
+ <RegisterForms />
         <MonthCalendar/>
+
+        <Home/>*/}
+
+       
 
       </div>
     </>

@@ -92,7 +92,7 @@ export const Login = (props) => {
     }
 
     return (
-        <div class="container">
+        <div class="containerRegForm">
             <form onSubmit={handleSubmit} class="form" id="login">
                 <h1 class="form_title">{props.title}</h1>
 
