@@ -29,14 +29,16 @@ function App() {
 
         {/*<Header showSidebar={showSidebar} />
         <BrowserRouter>
-          <Sidebar clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
+          <Sidebar login="user" email="email" clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
           <Routes>
             <Route path='/mytasks' element={<MyTasks />} />
             <Route path='/settings' element={<Settings />} />
           </Routes>
         </BrowserRouter>
-        <RegisterForms />*/}
+
+        <RegisterForms />
         <MonthCalendar/>
+
       </div>
     </>
   );
