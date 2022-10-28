@@ -37,9 +37,9 @@ function App() {
           </Routes>
         </BrowserRouter>
         <RegisterForms />
-        <MonthCalendar/>*/}
+        <MonthCalendar/>
 
-        <Home/>
+        <Home/>*/}
       </div>
     </>
   );
