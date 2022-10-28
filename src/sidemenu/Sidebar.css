@@ -8,29 +8,33 @@
 
     z-index: 50;
     box-sizing: border-box;
-    margin:0;
+    margin: 0;
     padding: 0;
     height: 80px;
-    position:relative;
-    /* display: flex;
-    justify-content: start;
-    align-items: center; */
+    position: relative;
 
 }
+
+
 .sidebar_main_icon {
     color: #000000;
-    margin-top:20px;
-  
-    
+    margin-top: 20px;
+    cursor: pointer;
+
+}
+
+.sidebar_main_icon:hover,
+.sidebar_close_icon:hover {
+    transform: scale(1.1);
 }
 
 
 .sidebar_close_icon {
     color: #000000;
     position: absolute;
-    top:10px;
-    left:80%;
-    
+    top: 10px;
+    left: 80%;
+
 }
 
 .menu {
@@ -42,31 +46,40 @@
 
 .sidebar {
     background-color: var(--lightbeige);
-    width: 250px;
+    width: 300px;
     height: 100vh;
     display: flex;
     position: fixed;
     top: 0;
-    left:-100%;
+    transform: translateX(-100%);
     transition: 850ms;
 }
 
-.sidebar_items{
-    min-width:100%;
+.sidebar_main_items,
+.sidebar_all_items {
+    min-width: 100%;
+}
+
+.sidebar_all_items {
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar.active {
-    left: 0;
+    transform: translateX(0%);
     transition: 350ms;
 }
 
 .sidebar_text {
+    transition: transform 0.3s;
     display: flex;
     justify-content: start;
     align-items: center;
     padding: 8px 0px 8px 0px;
     list-style: none;
-    height: 50px;
+    height: 30px;
+    margin: 15px 0px;
+
 
 }
 
@@ -80,22 +93,32 @@
     align-items: center;
     padding: 0px 24px;
     border-radius: 4px;
-    
+
+}
+
+.small_text a {
+    margin-left: 15px;
+
 }
 
 .small_text {
-    font-size: 22px;
-    font-weight: 50;
+    font-size: 20px;
+    font-weight: 20;
+    margin-top: -15px;
+    width: 100%;
 }
 
 .big_text {
     font-size: 26px;
-    font-weight: 1000;
+    font-weight: 600;
 }
 
-.sidebar_text a:hover {
-    background-color: #ab8468;
+
+.sidebar_text:hover {
+    transform-origin: left;
+    transform: scale(1.2);
 }
+
 
 
 .sidebar_menu_items {
@@ -106,13 +129,39 @@
 .sidebar_toogle {
     background-color: var(--lightbeige);
     width: 100%;
-    height: 80px;
+    height: 20px;
     justify-content: start;
     align-items: center;
 
 }
 
-.settings{
-    font-size:60px;
-    font-weight: 1000;
+.sidebar_top_text {
+    font-family: 'Quicksand';
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0px 10px;
+
+}
+
+.sidebar_top {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    display: flex;
+
+}
+
+.sidebar_line {
+    min-height: 1px;
+    width: 200px;
+    background-color: #000000;
+    border-radius: 1px;
+    margin: 0px 25px 20px;
+
+}
+
+.div_sidebar_top_text {
+    justify-content: space-around;
+
+
 }

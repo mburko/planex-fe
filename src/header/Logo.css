@@ -12,12 +12,22 @@ body {
 }
 
 
-.logo {
+.logo_top {
     margin-top:40px;
     margin-left:10px;
     position: relative;
     height: 50px;
     justify-self: flex-start;
+
+}
+
+.logo_bottom{
+    height: 70px;
+    margin-top:auto;
+    margin-left:10px;
+    z-index: 51;
+    position: relative;
+    align-self: flex-start;
 
 }
 
@@ -34,21 +44,28 @@ body {
     left:0px;
 }
 
-#big {
+.big {
     position: absolute;
-    background-color: var(--lightgreen);
     width: 62px;
     height: 62px;
     flex-direction: column;
     align-items: flex-start;
 }
 
-#small {
+.small {
     position: absolute;
     z-index: 1;
     top: -20px;
     left: 40px;
-    background-color: var(--lightbeige);
     width: 39px;
     height: 39px;
+}
+
+#beige{
+    background-color: var(--lightbeige);
+}
+
+#green{
+    background-color: var(--lightgreen);
+
 }

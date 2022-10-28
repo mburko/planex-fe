@@ -14,6 +14,7 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Sidebar } from './sidemenu/Sidebar';
 import WeeklyCalendar  from './weeklycalendar/WeeklyCalendar';
 import DailyToDoList  from './dailytodo/DailyToDoList';
+import { MonthCalendar } from './pages/MonthCalendar';
 
 function App() {
 
@@ -27,9 +28,9 @@ function App() {
     <>
       <div className="App">
 
-        <Header showSidebar={showSidebar} />
+        {/*<Header showSidebar={showSidebar} />
         <BrowserRouter>
-          <Sidebar clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
+          <Sidebar login="user" email="email" clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
           <Routes>
             <Route path='/mytasks' element={<MyTasks />} />
             <Route path='/settings' element={<Settings />} />
@@ -37,7 +38,10 @@ function App() {
           </Routes>
           <DailyToDoList />
         </BrowserRouter>
+
         <RegisterForms />
+        <MonthCalendar/>
+
       </div>
     </>
   );
