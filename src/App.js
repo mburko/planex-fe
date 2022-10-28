@@ -12,7 +12,8 @@ import { MyTasks } from './MyTasks'
 import { Settings } from './Settings'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Sidebar } from './sidemenu/Sidebar';
-
+import WeeklyCalendar  from './weeklycalendar/WeeklyCalendar';
+import DailyToDoList  from './dailytodo/DailyToDoList';
 
 function App() {
 
@@ -32,7 +33,9 @@ function App() {
           <Routes>
             <Route path='/mytasks' element={<MyTasks />} />
             <Route path='/settings' element={<Settings />} />
+            <Route path='/weeklycalendar' element={<WeeklyCalendar />} />
           </Routes>
+          <DailyToDoList />
         </BrowserRouter>
         <RegisterForms />
       </div>

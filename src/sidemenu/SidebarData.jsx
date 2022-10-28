@@ -10,7 +10,7 @@ export const SidebarData = [
     },
     {
         title: 'My calendar',
-        path: '/mycalendar',
+        path: '/weeklycalendar',
         cName: 'sidebar_text big_text',
 
     },
