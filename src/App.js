@@ -25,26 +25,21 @@ function App() {
 
   }
   return (
-    <>
       <div className="App">
 
-        {/*<Header showSidebar={showSidebar} />
+        <Header showSidebar={showSidebar} />
         <BrowserRouter>
           <Sidebar login="user" email="email" clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
+          <MonthCalendar/>
           <Routes>
             <Route path='/mytasks' element={<MyTasks />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/weeklycalendar' element={<WeeklyCalendar />} />
           </Routes>
-          <DailyToDoList />
         </BrowserRouter>
 
-        <RegisterForms />
-        <MonthCalendar/>
-
+        
       </div>
-    </>
   );
 }
-
 export default App;
