@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import Axios from 'axios';
 import './validation/RegisterForms.css';
 import './header/Logo.css';
@@ -15,6 +16,10 @@ import { Sidebar } from './sidemenu/Sidebar';
 import WeeklyCalendar  from './weeklycalendar/WeeklyCalendar';
 import DailyToDoList  from './dailytodo/DailyToDoList';
 import { MonthCalendar } from './pages/MonthCalendar';
+<<<<<<< HEAD
+=======
+import Home  from './pages/Home';
+>>>>>>> 4f59089fdbbec110b32893c223974844d813a597
 
 function App() {
 
@@ -38,8 +43,8 @@ function App() {
           </Routes>
         </BrowserRouter>
 
-        
-      </div>
+      </div>  
+
   );
 }
 export default App;
