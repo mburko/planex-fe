@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Login } from "./Login";
 import { SignUp } from "./SignUp";
 
+
 export const RegisterForms = () => {
 
     const [currForm, setCurrForm] = useState('login');
