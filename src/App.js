@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import Axios from 'axios';
 
 import './header/Logo.css';
@@ -17,6 +18,8 @@ import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Sidebar } from './sidemenu/Sidebar';
 import { EventCreator } from './EventCreator';
 
+import { MonthCalendar } from './pages/MonthCalendar';
+import Home  from './pages/Home';
 
 function App() {
 
@@ -30,7 +33,7 @@ function App() {
     <>
       <div className="App">
 
-        {/* <Header showSidebar={showSidebar} />
+        {/*<Header showSidebar={showSidebar} />
         <BrowserRouter>
           <Sidebar login="user" email="email" clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
           <Routes>
@@ -40,6 +43,13 @@ function App() {
         </BrowserRouter> */}
         {/* <RegisterForms /> */}
         <EventCreator />
+
+        <MonthCalendar />
+
+        <Home />
+
+
+
       </div>
     </>
   );
