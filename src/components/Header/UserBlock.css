@@ -1,6 +1,6 @@
 @media (max-width: 280px) {
-    #headerUserBlock{
-        display:none;
+    #headerUserBlock {
+        display: none;
     }
 }
 
@@ -14,15 +14,16 @@
     top: -30px;
     left: 20px;
     z-index: -10;
-    
+
 }
 
 @media (max-width: 415px) {
     #userName {
-       display:none;
+        display: none;
     }
-    #userBlock_elements{
-        justify-content:center;
+
+    #userBlock_elements {
+        justify-content: center;
         margin-top: -30px;
         align-items: center;
         display: flex;
@@ -36,6 +37,7 @@
         font-family: 'Quicksand';
         font-size: 28px;
     }
+
     #userBlock_elements {
         margin-right: 20px;
         width: 220px;
@@ -43,8 +45,17 @@
         justify-content: space-between;
         align-items: center;
         margin-top: -30px;
-    
-    
+
+
     }
 }
 
+.UB_icons>img,
+.UB_icons>svg {
+    vertical-align: baseline;
+}
+
+#headerUserBlock p{
+    margin-bottom: 0;
+    
+}

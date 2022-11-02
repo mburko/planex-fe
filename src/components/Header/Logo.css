@@ -31,7 +31,7 @@ body {
 
 }
 
-#name {
+.logo_name {
     position: absolute;
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
@@ -40,8 +40,9 @@ body {
     color: #000000;
     text-align: center;
     z-index: 3;
-    top:-50px;
+    top:-20px;
     left:0px;
+    margin:0px;
 }
 
 .big {
