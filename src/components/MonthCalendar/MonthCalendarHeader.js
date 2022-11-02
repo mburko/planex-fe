@@ -7,7 +7,7 @@ const MonthHeader = styled('div')`
     font-weight: bold;
     font-family: 'Quicksand', sans-serif;
     color: rgba(145,171,165, 1);
-    margin: 2%;
+    margin: 2% 25% 1%;
     justify-content: space-between;
 `;
 const ButtonWrapper = styled('button')`

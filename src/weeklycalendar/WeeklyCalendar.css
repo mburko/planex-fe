@@ -1,6 +1,6 @@
-.week-calendar{
+.weekly-calendar{
   display: flex;
-  margin-top: 100px;
+  margin-top: 10px;
   justify-content: flex-end;
   align-items: flex-end;
 

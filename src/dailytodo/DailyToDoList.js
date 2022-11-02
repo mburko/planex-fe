@@ -7,18 +7,12 @@ import TaskComponent from './TaskComponent'
 const DailyToDoList = () => {
   return (
     <div class = 'daily-to-do'>
-      <SlClose
+        <SlClose
             size={40}
             class="sidebar_close_icon" />
-      <h1 class = 'to-do-list-header'>
-        To-Do List
-        <div class = 'left-line'/>
-        <div class = 'right-line'/>
-      </h1>
-      <div>
-        <TaskComponent />
-        <TaskComponent />
-      </div>
+      <h1 class = 'to-do-list-header'>To-Do List</h1>
+      <div class = 'left-line'/>
+      <div class = 'right-line'/>
     </div>
   )
 }

@@ -16,10 +16,7 @@ import { Sidebar } from './sidemenu/Sidebar';
 import WeeklyCalendar  from './weeklycalendar/WeeklyCalendar';
 import DailyToDoList  from './dailytodo/DailyToDoList';
 import { MonthCalendar } from './pages/MonthCalendar';
-<<<<<<< HEAD
-=======
 import Home  from './pages/Home';
->>>>>>> 4f59089fdbbec110b32893c223974844d813a597
 
 function App() {
 
@@ -35,7 +32,7 @@ function App() {
         <Header showSidebar={showSidebar} />
         <BrowserRouter>
           <Sidebar login="user" email="email" clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
-          <MonthCalendar/>
+          <DailyToDoList />
           <Routes>
             <Route path='/mytasks' element={<MyTasks />} />
             <Route path='/settings' element={<Settings />} />

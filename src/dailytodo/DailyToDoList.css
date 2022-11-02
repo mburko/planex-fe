@@ -1,11 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
 .daily-to-do{
-  display: flex;
   width: 220px;
   height: 674px;
   border: 2px solid rgb(0, 0, 0);
-  padding: 50px;
   margin: 20px;
   margin-left: 2px;
   position: relative;
@@ -14,24 +12,24 @@
 .to-do-list-header{
   color:black;
   font-family: 'Quicksand', sans-serif;
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
-  margin-top: 20px;
+  font-weight: 500;
   
 }
 
 .left-line{
   border-bottom: 2px solid black;
-  width:200px;
+  width:60%;
   margin-top: 20px;
-  margin-left: -50px;
+  margin-left: 0%;
 
 }
 .right-line{
   border-bottom: 2px solid black;
   width:200px;
   margin-top: 30px;
-  margin-left: 70px;
+  margin-left: 0%;
 
 }
 
@@ -39,6 +37,6 @@
   padding-top: 6px;
   color: #000000;
   position: absolute;
-  margin-top: 5px;
+
   
 }

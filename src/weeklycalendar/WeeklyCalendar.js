@@ -1,22 +1,40 @@
-import CalendarColumn from './СalendarColumn';
+import WeeklyCalendarTable from './WeeklyCalendarTable';
+import { useState } from 'react';
+import moment from "moment";
 import './WeeklyCalendar.css'
+import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHeader';
 
-const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const day = ['3','4','5','6','7','8','9'];
 
-function WeeklyCalendar() {
-  
+
+const WeeklyCalendar = () => {
+  moment.updateLocale('en', {week:{dow:1}});
+  const [today, setToday] = useState(moment());
+  const startDay = today.clone().startOf('week');
+ 
+ const prevHandler = () => {
+      console.log('prev');
+      setToday(prev => prev.clone().subtract(1, 'week'))
+ }
+ const nextHandler = () => {
+      console.log('next');
+      setToday(prev => prev.clone().add(1, 'week'))
+ };
   return (
-    <div class='week-calendar'>
-      <div><CalendarColumn weekday = {week[0]} daynum = {day[0]} /></div>
-      <div><CalendarColumn weekday = {week[1]} daynum = {day[1]} /></div>
-      <div><CalendarColumn weekday = {week[2]} daynum = {day[2]} /></div>
-      <div><CalendarColumn weekday = {week[3]} daynum = {day[3]} /></div>
-      <div><CalendarColumn weekday = {week[4]} daynum = {day[4]} /></div>
-      <div><CalendarColumn weekday = {week[5]} daynum = {day[5]} /></div>
-      <div><CalendarColumn weekday = {week[6]} daynum = {day[6]} /></div>
+    <div>  
+          <MonthCalendarHeader
+               style = {{'margin': '10% 15% 20% 30%'}}
+               today={today} 
+               prevHandler={prevHandler} 
+               nextHandler={nextHandler}/>
+          <WeeklyCalendarTable 
+                today={today} 
+                startDay={startDay}/>
+       
     </div>
-  );
-}
+
+  )
+
+}; 
+export { WeeklyCalendar};
 
 export default WeeklyCalendar;
