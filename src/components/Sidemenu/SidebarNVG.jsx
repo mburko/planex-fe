@@ -3,6 +3,7 @@ import React, { useState, useRoutes } from 'react'
 import Home from '../../pages/Home';
 import { Header } from '../Header/Header';
 import { MonthCalendar } from '../../pages/MonthCalendar';
+import { WeeklyCalendar } from '../../pages/WeeklyCalendar';
 import { MyTasks } from '../../MyTasks'
 import { Settings } from '../../Settings'
 import { Route, Routes, BrowserRouter, withRouter } from 'react-router-dom';
@@ -40,7 +41,8 @@ export const SidebarNVG = (props) => {
                 <Routes>
                     <Route path='/mytasks' element={<MyTasks />} />
                     <Route path='/settings' element={<Settings />} />
-                    <Route path='/mycalendar' element={<MonthCalendar />} />
+                    <Route path='/mycalendar' element={<WeeklyCalendar />} />
+
                     <Route path='/home' element={<Home />} />
                 </Routes>
             </BrowserRouter>
