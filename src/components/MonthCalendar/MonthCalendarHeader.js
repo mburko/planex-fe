@@ -31,10 +31,10 @@ const MonthCalendarHeader = ({today, prevHandler, nextHandler}) => {
     return(
         <MonthHeader >
             <div>
-                <span>  {today.format('MMMM')}</span>
-                <span>  {today.format('YYYY')}</span>
                 <ButtonWrapper onClick={prevHandler}>{" < "}</ButtonWrapper>
                 <ButtonWrapper onClick={nextHandler}>{" > "}</ButtonWrapper>
+                <span>  {today.format('MMMM')}</span>
+                <span>  {today.format('YYYY')}</span>
             </div>
             <div>
               {/* <ButtonWrapper onClick={prevHandler}>{"< "}</ButtonWrapper>*/ } 
