@@ -27,21 +27,10 @@ export const SidebarData = [
 
     },
     {
-        title: 'Appearance',
-        path: '/appearance',
-        cName: 'sidebar_text sb_small_text',
-
-    },
-    {
         title: 'Notifications',
         path: '/notifications',
         cName: 'sidebar_text sb_small_text',
 
     },
-    {
-        title: 'Security',
-        path: '/security',
-        cName: 'sidebar_text sb_small_text',
-
-    },
+   
 ]

@@ -5,6 +5,7 @@ import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHe
 
 
 const MonthCalendar = () => {
+     
     moment.updateLocale('en', {week:{dow:1}});
     //const today = moment();
     const [today, setToday] = useState(moment());

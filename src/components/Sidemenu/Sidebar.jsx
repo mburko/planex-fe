@@ -4,11 +4,16 @@ import { Link } from 'react-router-dom'
 import { SidebarData } from './SidebarData'
 import { Logo } from "../Header/Logo";
 import { BsPersonCircle } from "react-icons/bs";
+import { IoExitOutline } from 'react-icons/io5'
 
 
 export const Sidebar = (props) => {
 
 
+    const handleClick = (e) => {
+        e.preventDefault();
+
+    }
     return (
         <>
             <div className="Sidebar">
@@ -46,9 +51,17 @@ export const Sidebar = (props) => {
                                 )
                             })}
                         </div>
-
-                        <Logo id="green" className="logo_bottom" />
-
+                        <div className="sidebar_bottom" >
+                            <Logo id="green" className="logo_bottom" />
+                            <Link to={'/home'}>
+                                <IoExitOutline
+                                    size={40}
+                                    className="sb_exit_icon"
+                                    onClick={()=>{props.showSidebar(); props.exit()}}
+                                    
+                                />
+                            </Link>
+                        </div>
                     </div>
 
 
