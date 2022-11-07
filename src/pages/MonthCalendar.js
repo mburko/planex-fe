@@ -21,6 +21,7 @@ const MonthCalendar = () => {
    };
     return (
       <div style={{'margin':'5% 2% 0 20%'}}>  
+
        <MonthCalendarHeader
             today={today} 
             prevHandler={prevHandler} 

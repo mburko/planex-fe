@@ -23,7 +23,6 @@ function App() {
       <div className="App">
 
         <SidebarNVG />
-      
         {/* <RegisterForms /> */}
         {/* <EventCreator /> */}
 

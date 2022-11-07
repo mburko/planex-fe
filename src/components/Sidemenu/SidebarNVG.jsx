@@ -42,6 +42,7 @@ export const SidebarNVG = (props) => {
                     <Route path='/mytasks' element={<MyTasks />} />
                     <Route path='/settings' element={<Settings />} />
                     <Route path='/mycalendar' element={<WeeklyCalendar />} />
+
                     <Route path='/home' element={<Home />} />
                 </Routes>
             </BrowserRouter>
