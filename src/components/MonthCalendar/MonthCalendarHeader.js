@@ -41,6 +41,5 @@ const MonthCalendarHeader = ({today, prevHandler, nextHandler}) => {
             </div>
         </MonthHeader >
     );
-
 };
 export { MonthCalendarHeader };

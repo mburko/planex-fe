@@ -47,8 +47,6 @@ const CurrentDay = styled.div`
     border-radius: 50%;
     border: 1px #171717;
     border-style: double;
-
-    
 `;
 const MonthCalendarGrid = ({today, startDay}) => {
     const totalDays = 42;

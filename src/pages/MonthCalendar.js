@@ -25,7 +25,6 @@ const MonthCalendar = () => {
             prevHandler={prevHandler} 
             nextHandler={nextHandler}/>
       <MonthCalendarGrid  today={today} startDay={startDay} />
-         
       </div>
 
     )
