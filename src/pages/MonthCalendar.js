@@ -20,13 +20,12 @@ const MonthCalendar = () => {
         setToday(prev => prev.clone().add(1, 'month'))
    };
     return (
-      <div style={{'margin':'5% 10% 0 20%'}}>  
+      <div style={{'margin':'0% 5% 0 20%'}}>  
        <MonthCalendarHeader
             today={today} 
             prevHandler={prevHandler} 
             nextHandler={nextHandler}/>
       <MonthCalendarGrid  today={today} startDay={startDay} />
-         
       </div>
 
     )
