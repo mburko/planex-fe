@@ -7,7 +7,7 @@ const MonthHeader = styled('div')`
     font-weight: bold;
     font-family: 'Quicksand', sans-serif;
     color: rgba(145,171,165, 1);
-    margin: 2% 25% 1%;
+    margin: 2%;
     justify-content: space-between;
 `;
 const ButtonWrapper = styled('button')`
@@ -31,16 +31,15 @@ const MonthCalendarHeader = ({today, prevHandler, nextHandler}) => {
     return(
         <MonthHeader >
             <div>
-                <span>  {today.format('MMMM')}</span>
-                <span>  {today.format('YYYY')}</span>
                 <ButtonWrapper onClick={prevHandler}>{" < "}</ButtonWrapper>
                 <ButtonWrapper onClick={nextHandler}>{" > "}</ButtonWrapper>
+                <span>  {today.format('MMMM')}</span>
+                <span>  {today.format('YYYY')}</span>
             </div>
             <div>
               {/* <ButtonWrapper onClick={prevHandler}>{"< "}</ButtonWrapper>*/ } 
             </div>
         </MonthHeader >
     );
-
 };
 export { MonthCalendarHeader };

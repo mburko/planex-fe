@@ -5,6 +5,7 @@ import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHe
 
 
 const MonthCalendar = () => {
+     
     moment.updateLocale('en', {week:{dow:1}});
     //const today = moment();
     const [today, setToday] = useState(moment());
@@ -19,13 +20,12 @@ const MonthCalendar = () => {
         setToday(prev => prev.clone().add(1, 'month'))
    };
     return (
-      <div style={{'margin':'5% 10% 0 20%'}}>  
+      <div style={{'margin':'5% 2% 0 20%'}}>  
        <MonthCalendarHeader
             today={today} 
             prevHandler={prevHandler} 
             nextHandler={nextHandler}/>
       <MonthCalendarGrid  today={today} startDay={startDay} />
-         
       </div>
 
     )

@@ -31,15 +31,17 @@ const WeeklyCalendar = () => {
           <DailyToDoList
                clickedToDoList = {clickedToDoList}
                showToDoList = {showToDoList}/>
-          <MonthCalendarHeader
-               style = {{'margin': '10% 15% 20% 30%'}}
-               today={today} 
-               prevHandler={prevHandler} 
-               nextHandler={nextHandler}/>
-          <WeeklyCalendarTable 
-                showToDoList = {showToDoList}
-                today={today} 
-                startDay={startDay}/>
+          <div style={{'margin':'5% 2% 0 20%'}}> 
+               <MonthCalendarHeader
+                    //style = {{'margin': '10% 15% 20% 30%'}}
+                    today={today} 
+                    prevHandler={prevHandler} 
+                    nextHandler={nextHandler}/>
+               <WeeklyCalendarTable 
+                    showToDoList = {showToDoList}
+                    today={today} 
+                    startDay={startDay}/>
+          </div>
        
     </div>
 

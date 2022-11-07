@@ -8,12 +8,12 @@ const GridWrapper = styled.div`
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     padding: 1px;
-    column-gap: 3%;  
-    row-gap: 2.5%;
+    column-gap: 1.75%;  
+    row-gap: 2%;
 `;
 const CellWrapper = styled.div`
     min-width: 20px;
-    min-height: ${props => props.isWeeklyHeader ? '25px' : '75px'};
+    min-height: ${props => props.isWeeklyHeader ? '25px' : '90px'};
     background-color: ${props => props.isWeeklyHeader ?
          'rgba(145,171,165, 0 )' : 'rgba(145,171,165, 0.5 )'};
     border-radius: 15px;
@@ -39,10 +39,10 @@ const DayWrapper = styled.div`
 `;
 const CurrentDay = styled.div`
    
-    width: 100%;
-    height: 100%;
-    padding-top: 2px;
-    padding-left: 3px;
+    width: 30px;
+    height: 30px;
+    padding-top: 1.5px;
+    padding-left:  ${props => props.isOneDigit ? '30%': '15%'};
     background-color: rgba(145,171,165, 1);
     border-radius: 50%;
     border: 1px #171717;
@@ -72,8 +72,9 @@ const MonthCalendarGrid = ({today, startDay}) => {
                         isVisible={dayItem.clone().format('MM') === today.clone().format('MM')}>
                         <RowInCell>
                             <DayWrapper >
-                                {!isCurrentDay(dayItem) && dayItem.format('D')}
-                                {isCurrentDay(dayItem) && <CurrentDay>{dayItem.format('D')}</CurrentDay>}
+                               {!isCurrentDay(dayItem) && dayItem.format('D')}
+                                {isCurrentDay(dayItem) && <CurrentDay isOneDigit={dayItem.clone().format('D') in [1, 2, 3, 4, 5, 6, 7, 8, 9]}>
+                                    {dayItem.format('D')}</CurrentDay>}
                             </DayWrapper>
                         </RowInCell>
                         
