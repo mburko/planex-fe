@@ -1,9 +1,9 @@
-import WeeklyCalendarTable from './WeeklyCalendarTable';
+import WeeklyCalendarTable from '../components/WeeklyCaledar/WeeklyCalendarTable';
+import { DailyToDoList } from '../components/DailyToDoList/DailyToDoList';
 import { useState } from 'react';
 import moment from "moment";
-import './WeeklyCalendar.css'
+import '../components/WeeklyCaledar/WeeklyCalendar.css'
 import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHeader';
-
 
 
 const WeeklyCalendar = () => {
@@ -19,14 +19,25 @@ const WeeklyCalendar = () => {
       console.log('next');
       setToday(prev => prev.clone().add(1, 'week'))
  };
+
+ const [clickedToDoList, setClickToDoList] = useState(false);
+
+ const showToDoList = () => {
+     setClickToDoList(!clickedToDoList);
+
+ }
   return (
-    <div>  
+    <div >  
+          <DailyToDoList
+               clickedToDoList = {clickedToDoList}
+               showToDoList = {showToDoList}/>
           <MonthCalendarHeader
                style = {{'margin': '10% 15% 20% 30%'}}
                today={today} 
                prevHandler={prevHandler} 
                nextHandler={nextHandler}/>
           <WeeklyCalendarTable 
+                showToDoList = {showToDoList}
                 today={today} 
                 startDay={startDay}/>
        
@@ -35,6 +46,6 @@ const WeeklyCalendar = () => {
   )
 
 }; 
-export { WeeklyCalendar};
 
-export default WeeklyCalendar;
+
+export { WeeklyCalendar };

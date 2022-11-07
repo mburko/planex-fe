@@ -2,25 +2,26 @@ import React, { useState } from 'react'
 
 import Axios from 'axios';
 
-import './header/Logo.css';
-import './header/Header.css';
-import './header/UserBlock.css';
-import './sidemenu/Sidebar.css';
-import './EventCreator.css';
-import './validation/RegisterForms.css';
+import Home from './pages/Home';
+import { MonthCalendar } from './pages/MonthCalendar';
+import './components/Header/Logo.css';
+import './components/Header/Header.css';
+import './components/Header/UserBlock.css';
+import './components/Sidemenu/Sidebar.css';
+import './components/Event/EventCreator.css';
+import './components/Validation/RegisterForms.css';
 
 
-import { Header } from './header/Header';
-import { RegisterForms } from './validation/RegisterForms';
+import { Header } from './components/Header/Header';
+import { RegisterForms } from './components/Validation/RegisterForms';
 import { MyTasks } from './MyTasks'
 import { Settings } from './Settings'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { Sidebar } from './sidemenu/Sidebar';
-import { EventCreator } from './EventCreator';
-import WeeklyCalendar  from './weeklycalendar/WeeklyCalendar';
-import DailyToDoList  from './dailytodo/DailyToDoList';
-import { MonthCalendar } from './pages/MonthCalendar';
-import Home  from './pages/Home';
+import { Sidebar } from './components/Sidemenu/Sidebar';
+import { EventCreator } from './components/Event/EventCreator';
+import { WeeklyCalendar }  from './pages/WeeklyCalendar';
+import { DailyToDoList }  from './components/DailyToDoList/DailyToDoList';
+import {Task} from './components/DailyToDoList/Task';
 
 function App() {
 
@@ -36,11 +37,11 @@ function App() {
         <Header showSidebar={showSidebar} />
         <BrowserRouter>
           <Sidebar login="user" email="email" clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
-          <DailyToDoList />
+          <WeeklyCalendar />
           <Routes>
             <Route path='/mytasks' element={<MyTasks />} />
             <Route path='/settings' element={<Settings />} />
-            <Route path='/weeklycalendar' element={<WeeklyCalendar />} />
+            <Route path='/mycalendar' element={<WeeklyCalendar />} />
           </Routes>
         </BrowserRouter> 
       </div>  

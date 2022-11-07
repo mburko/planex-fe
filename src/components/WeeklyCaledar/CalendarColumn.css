@@ -3,11 +3,10 @@
 .column
 {
 
-  background-color: #91aba556;
+  background-color: #91aba533;
   min-width: 141px;
-
   height: 756px;
-  border: 1px dotted #91aba556;
+  border: 1px dotted #91aba533;
   border-radius: 30px;
   margin: 10px; 
   box-shadow: -14px -15px 5px -5px rgba(34, 60, 80, 0.6);

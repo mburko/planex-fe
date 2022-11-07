@@ -79,7 +79,7 @@ input:focus::placeholder {
         width: 90vw;
     }
 
-    .container {
+    .containerRegform {
         padding: 3vh 2vw;
     }
 }
@@ -93,7 +93,7 @@ input:focus::placeholder {
 
     }
 
-    .container {
+    .containerRegForm {
         padding: 3vh 3vw;
     }
 }

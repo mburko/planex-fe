@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import AxiosClient from '../utilities/AxiosClient';
+import AxiosClient from '../../utilities/AxiosClient';
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
 const LOGIN_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;

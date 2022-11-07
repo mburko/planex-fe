@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { SlClose } from 'react-icons/sl'
 import { Link } from 'react-router-dom'
 import { SidebarData } from './SidebarData'
-import { Logo } from "../header/Logo";
+import { Logo } from "../Header/Logo";
 import { BsPersonCircle } from "react-icons/bs";
 
 
@@ -13,11 +13,11 @@ export const Sidebar = (props) => {
         <>
             <div className="Sidebar">
 
-                <nav className={props.clickedSidebar ? 'sidebar active' : 'sidebar'}>
+                <nav className={props.clickedSidebar ? 'sidebar bar_active' : 'sidebar'}>
 
                     <div className="sidebar_all_items">
                         <div className='sidebar_toogle' onClick={props.showSidebar}>
-                            <Link to="#" className="menu_bars">
+                            <Link to="#" className="sidebar_menu_bars">
                                 <SlClose
                                     size={30}
                                     className="sidebar_close_icon" />

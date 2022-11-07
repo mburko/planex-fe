@@ -1,4 +1,4 @@
-import AxiosClient from '../utilities/AxiosClient';
+import AxiosClient from '../../utilities/AxiosClient';
 import React, { useEffect, useState } from 'react'
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
