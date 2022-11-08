@@ -1,6 +1,6 @@
-import './Task.css'
+import './MyTask.css'
 
-const Task = (props) => {
+const MyTask = (props) => {
   return (
       <li className="task" key={props.task.id}>
         <input
@@ -19,4 +19,4 @@ const Task = (props) => {
 };
 
 
-export { Task };
+export { MyTask };

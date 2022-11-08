@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { useState} from 'react'
 import { Grid, Paper } from '@mui/material';
 import './MainHome.css';
 import styled from "styled-components";
 import CarouselBoxPlanex from './CarouselBoxPlanex';
 import MovingComponent from 'react-moving-text';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { RegisterForms } from '../Validation/RegisterForms';
+
 const classes = {
   rootMainHome: {
     flexGrow: 1,
@@ -29,10 +30,44 @@ const Button = styled.button`
   font-weight: bold;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
-  
-export default class MainHome extends Component {
-  render() {
+const FormsContainer = styled.div`
+    z-index: 10;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: 2% auto auto auto;
+    position: fixed;
+    pointer-events:auto;
+
+`;
+const HomePageContainer = styled.div`
+    filter: ${props => props.isBlured? 'blur(17px)': 'blur(0)'};
+    
+`;
+const MainHome = () => {
+    const [clickedLogIn, setClickLogIn] = useState(false);
+    const showLogIn = () => {
+      setClickLogIn(!clickedLogIn);
+    }
+    const [clickedSignUp, setClickSignUp] = useState(false);
+    const showSignUp = () => {
+      setClickSignUp(!clickedSignUp);
+    }
+    let isBluredBool = false 
+    const [clickedUBlur, setClickUBlur] = useState(false);
+    const uBlurPage = () => {
+      setClickUBlur(!clickedUBlur);
+    };
     return (
+      <div>
+      {clickedLogIn && (<FormsContainer onClick={uBlurPage && showLogIn}>
+        <RegisterForms  def_form={'login'}/></FormsContainer>)}
+      {clickedSignUp && (<FormsContainer onClick={uBlurPage && showSignUp}>
+        <RegisterForms  def_form={'signup'}/></FormsContainer>)}
+      {clickedLogIn || clickedSignUp ? (isBluredBool = true) :  (isBluredBool = false)}
+      {clickedUBlur && (isBluredBool = false)}
+      <HomePageContainer isBlured={isBluredBool}>
       <div className='main-css'>
         <div style={classes.rootMainHome}>
         <Grid container direction="row" justifyContent="space-around" alignItems="stretch">
@@ -41,9 +76,10 @@ export default class MainHome extends Component {
           <MovingComponent type="fadeIn" duration="2000ms" delay="0s"  direction="normal" timing="ease" iteration="1" fillMode="none">
             <h1 className='text-h1'>Planex</h1></MovingComponent>
             <div>
-              
-            <a href="" target="_blank"><Button className='btn-1'>Log in</Button></a></div>
-            <a href="" target="_blank"><Button className='btn-2'>Sign up</Button></a>
+              <Button className='btn-1' onClick={uBlurPage &&  showLogIn}>Log in</Button>
+                
+            </div>
+              <Button className='btn-2' onClick={uBlurPage && showSignUp}>Sign up</Button>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
@@ -54,7 +90,8 @@ export default class MainHome extends Component {
       </Grid>
     </div>
       </div>
+    </HomePageContainer>
+      </div>
     );
-  }
-}
-
+};
+export { MainHome };

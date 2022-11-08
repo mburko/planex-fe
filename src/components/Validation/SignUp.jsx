@@ -177,11 +177,9 @@ export const SignUp = (props) => {
     }
 
     return (
-        <div class="containerRegForm">
-            <form onSubmit={handleSubmit} class="form" id="signup">
-                <h1 class="form_title">{props.title}</h1>
-
-
+        <div className="containerRegForm">
+            <form onSubmit={handleSubmit} className="form" id="signup">
+                <h1 className="form_title">{props.title}</h1>
                 <div form="form_input">
                     {(inpName && nameError) && <div className="form_message input_error">{nameError} <BsFillXCircleFill className="form_error_icon" /></div>}
                     <div className="input_success_div">
@@ -278,7 +276,7 @@ export const SignUp = (props) => {
 
                 >Join</button>
 
-                <p class="form_link" onClick={() => props.onFormSwitch('login')} >Already have an account? Log in</p>
+                <p className="form_link" onClick={() => props.onFormSwitch('login')} >Already have an account? Log in</p>
 
             </form>
 

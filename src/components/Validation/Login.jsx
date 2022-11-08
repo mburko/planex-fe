@@ -92,9 +92,9 @@ export const Login = (props) => {
     }
 
     return (
-        <div class="containerRegForm">
-            <form onSubmit={handleSubmit} class="form" id="login">
-                <h1 class="form_title">{props.title}</h1>
+        <div className="containerRegForm">
+            <form onSubmit={handleSubmit} className="form" id="login">
+                <h1 className="form_title">{props.title}</h1>
 
 
                 <div form="form_input">

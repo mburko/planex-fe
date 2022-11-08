@@ -8,20 +8,26 @@
 
     display: flex;
     flex-direction: column;
-    margin: 0px;
-    min-height: 100vh;
     background-size: cover;
-
+    min-height: 100vh;
     font-family: 'Karla';
     text-align: center;
     font-weight: 700;
     font-size: 32px;
-
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: 5% auto auto auto;
+}
+@media only screen and (max-width: 950px) {
+    .RegisterForm {
+        min-height: 0;
+    }
 }
 
 
-
-.containerRegForm {
+.containerRegForm, .contRegForm {
     align-self: center;
     justify-self: center;
     margin: auto;
@@ -30,7 +36,6 @@
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 
 }
-
 
 .form_title {
 
