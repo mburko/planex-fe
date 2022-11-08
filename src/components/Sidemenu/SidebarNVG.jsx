@@ -1,6 +1,6 @@
 import React, { useState, useRoutes } from 'react'
 
-import Home from '../../pages/Home';
+import { Home } from '../../pages/Home';
 import { Header } from '../Header/Header';
 import { MonthCalendar } from '../../pages/MonthCalendar';
 import { WeeklyCalendar } from '../../pages/WeeklyCalendar';

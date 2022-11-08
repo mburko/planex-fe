@@ -34,7 +34,7 @@ export default class FooterHome extends Component {
     <div style={classes.rootFooter}>
       
        
-      <Grid container direction="row" ustifyContent="center" alignItems="flex-start" style={{'marginLeft':"8%"}}>
+      <Grid container direction="row"  alignItems="flex-start" style={{'marginLeft':"8%"}}>
 
             <Grid item xs={12} sm={4}>
                 <Paper style={classes.paperFooter}> 
