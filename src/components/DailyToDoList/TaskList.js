@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
-import { Task } from './Task';
-import './Task.css'
+import { MyTask } from './MyTask';
+import './MyTask.css'
 
 const TaskList = () => {
 
@@ -32,7 +32,7 @@ const TaskList = () => {
     <ul className='task-list'>
       {
         tasks.map((task) => (
-          <Task 
+          <MyTask 
             key={task.id}
             task = {task}
             handleCheck={handleCheck}/>
