@@ -17,6 +17,10 @@
 
 }
 
+#userBlock_elements {
+    cursor: pointer;
+}
+
 @media (max-width: 415px) {
     #userName {
         display: none;
@@ -55,7 +59,7 @@
     vertical-align: baseline;
 }
 
-#headerUserBlock p{
+#headerUserBlock p {
     margin-bottom: 0;
-    
+
 }
