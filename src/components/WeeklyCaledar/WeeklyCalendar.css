@@ -1,8 +1,13 @@
-.weekly-calendar{
+.weekly-calendar {
   display: flex;
   margin-top: 10px;
-  justify-content: flex-end;
-  align-items: flex-end;
 
+  justify-content: center;
+  /* align-items: flex-end; */
+
+
+}
+.weekly-calendar *{
+  box-sizing: content-box;
 
 }

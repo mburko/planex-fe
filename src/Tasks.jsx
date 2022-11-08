@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const MyTasks = () => {
+export const Tasks = () => {
     return (
         <div className="MyTasks">
-            MyTasks
+           Tasks
            
         </div>
     )
