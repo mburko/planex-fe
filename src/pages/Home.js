@@ -104,6 +104,7 @@ const Home = () => {
               <Button className='btn-2' onClick={uBlurPage && showSignUp}>Sign up</Button>
           </Paper>
         </Grid>
+        
         <Grid item xs={12} sm={12} md={6}>
           <Paper style={classes.paperMainHome}>
                 <CarouselBoxPlanex></CarouselBoxPlanex>
