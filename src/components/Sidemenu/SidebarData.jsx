@@ -3,15 +3,22 @@ import {Settings} from '../../Settings'
 
 export const SidebarData = [
     {
-        title: 'My tasks',
-        path: '/mytasks',
-        cName: 'sidebar_text text-dark sb_big_text',
+        title: 'Week Calendar',
+        path: '/weekcalendar',
+        cName: 'sidebar_text sb_big_text',
 
     },
     {
-        title: 'My calendar',
-        path: '/mycalendar',
+        title: 'Month Calendar',
+        path: '/monthcalendar',
         cName: 'sidebar_text sb_big_text',
+
+    },
+    
+    {
+        title: 'Task list',
+        path: '/tasks',
+        cName: 'sidebar_text text-dark sb_big_text',
 
     },
     {

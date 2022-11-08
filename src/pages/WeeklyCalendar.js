@@ -31,12 +31,13 @@ const WeeklyCalendar = () => {
           <DailyToDoList
                clickedToDoList = {clickedToDoList}
                showToDoList = {showToDoList}/>
-          <div style={{'margin':'5% 2% 0 20%'}}> 
+          <div style={{'margin':'5% 2% 0 20%', 'width':'max-content'}}> 
                <MonthCalendarHeader
                     //style = {{'margin': '10% 15% 20% 30%'}}
                     today={today} 
                     prevHandler={prevHandler} 
-                    nextHandler={nextHandler}/>
+                    nextHandler={nextHandler}
+                    currCalendar="week"/>
                <WeeklyCalendarTable 
                     showToDoList = {showToDoList}
                     today={today} 

@@ -4,7 +4,7 @@ import Axios from 'axios';
 
 import Home from './pages/Home';
 import { MonthCalendar } from './pages/MonthCalendar';
-import { SidebarNVG } from './components/Sidemenu/SidebarNVG';
+import { MainContent } from './pages/MainContent';
 import './components/Event/EventCreator.css';
 import './components/Validation/RegisterForms.css';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
@@ -22,11 +22,12 @@ function App() {
   return (
       <div className="App">
 
-        <SidebarNVG />
+        <MainContent />
         {/* <RegisterForms /> */}
         {/* <EventCreator /> */}
 
-        
+        {/* <DailyToDoList/> */}
+        {/* <WeeklyCalendar/> */}
       </div>  
 
   );
