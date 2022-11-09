@@ -159,7 +159,9 @@ export const SignUp = (props) => {
 
     }
 
-
+    const goToMain = () => {
+        window.location.assign('/weekcalendar');
+    }
 
     function createUser(e) {
         e.preventDefault();
@@ -174,6 +176,7 @@ export const SignUp = (props) => {
             .catch((error) => {
                 console.log(error);
             });
+        goToMain();
     }
 
     return (

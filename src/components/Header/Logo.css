@@ -11,10 +11,12 @@ body {
     clip-path: circle(50%);
 }
 
-
+#logo_name_header{
+    top:-30px;
+}
 .logo_top {
-    margin-top:40px;
-    margin-left:10px;
+    margin-top:20px;
+    margin-left:25px;
     position: relative;
     height: 50px;
     justify-self: flex-start;
@@ -35,7 +37,7 @@ body {
     position: absolute;
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 36px;
     line-height: 50px;
     color: #000000;
     text-align: center;
@@ -47,8 +49,8 @@ body {
 
 .big {
     position: absolute;
-    width: 62px;
-    height: 62px;
+    width: 53px;
+    height: 53px;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -58,8 +60,8 @@ body {
     z-index: 1;
     top: -20px;
     left: 40px;
-    width: 39px;
-    height: 39px;
+    width: 34px;
+    height: 34px;
 }
 
 #beige{
