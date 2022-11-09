@@ -9,7 +9,7 @@ export const Logo = (props) => {
                 <div id="green" className="circle big">
                 </div >
 
-                <p className="logo_name">Planex</p>
+                <p id="logo_name_header"className="logo_name">Planex</p>
 
 
             </div>

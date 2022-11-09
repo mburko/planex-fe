@@ -30,24 +30,28 @@ export const MainContent = (props) => {
     }
 
     return (
-        <>  
-            {!window.location.pathname.includes('/home') ?
-                <Header className={clickedExit ? "hidden_Header" : "Header"}
-                    exit={exit}
-                    showSidebar={showSidebar} />
-                : null}
-              
-            <BrowserRouter>
+
+        <>
+
+
+            <BrowserRouter >
+
+                {!window.location.pathname.includes('/home') ?
+                    <Header className={clickedExit ? "hidden_Header" : "Header"}
+                        exit={exit}
+                        showSidebar={showSidebar} />
+                    : null}
                 <Sidebar login="user" email="email" exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
                 <Routes>
                     <Route path='/monthcalendar' element={<MonthCalendar />} />
                     <Route path="/weekcalendar" element={<WeeklyCalendar />} />
                     <Route path='/tasks' element={<Tasks />} />
                     <Route path='/settings' element={<Settings />} />
-                    <Route path='/home' element={<Home />} /> 
+                    <Route path='/home' element={<Home />} />
                     <Route path="/" element={<Navigate to="/weekcalendar" />} />
                 </Routes>
             </BrowserRouter>
+
         </>
     )
 

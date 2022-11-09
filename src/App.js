@@ -10,12 +10,12 @@ import './components/Validation/RegisterForms.css';
 function App() {
 
   return (
-      <div className="App">
+    <div className="App">
 
-         <MainContent />
-       {/*<RegisterForms /> */}
-        {/* <EventCreator /> */}  
-      </div>  
+      <MainContent />
+
+      {/* <EventCreator /> */}
+    </div>
 
   );
 }

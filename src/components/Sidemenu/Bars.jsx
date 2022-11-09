@@ -7,7 +7,8 @@ export const Bars = (props) => {
     return (
 
         <FaBars
-            size={40}
+            size={35}
+            color={'#202020'}
             className="sidebar_main_icon"
             onClick={props.showSidebar}
         />

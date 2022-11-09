@@ -1,6 +1,7 @@
 import AxiosClient from '../../utilities/AxiosClient';
 import React, { useEffect, useState } from 'react'
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 
 const LOGIN_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
@@ -77,6 +78,11 @@ export const Login = (props) => {
         e.preventDefault();
 
     }
+   
+    const goToMain = () => {
+
+        window.location.assign('/weekcalendar');
+    }
 
     function loginUser(e) {
         e.preventDefault();
@@ -85,11 +91,16 @@ export const Login = (props) => {
             password: user.password
         }).then((response) => {
             console.log(response);
+
         })
             .catch((error) => {
                 console.log(error);
             });
+
+        goToMain();
+      
     }
+
 
     return (
         <div className="containerRegForm">
