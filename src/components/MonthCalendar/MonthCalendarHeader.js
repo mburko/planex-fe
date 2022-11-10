@@ -35,6 +35,10 @@ const ButtonWrapper = styled('button')`
 `;*/
 const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar }) => {
 
+    const [showAdd, setShowAdd] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+  
     let navigate = useNavigate();
 
     const toggleCalendar = () => {
@@ -57,10 +61,47 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar }) 
                     <span>  {today.format('YYYY')}</span>
                 </div>
                 <div className="div_header_button">
-                    <RiDeleteBin5Line size={40} color={'#C6AC8D'} id="delete_button" />
-                    <FiEdit size={40} color={'#C6AC8D'} id="change_button" />
-                    <AiFillPlusCircle size={40} color={'#C6AC8D'} id="add_button" />
 
+                <div className="full_event_delete_button"
+                        onMouseEnter={() => setShowDelete(true)}
+                        onMouseLeave={() => setShowDelete(false)}
+                    >
+
+                        <div className={`event_delete_button_hover ${showDelete ? "event_delete_button_hover_active" : "event_delete_button_hover_closed"}`}>{
+                            showDelete && <div style={{'padding-left':'20px'}}className="event_button_text">Delete</div>}</div>
+
+                        
+                        <RiDeleteBin5Line style={{ 'z-index': '10' }} size={40} color={'#C6AC8D'} id="event_delete_button" />
+                    </div>
+
+                    
+
+                    <div className="full_event_edit_button"
+                        onMouseEnter={() => setShowEdit(true)}
+                        onMouseLeave={() => setShowEdit(false)}
+                    >
+
+                        <div className={`event_edit_button_hover ${showEdit ? "event_edit_button_hover_active" : "event_edit_button_hover_closed"}`}>{
+                            showEdit && <div className="event_button_text">Edit</div>}</div>
+
+                        <FiEdit style={{ 'z-index': '10' }} size={40} color={'#C6AC8D'} id="event_change_button" />
+
+                    </div>
+                    
+
+
+                    <div className="full_event_add_button"
+                        onMouseEnter={() => setShowAdd(true)}
+                        onMouseLeave={() => setShowAdd(false)}
+                    >
+
+                        <div className={`event_add_button_hover ${showAdd ? "event_add_button_hover_active" : "event_add_button_hover_closed"}`}>{
+                            showAdd && <div className="event_button_text">Add</div>}</div>
+
+                        <AiFillPlusCircle style={{ 'z-index': '10' }} size={45} color={'#C6AC8D'} id="event_add_button" />
+
+
+                    </div>
                 </div>
             </div>
 
