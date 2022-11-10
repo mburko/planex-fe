@@ -90,7 +90,7 @@ const Home = () => {
       <div>
 
       
-      <div className='main-css'>
+      <div className='main-css' id="HomePage">
         <div style={classes.rootMainHome}>
         <Grid container direction="row" justifyContent="space-around" alignItems="stretch">
         <Grid item xs={12} sm={12} md={5}>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import './PlanexFunctions.css';
 import "animate.css/animate.min.css";
-
+import { Carousel } from 'react-bootstrap'
 import { Grid, Paper } from '@mui/material';
 import {AnimatedOnScroll} from "react-animated-css-onscroll";
+import imgpl_p1 from "./img/planex-ph-1.png"
+import imgpl_p2 from "./img/planex-ph-2.jpg"
 
 const classes = {
   rootPlFunc: {
@@ -11,7 +13,6 @@ const classes = {
   },
   paperPlFunc: {
     padding: 20,
-   
     fontFamily: "Roboto",
     backgroundColor: 'transparent',
     boxShadow: "none",
@@ -24,12 +25,13 @@ export default class PlanexFunctions extends Component {
   render() {
     return (
       <>
-      <div className='planex-func-back'>
-        <AnimatedOnScroll animationIn="fadeInLeftBig" animationOut="fadeOut" ><h1 className='text-h2' style={{textAlign: 'left'}}>Functions</h1></AnimatedOnScroll>
-      </div>
+      
       <div style={classes.rootPlFunc}>
       <Grid container direction="row"   justifyContent="flex-start" alignItems="flex-start">
         <Grid item xs={12} sm={7}>
+        <div className='planex-func-back'>
+        <AnimatedOnScroll animationIn="fadeInLeft" animationOut="fadeOut" animationInDelay={200}><h1 className='text-h2'>Functions</h1></AnimatedOnScroll>
+      </div>
           <Paper style={classes.paperPlFunc}>      
             <AnimatedOnScroll animationIn="fadeInLeft" animationOut="fadeOut" animationInDelay={200} >
               <h2 className='text-funct-h2'>The best way to organize your life</h2>
@@ -53,8 +55,16 @@ export default class PlanexFunctions extends Component {
             </AnimatedOnScroll>  
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={5}>
-          <Paper style={classes.paperPlFunc}>image
+        <Grid item xs={12} sm={3}>
+          <Paper style={classes.paperPlFunc} >
+          <Carousel className="pl-img-carbox-ph">
+            <Carousel.Item className="pl-img-carosel-ph">
+                <img className="d-block w-100 pl-img-carosel-ph" src={imgpl_p1} alt="planex"/>
+            </Carousel.Item>
+            <Carousel.Item className="pl-img-carosel-ph">
+              <img className="d-block w-100 pl-img-carosel-ph" src={imgpl_p2} alt="planex"/>
+            </Carousel.Item>
+          </Carousel>
           </Paper>
         </Grid>
       </Grid>

@@ -7,8 +7,9 @@
     font-family: 'Quicksand', sans-serif;
 	font-weight: bold;
     padding-top: 12%;
-    margin-left: 9.6%;
+    margin-left: 20%;
     padding-bottom: 0.5%;
+
 }
 .text-funct-h2{
     padding-top: 1%;
@@ -42,7 +43,7 @@
     color: #fff;
     text-align: center;
     background-position: center;
-    margin-top: -15vh;
+    margin-top: -14vh;
 }
 @keyframes gradient {
     0%{
@@ -55,4 +56,28 @@
         background-position: 0% 50%;
     }
     
+}
+.pl-img-carbox-ph{
+   width: 230px;
+   position: relative;
+   border: 1px solid #171717;  
+   border-radius: 20px;
+   margin: 15% 20px 20px 30%;
+   padding: 5% 2% 2% 2%;
+   height: 500px;
+}
+.pl-img-carbox-ph:after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    background: white;
+    z-index: -1;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.pl-img-carosel-ph > img{
+    border-radius: 20px;
 }
