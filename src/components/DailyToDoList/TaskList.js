@@ -19,7 +19,7 @@ const TaskList = () => {
     {
       id: 3,
       checked: false,
-      task: 'To meet with someone'
+      task: 'To meet with someone who i dont know now im happy'
     }
   ])
 

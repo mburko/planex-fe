@@ -27,7 +27,7 @@ const WeeklyCalendar = () => {
 
  }
   return (
-    <div >  
+    <div className='weekly-calendar-page'>  
           <DailyToDoList
                clickedToDoList = {clickedToDoList}
                showToDoList = {showToDoList}/>
@@ -41,6 +41,7 @@ const WeeklyCalendar = () => {
                <WeeklyCalendarTable 
                     showToDoList = {showToDoList}
                     today={today} 
+                    clickedToDoList = {clickedToDoList}
                     startDay={startDay}/>
           </div>
        
