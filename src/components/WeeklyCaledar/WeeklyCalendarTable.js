@@ -11,6 +11,7 @@ const WeeklyCalendarTable = (props) => {
     {
       daysArray.map((dayItem) =>(
           <CalendarColumn 
+            clickedToDoList = {props.clickedToDoList}
             showToDoList = {props.showToDoList}
             key = {dayItem.format('DDMMYYYY')}
             weekday = {dayItem.format('dddd')}

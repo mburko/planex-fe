@@ -1,13 +1,10 @@
 .weekly-calendar {
-  display: flex;
+  display: grid;
   margin-top: 10px;
-
+  grid-auto-flow: column;
   justify-content: center;
+
   /* align-items: flex-end; */
 
-
-}
-.weekly-calendar *{
-  box-sizing: content-box;
 
 }
