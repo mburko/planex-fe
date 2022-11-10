@@ -31,7 +31,7 @@ const WeeklyCalendar = () => {
           <DailyToDoList
                clickedToDoList = {clickedToDoList}
                showToDoList = {showToDoList}/>
-          <div style={{'margin':'15% 2% 0 20%', 'width':'max-content'}}> 
+          <div style={{'margin':'10% 2% 0 20%', 'width':'max-content'}}> 
                <MonthCalendarHeader
                     //style = {{'margin': '10% 15% 20% 30%'}}
                     today={today} 
