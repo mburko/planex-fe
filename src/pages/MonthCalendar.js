@@ -20,7 +20,7 @@ const MonthCalendar = () => {
           setToday(prev => prev.clone().add(1, 'month'))
      };
      return (
-          <div style={{ 'margin': '15% 2% 0 20%' }}>
+          <div style={{ 'margin': '10% 2% 0 20%' }}>
 
                <MonthCalendarHeader
                     today={today}
