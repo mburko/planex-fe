@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { MonthCalendarGrid } from '../components/MonthCalendar/MonthCalendarGrid'
 import moment from "moment";
 import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHeader';
+import { DailyToDoList } from '../components/DailyToDoList/DailyToDoList';
 
 
 const MonthCalendar = () => {
@@ -19,18 +20,29 @@ const MonthCalendar = () => {
           console.log('next');
           setToday(prev => prev.clone().add(1, 'month'))
      };
-     return (
-          <div style={{ 'margin': '10% 2% 0 20%' }}>
+     
+     const [clickedToDoList, setClickToDoList] = useState(false);
 
-               <MonthCalendarHeader
-                    today={today}
-                    prevHandler={prevHandler}
-                    nextHandler={nextHandler}
-                    currCalendar="month" />
-               <MonthCalendarGrid today={today} startDay={startDay} />
+     const showToDoList = () => {
+     setClickToDoList(!clickedToDoList);
+     }
+     return (
+           <div >  
+               <DailyToDoList
+                    clickedToDoList = {clickedToDoList}
+                    showToDoList = {showToDoList}/>
+               <div style={{ 'margin': '10% 2% 0 20%' }}>
+
+                    <MonthCalendarHeader
+                         today={today}
+                         prevHandler={prevHandler}
+                         nextHandler={nextHandler}
+                         currCalendar="month" />
+                    <MonthCalendarGrid today={today} startDay={startDay} showToDoList={showToDoList} clickedToDoList = {clickedToDoList}
+ />
+               </div>
           </div>
 
      )
-
 };
 export { MonthCalendar };

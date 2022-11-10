@@ -23,6 +23,7 @@ const CellWrapper = styled.div`
             'rgba(145,171,165, 0 )' : 'rgba(145,171,165, 1 )'};
     }
     opacity: ${props => props.isVisible ? '1' : '0.2'};
+    cursor: pointer; 
 `;
 const RowInCell = styled.div`
     display: flex;
@@ -48,7 +49,7 @@ const CurrentDay = styled.div`
     border: 1px #171717;
     border-style: double;
 `;
-const MonthCalendarGrid = ({today, startDay}) => {
+const MonthCalendarGrid = ({today, startDay, showToDoList, clickedToDoList}) => {
     const totalDays = 42;
     const day = startDay.clone().subtract(1, 'day');
     const daysArray =[...Array(42)].map(()=>day.add(1, 'day').clone());
@@ -68,9 +69,10 @@ const MonthCalendarGrid = ({today, startDay}) => {
             {
                 daysArray.map((dayItem) =>(
                     <CellWrapper
+                        onClick={clickedToDoList ? 'None' : showToDoList}
                         key={dayItem.format('DDMMYYYY')} 
                         isVisible={dayItem.clone().format('MM') === today.clone().format('MM')}>
-                        <RowInCell>
+                        <RowInCell >
                             <DayWrapper >
                                {!isCurrentDay(dayItem) && dayItem.format('D')}
                                 {isCurrentDay(dayItem) && <CurrentDay isOneDigit={dayItem.clone().format('D') in [1, 2, 3, 4, 5, 6, 7, 8, 9]}>
