@@ -10,7 +10,7 @@ export default class Header extends Component {
     return (
         <>
         <Navbar fixed="top" collapseOnSelect expand="md" bg="white" variant='white' className='shadow navbar-back'>
-            <Navbar.Brand href ="/">
+            <Navbar.Brand href ="#HomePage">
                 <img 
                     src={logo}
                     height="50"
@@ -25,7 +25,7 @@ export default class Header extends Component {
             </Navbar.Toggle>
             <Navbar.Collapse id='responsive-navbar-nav' className='justify-content-end'>
                 <Nav className="ms-auto" >
-                    <Nav.Link  href="/" className='nav-item'>Home</Nav.Link>
+                    <Nav.Link  href="#HomePage" className='nav-item'>Home</Nav.Link>
                     <Nav.Link href="#AboutUs" className='nav-item'>About us</Nav.Link>
                     <Nav.Link href="#reviews" className='nav-item'>Reviews</Nav.Link>
                     <Nav.Link href="#contacts" className='nav-item'>Contacts</Nav.Link>
