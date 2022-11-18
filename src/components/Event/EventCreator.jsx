@@ -9,10 +9,10 @@ import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
 const EVENT_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 
-export const EventCreator = () => {
+export const EventCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
 
-    const [showForm, setShowForm] = useState(true);
+    const [showForm, setShowForm] = useState(false);
     const category = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
 
     const [inpEvent, setInpEvent] = useState(false);
@@ -123,18 +123,20 @@ export const EventCreator = () => {
     function handleForm(e) {
         e.preventDefault();
         console.log(newEvent);
+        if(formValid) handleCancel() ;
 
     }
 
 
 
     const handleCancel = () => {
-        setShowForm(false)
+        props.changeState();
     }
+
 
     return (
         <div className="EventCreator">
-            <div className={showForm === false ? "hidden_box" : "ev_creator_box"}>
+            <div className={props.clickedEvent === false ? "hidden_box" : "ev_creator_box"}>
                 <p className="ev_creator_text">Event:</p>
                 <div form="form_input">
 

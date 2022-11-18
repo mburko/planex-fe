@@ -27,11 +27,11 @@ const WeeklyCalendar = () => {
 
  }
   return (
-    <div className='weekly-calendar-page'>  
+    <div className="weekly-calendar-page">  
           <DailyToDoList
                clickedToDoList = {clickedToDoList}
                showToDoList = {showToDoList}/>
-          <div style={{'margin':'10% 2% 0 20%', 'width':'max-content'}}> 
+          <div style={{ 'margin':'10% 2% 0 20%'}}> 
                <MonthCalendarHeader
                     //style = {{'margin': '10% 15% 20% 30%'}}
                     today={today} 
@@ -53,3 +53,4 @@ const WeeklyCalendar = () => {
 
 
 export { WeeklyCalendar };
+

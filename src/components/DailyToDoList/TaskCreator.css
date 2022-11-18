@@ -1,4 +1,4 @@
-.EventCreator {
+.TaskCreator {
     --white: #FFFFFF;
     --lightgreen: #91aba5;
     --darkgreen: #607568;
@@ -14,7 +14,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
+
 }
 
 
@@ -41,13 +41,28 @@ select:invalid>option[value=""][disabled] {
 
 option {
     color: black;
+
+}
+
+option[value="High"] {
+    background-color: rgba(227, 45, 45, 0.3);
+}
+
+option[value="Middle"] {
+    background-color: rgba(45, 140, 227, 0.3);
+}
+
+option[value="Low"] {
+    background-color: rgba(230, 247, 39, 0.3);
+    ;
 }
 
 .react-datepicker__month-container * {
     z-index: 40;
 }
 
-.ev_creator_box {
+.task_creator_box {
+
     padding: 1vh 1vw;
     align-self: center;
     justify-self: center;
@@ -58,39 +73,37 @@ option {
 }
 
 
-.ev_creator_text {
+.task_creator_text {
 
     color: #1E1E1E;
     font-family: "Quicksand";
     text-align: left;
     font-weight: 100;
     font-size: 20px;
-    margin-top: 2px;
+    margin-top: 5px;
     margin-bottom: -10px;
 }
 
-.ev_creator_category {
+.task_creator_category {
     width: 250px;
 }
 
-.ev_creator_time_success {
+.task_creator_time_success {
     width: 110px;
 
 }
 
-.ev_creator_input_error,
-.ev_creator_input_success,
-.notes,
-.ev_creator_date {
+.task_creator_input_error,
+.task_creator_input_success,
+.task_creator_date {
     min-width: 250px;
 }
 
-.ev_creator_date {}
 
-.ev_creator_category,
-.ev_creator_time_success,
-.ev_creator_date,
-.notes {
+
+.task_creator_category,
+.task_creator_time_success,
+.task_creator_date {
     cursor: pointer;
     box-sizing: border-box;
     outline: none;
@@ -102,7 +115,7 @@ option {
 
 
 
-.ev_creator_input_error {
+.task_creator_input_error {
     cursor: pointer;
     box-sizing: border-box;
     outline: none;
@@ -112,12 +125,12 @@ option {
     border: 2px solid var(--error_color);
 }
 
-.ev_creator_input_error:focus {
+.task_creator_input_error:focus {
     border: 2px solid var(--error_color);
 
 }
 
-.ev_creator_input_success {
+.task_creator_input_success {
     cursor: pointer;
     box-sizing: border-box;
     outline: none;
@@ -128,39 +141,19 @@ option {
 }
 
 
-.ev_creator_input_success:focus,
-.notes:focus {
+.task_creator_input_success:focus {
     border: 2px solid var(--darkgreen);
 
 }
 
-.ev_creator_date:focus,
-.ev_creator_category:focus,
-.ev_creator_time_success:focus {
+.task_creator_date:focus,
+.task_creator_category:focus {
     border: 2px solid var(--darkgreen);
 
 }
 
-.ev_creator_time_error {
-    cursor: pointer;
-    box-sizing: border-box;
-    outline: none;
-    height: 35px;
-    border: 2px solid var(--error_color);
-    background: var(--white);
-    border-radius: 6px;
-}
-
-.ev_creator_time_error:focus {
-    border: 2px solid var(--error_color);
-
-}
-
-input[name=event],
-input[name=notes],
-input[name=dateOfEvent],
-input[name=time_to],
-input[name=time_from] {
+input[name=task],
+input[name=dateOfTask] {
     letter-spacing: 0.125rem;
     font-family: "Quicksand";
     font-size: 16px;
@@ -172,21 +165,18 @@ input[name=time_from] {
 
 
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
-.div_time {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 .div_option {
     margin: 8px;
-    display: flex;
-    justify-content: space-around;
-}
-
-.div_from_to {
     display: flex;
     justify-content: space-around;
 }
@@ -197,17 +187,53 @@ input[name=time_from] {
 }
 
 
-.ev_creator_message {
+.task_creator_message {
     text-align: center;
 
 }
 
-.ev_input_error {
+.task_input_error {
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--error_color);
     font-weight: 500;
     font-size: 15px;
+
+}
+
+.task_creator_time_text {
+    color: #565353;
+    font-size: 14px;
+    font-weight: 100;
+    margin: auto 0 auto 10px;
+}
+
+.overdiv_mins,
+.overdiv_hours {
+    display: flex;
+    justify-content: flex-start;
+    margin: 7px;
+}
+
+.overdiv_hours {
+    margin-top: 20px;
+}
+
+input[name=time_mins],
+input[name=time_hours] {
+    width: 90px;
+    height: 32px;
+    font-size: 17px;
+    text-align: end;
+    padding-right: 5px;
+
+}
+
+input[name=time_mins]::placeholder,
+input[name=time_hours]::placeholder {
+    font-size: 17px;
+    text-align: end;
+    padding-right: 5px;
 
 }

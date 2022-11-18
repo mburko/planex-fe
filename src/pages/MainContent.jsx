@@ -9,6 +9,7 @@ import { Route, Routes, BrowserRouter, withRouter, Navigate } from 'react-router
 import { Sidebar } from '../components/Sidemenu/Sidebar';
 import { Header } from '../components/Header/Header';
 import { Tasks } from '../Tasks';
+import AxiosClient from '../utilities/AxiosClient';
 import '../components/Header/Logo.css';
 import '../components/Header/Header.css';
 import '../components/Header/UserBlock.css';
@@ -29,6 +30,40 @@ export const MainContent = (props) => {
         setClickedExit(!clickedExit);
     }
 
+    function getUserName(e) {
+        e.preventDefault();
+        AxiosClient.get("/info", {
+
+        }).then((response) => {
+            console.log(response);
+            let userInfo = response.data['username'];
+            return userInfo;
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+
+
+
+    }
+
+    function getEmail(e) {
+        e.preventDefault();
+        AxiosClient.get("/info", {
+
+        }).then((response) => {
+            console.log(response);
+            let userInfo = response.data['email'];
+            return userInfo;
+        })
+            .catch((error) => {
+                console.log(error);
+            });
+
+
+
+    }
+
     return (
 
         <>
@@ -37,11 +72,13 @@ export const MainContent = (props) => {
             <BrowserRouter >
 
                 {!window.location.pathname.includes('/home') ?
-                    <Header className={clickedExit ? "hidden_Header" : "Header"}
+                    <Header
+                        userName={(e) => getUserName()}
+                        className={clickedExit ? "hidden_Header" : "Header"}
                         exit={exit}
                         showSidebar={showSidebar} />
                     : null}
-                <Sidebar login="user" email="email" exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
+                <Sidebar login={(e) => getUserName()} email={(e) => getEmail()} exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
                 <Routes>
                     <Route path='/monthcalendar' element={<MonthCalendar />} />
                     <Route path="/weekcalendar" element={<WeeklyCalendar />} />

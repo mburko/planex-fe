@@ -19,7 +19,7 @@ export const Header = (props) => {
             </div>
 
             <div id="headerUserBlock">
-                <UserBlock name="user" />
+                <UserBlock userName={props.userName} />
             </div>
         </div>
     )

@@ -2,8 +2,9 @@
   display: grid;
   margin-top: 10px;
   grid-auto-flow: column;
-  justify-content: center;
-
+  /* justify-content: center; */
+  column-gap: 1.75%;
+ 
   /* align-items: flex-end; */
 
 
