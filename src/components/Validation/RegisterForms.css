@@ -20,6 +20,7 @@
     top: 0;
     margin: 5% auto auto auto;
 }
+
 @media only screen and (max-width: 950px) {
     .RegisterForm {
         min-height: 0;
@@ -27,7 +28,8 @@
 }
 
 
-.containerRegForm, .contRegForm {
+.containerRegForm,
+.contRegForm {
     align-self: center;
     justify-self: center;
     margin: auto;
@@ -78,7 +80,8 @@ input:focus::placeholder {
 
 @media (max-width:449px) {
 
-    input[type=text],
+    input[name=login],
+    input[name=name],
     input[type=password],
     input[type=email] {
         width: 90vw;
@@ -91,7 +94,8 @@ input:focus::placeholder {
 
 @media (min-width:450px) {
 
-    input[type=text],
+    input[name=login],
+    input[name=name],
     input[type=password],
     input[type=email] {
         width: 400px;
