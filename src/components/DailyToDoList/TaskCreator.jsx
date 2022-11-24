@@ -64,7 +64,7 @@ export const TaskCreator = (props) => {
         if (e.target.name === 'dateOfEvent') {
             setStartDate(e);
         }
-       
+
 
         // console.log(value);
 
@@ -78,7 +78,10 @@ export const TaskCreator = (props) => {
     function handleForm(e) {
         e.preventDefault();
         console.log(newTask);
-        if (formValid) handleCancel();
+        if (formValid) {
+
+            handleCancel();
+        }
 
     }
 
@@ -86,6 +89,16 @@ export const TaskCreator = (props) => {
 
     const handleCancel = () => {
         props.changeState();
+        setState({
+            task: '',
+            dateOfTask: startDate,
+            time_hours: '',
+            time_mins: '',
+            selectedCategory: ''
+        })
+        setInpTask(false);
+        setTaskError(false);
+
     }
 
 

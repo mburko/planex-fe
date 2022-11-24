@@ -34,7 +34,7 @@ export const HeaderChoice = (props) => {
 
         </div>
       </div>
-      <EventCreator changeState={() => { setClickedNewEvent(false) }} clickedEvent={clickedNewEvent} />
+      <EventCreator addEvent={props.addEvent} changeState={() => { setClickedNewEvent(false) }} clickedEvent={clickedNewEvent} />
       <TaskCreator changeState={() => { setClickedNewTask(false) }} clickedTask={clickedNewTask} />
     </>
   )

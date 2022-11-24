@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
 
-const EVENT_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const EVENT_REGEX = /^[A-z][A-z0-9-_]{2,45}$/;
 
 export const EventCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
@@ -95,6 +95,10 @@ export const EventCreator = (props) => {
             if (minsT > mins && new Date().toDateString() === newEvent.dateOfEvent.toDateString()) {
                 setTimeFromError(true);
             }
+
+            else if (hours < 7 || hours > 22) {
+                setTimeFromError(true);
+            }
             else {
                 setTimeFromError(false);
             }
@@ -106,6 +110,9 @@ export const EventCreator = (props) => {
             const hoursF = parseInt(newEvent.time_from.split(':')[0]);
             const minsF = parseInt(newEvent.time_from.split(':')[1]) + hoursF * 60;
             if (minsF >= mins) {
+                setTimeToError(true);
+            }
+            else if (hours < 7 || hours > 22) {
                 setTimeToError(true);
             }
             else {
@@ -122,8 +129,8 @@ export const EventCreator = (props) => {
 
     function handleForm(e) {
         e.preventDefault();
-        console.log(newEvent);
-        if(formValid) handleCancel() ;
+        props.addEvent(newEvent);
+        if (formValid) handleCancel();
 
     }
 
@@ -131,6 +138,20 @@ export const EventCreator = (props) => {
 
     const handleCancel = () => {
         props.changeState();
+        setState({
+            event: '',
+            notes: '',
+            dateOfEvent: startDate,
+            time_from: '',
+            time_to: '',
+            selectedCategory: '',
+        });
+        setTimeToError(false);
+        setTimeFromError(false);
+        setEventError(false);
+        setInpEvent(false);
+        setInpTime(false);
+        setInpDate(false);
     }
 
 
@@ -183,6 +204,7 @@ export const EventCreator = (props) => {
                             }
 
                         }
+
                         else {
                             setTimeFromError(false);
                         }
