@@ -36,7 +36,7 @@ const ButtonWrapper = styled('button')`
     background-color: white;
     border-radius: 50%;
 `;*/
-const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar }) => {
+const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, addEvent }) => {
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
@@ -122,7 +122,7 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar }) 
                             onMouseLeave={() => { setShowAdd(false); handleAdding(); }}
                             onClick={() => { setShowChoice(!showChoice) }}
                         />
-                        <HeaderChoice state={showChoice} handleAdding={handleAdding} setShowAdd={setShowAdd} setShowChoice={setShowChoice}/>
+                        <HeaderChoice addEvent={addEvent} state={showChoice} handleAdding={handleAdding} setShowAdd={setShowAdd} setShowChoice={setShowChoice}/>
 
 
                     </div>
