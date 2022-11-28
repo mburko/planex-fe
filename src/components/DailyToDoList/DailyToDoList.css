@@ -10,6 +10,7 @@
   transform: translateX(-110%);
   transition: 850ms;
   background-color: #FFFFFF;
+  z-index:20;
 }
 
 .daily-to-do.list_active {
