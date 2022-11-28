@@ -9,7 +9,6 @@ const СalendarColumn = (props) => {
   
 
   return (
-
     <div class='column'>
 
       <div className="wcp_events">
