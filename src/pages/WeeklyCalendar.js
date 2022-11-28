@@ -26,6 +26,8 @@ const WeeklyCalendar = () => {
      setClickToDoList(!clickedToDoList);
 
  }
+ const day = startDay.clone().subtract(1, 'day');
+ const daysArray =[...Array(7)].map(()=>day.add(1, 'day').clone());
   return (
     <div className="weekly-calendar-page">  
           <DailyToDoList
@@ -42,7 +44,8 @@ const WeeklyCalendar = () => {
                     showToDoList = {showToDoList}
                     today={today} 
                     clickedToDoList = {clickedToDoList}
-                    startDay={startDay}/>
+                    startDay={startDay}
+                    daysArray={daysArray}/>
           </div>
        
     </div>

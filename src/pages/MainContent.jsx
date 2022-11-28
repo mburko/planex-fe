@@ -9,11 +9,14 @@ import { Route, Routes, BrowserRouter, withRouter, Navigate } from 'react-router
 import { Sidebar } from '../components/Sidemenu/Sidebar';
 import { Header } from '../components/Header/Header';
 import { Tasks } from '../Tasks';
+import { WeeklyToDoList } from './WeeklyToDoList';
 import AxiosClient from '../utilities/AxiosClient';
 import '../components/Header/Logo.css';
 import '../components/Header/Header.css';
 import '../components/Header/UserBlock.css';
 import '../components/Sidemenu/Sidebar.css';
+
+
 
 
 export const MainContent = (props) => {
@@ -82,7 +85,7 @@ export const MainContent = (props) => {
                 <Routes>
                     <Route path='/monthcalendar' element={<MonthCalendar />} />
                     <Route path="/weekcalendar" element={<WeeklyCalendar />} />
-                    <Route path='/tasks' element={<Tasks />} />
+                    <Route path='/tasks' element={<WeeklyToDoList />} />
                     <Route path='/settings' element={<Settings />} />
                     <Route path='/home' element={<Home />} />
                     <Route path="/" element={<Navigate to="/weekcalendar" />} />

@@ -4,12 +4,11 @@ import './WeeklyCalendar.css'
 
 
 const WeeklyCalendarTable = (props) => {
-  const day = props.startDay.clone().subtract(1, 'day');
-  const daysArray =[...Array(7)].map(()=>day.add(1, 'day').clone());
+  
  return(
   <div class='weekly-calendar'>
     {
-      daysArray.map((dayItem) =>(
+      props.daysArray.map((dayItem) =>(
           <CalendarColumn 
             clickedToDoList = {props.clickedToDoList}
             showToDoList = {props.showToDoList}

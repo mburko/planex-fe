@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
 
-.columnC {
+.columnT {
 
-  background-color: #91aba533;
-  width: 150px;
+
+  background-color: #ffffff;
+  width: 100%;
   min-height: 756px;
-  border: 1px dotted #91aba533;
-  border-radius: 30px;
+  border-right: 1px solid #000000;
   /* margin: 10px; */
-  box-shadow: -14px -15px 5px -5px rgba(34, 60, 80, 0.6);
 
 }
 
-.columnTitle {
+.columnTitleT {
   font-family: 'Quicksand', sans-serif;
   font-size: 24px;
   font-style: bold;
@@ -24,7 +23,11 @@
 
 }
 
-.columnTitle:hover {
-  text-shadow: -2px 1px 10px black;
-  cursor: pointer;
+.weekly-toDoList-table{
+  display: grid;
+  margin-left: 20px;
+  margin-right: auto;
+  grid-auto-flow: column;
+  grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+  border-left: 1px solid #000000;
 }

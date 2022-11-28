@@ -5,7 +5,7 @@ import './CalendarColumn.css'
 
 const СalendarColumn = (props) => {
   return (
-    <div class = 'column'>
+    <div class = 'columnC'>
         <h1 class='columnTitle' onClick={props.clickedToDoList ? 'None' :  props.showToDoList}>
           {props.weekday}
           <p>
