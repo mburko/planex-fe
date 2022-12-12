@@ -9,6 +9,7 @@ import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHe
 import { RepeatMessage } from '../components/Event/RepeatMessage';
 
 const WeeklyCalendar = () => {
+
      moment.updateLocale('en', { week: { dow: 1 } });
      const [today, setToday] = useState(moment());
      const startDay = today.clone().startOf('week');
