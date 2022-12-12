@@ -6,10 +6,7 @@
     --lightbeige: #FCFCFC;
     --error_color: #D2042D;
 
-    /* display: flex; */
     z-index: 30;
-    /* justify-self: center;
-    align-self: center; */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -69,7 +66,8 @@ option {
     margin-bottom: -10px;
 }
 
-.ev_creator_category {
+.ev_creator_category,
+.ev_creator_repeat {
     width: 250px;
 }
 
@@ -88,6 +86,7 @@ option {
 .ev_creator_date {}
 
 .ev_creator_category,
+.ev_creator_repeat,
 .ev_creator_time_success,
 .ev_creator_date,
 .notes {
@@ -136,7 +135,8 @@ option {
 
 .ev_creator_date:focus,
 .ev_creator_category:focus,
-.ev_creator_time_success:focus {
+.ev_creator_time_success:focus,
+.ev_creator_repeat:focus {
     border: 2px solid var(--darkgreen);
 
 }

@@ -14,9 +14,10 @@ import '../components/Header/Logo.css';
 import '../components/Header/Header.css';
 import '../components/Header/UserBlock.css';
 import '../components/Sidemenu/Sidebar.css';
+import { RedirectToHome } from './RedirectToHome';
 
 
-export const MainContent = (props) => {
+export const MainContent = () => {
 
 
     const [clickedSidebar, setClickSidebar] = useState(false);
@@ -30,8 +31,8 @@ export const MainContent = (props) => {
         setClickedExit(!clickedExit);
     }
 
-    function getUserName(e) {
-        e.preventDefault();
+
+    function getUserName() {
         AxiosClient.get("/info", {
 
         }).then((response) => {
@@ -43,12 +44,12 @@ export const MainContent = (props) => {
                 console.log(error);
             });
 
+        console.log("username");
 
 
     }
 
-    function getEmail(e) {
-        e.preventDefault();
+    function getEmail() {
         AxiosClient.get("/info", {
 
         }).then((response) => {
@@ -60,32 +61,37 @@ export const MainContent = (props) => {
                 console.log(error);
             });
 
+        console.log("email");
 
 
     }
 
+
+
     return (
 
         <>
-
-
             <BrowserRouter >
 
                 {!window.location.pathname.includes('/home') ?
+
                     <Header
-                        userName={(e) => getUserName()}
+                        userName={getUserName}
                         className={clickedExit ? "hidden_Header" : "Header"}
                         exit={exit}
                         showSidebar={showSidebar} />
                     : null}
-                <Sidebar login={(e) => getUserName()} email={(e) => getEmail()} exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
-                <Routes>
+                <Sidebar
+                    login={getUserName}
+                    email={getEmail}
+                    exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
+                <Routes >
                     <Route path='/monthcalendar' element={<MonthCalendar />} />
                     <Route path="/weekcalendar" element={<WeeklyCalendar />} />
                     <Route path='/tasks' element={<Tasks />} />
                     <Route path='/settings' element={<Settings />} />
                     <Route path='/home' element={<Home />} />
-                    <Route path="/" element={<Navigate to="/weekcalendar" />} />
+                    <Route path='/' element={<RedirectToHome />} />
                 </Routes>
             </BrowserRouter>
 

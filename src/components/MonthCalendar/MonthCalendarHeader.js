@@ -5,7 +5,9 @@ import './HeaderButton.css'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBin5Line } from 'react-icons/ri'
-import { HeaderChoice } from './HeaderChoice';
+import { AddHeaderChoice } from './AddHeaderChoice';
+import { DeleteHeaderChoice } from './DeleteHeaderChoice';
+import { EventCreator } from '../Event/EventCreator';
 
 
 
@@ -36,14 +38,19 @@ const ButtonWrapper = styled('button')`
     background-color: white;
     border-radius: 50%;
 `;*/
-const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, addEvent }) => {
+const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, setCurrEvent, addEvent, deleteEvent, activateDel, activateEdit, currEvent, events, currEvDate, editEvent }) => {
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
-    const [showChoice, setShowChoice] = useState(false);
+    const [showAddChoice, setShowAddChoice] = useState(false);
+    const [showDeleteChoice, setShowDeleteChoice] = useState(false);
+    const [showEventCreator, setShowEventCreator] = useState(false);
+    const [showPseudoChoice, setShowPseudoChoice] = useState(false);
 
     const [clickedAdd, setClickedAdd] = useState(false);
+    const [clickedDelete, setClickedDelete] = useState(false);
+
     let navigate = useNavigate();
 
     const toggleCalendar = () => {
@@ -58,10 +65,11 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, ad
     }
 
     const handleAdding = () => {
-
         setClickedAdd(!clickedAdd);
+    }
 
-
+    const handleDelete = () => {
+        setClickedDelete(!clickedDelete);
     }
     return (
         <MonthHeader >
@@ -75,15 +83,41 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, ad
                 <div className="div_header_button">
 
                     <div className="full_event_delete_button"
-                        onMouseEnter={() => setShowDelete(true)}
-                        onMouseLeave={() => setShowDelete(false)}
+                        onMouseLeave={() => setShowDeleteChoice(false)}
                     >
 
-                        <div className={`event_delete_button_hover ${showDelete ? "event_delete_button_hover_active" : "event_delete_button_hover_closed"}`}>{
-                            showDelete && <div style={{ 'padding-left': '20px' }} className="event_button_text">Delete</div>}</div>
+                        <div className={`event_delete_button_hover ${(currEvent != null && showDelete && activateDel) ? "event_delete_button_hover_active" : "event_delete_button_hover_closed"}`}
+                            onMouseEnter={() => { setShowDelete(true); handleDelete(); }}
+                            onMouseLeave={() => { setShowDelete(false); handleDelete(); }}
+                            onClick={() => { setShowDeleteChoice(!showDeleteChoice); setShowPseudoChoice(true) }}
+                        >
+
+                            {showDelete && <div style={{ 'padding-left': '20px' }} className="event_button_text"
+                                onMouseEnter={() => { setShowDelete(true); handleDelete(); }}
+                                onMouseLeave={() => { setShowDelete(false); handleDelete(); }}
+                                onClick={() => { setShowDeleteChoice(!showDeleteChoice); setShowPseudoChoice(true) }}
+                            >Delete</div>}</div>
 
 
-                        <RiDeleteBin5Line style={{ 'z-index': '10' }} size={40} color={'#C6AC8D'} id="event_delete_button" />
+                        <RiDeleteBin5Line style={{ 'z-index': '10', 'cursor': `${currEvent != null && activateDel ? "pointer" : "default"}` }} size={40} color={currEvent != null && activateDel ? '#C6AC8D' : '#D3D3D3'} id="event_delete_button"
+                            onMouseEnter={() => { setShowDelete(true); handleDelete(); }}
+                            onMouseLeave={() => { setShowDelete(false); handleDelete(); }}
+                            onClick={() => { setShowDeleteChoice(!showDeleteChoice); setShowPseudoChoice(true) }}
+                        />
+                        {currEvent != null? <DeleteHeaderChoice
+                            deleteEvent={deleteEvent}
+                            currEvent={currEvent}
+                            setCurrEvent={setCurrEvent}
+                            currEvDate={currEvDate}
+                            state={showDeleteChoice}
+                            pseudoState={showPseudoChoice}
+                            handleDelete={handleDelete}
+                            setShowDelete={setShowDelete}
+                            setShowPseudoChoice={setShowPseudoChoice}
+                            setShowDeleteChoice={setShowDeleteChoice}
+                        />: null}
+
+
                     </div>
 
 
@@ -91,38 +125,58 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, ad
                     <div className="full_event_edit_button"
                         onMouseEnter={() => setShowEdit(true)}
                         onMouseLeave={() => setShowEdit(false)}
+                        onClick={() => setShowEventCreator(true)}
                     >
 
-                        <div className={`event_edit_button_hover ${showEdit ? "event_edit_button_hover_active" : "event_edit_button_hover_closed"}`}>{
+                        <div className={`event_edit_button_hover ${(currEvent != null && showEdit && activateEdit) ? "event_edit_button_hover_active" : "event_edit_button_hover_closed"}`}>{
                             showEdit && <div className="event_button_text">Edit</div>}</div>
 
-                        <FiEdit style={{ 'z-index': '10' }} size={40} color={'#C6AC8D'} id="event_change_button" />
-
+                        <FiEdit style={{ 'z-index': '10', 'cursor': `${currEvent != null && activateEdit ? "pointer" : "default"}` }} size={40} color={currEvent != null && activateEdit ? '#C6AC8D' : '#D3D3D3'} id="event_change_button" />
                     </div>
+                    {(currEvent != null && showEventCreator) ? <EventCreator
+                        setCurrEvent={setCurrEvent}
+                        editEvent={editEvent}
+                        currEvDate={currEvDate}
+                        createNew={false}
+                        showEventCreator={showEventCreator}
+                        setShowEventCreator={setShowEventCreator}
+                        currEvent={currEvent}
+                        events={events} /> : null}
 
 
 
                     <div className="full_event_add_button"
-                        onMouseLeave={() => { setShowChoice(false); }}
+                        onMouseLeave={() => { setShowAddChoice(false); }}
 
                     >
 
                         <div className={`event_add_button_hover ${showAdd ? "event_add_button_hover_active" : "event_add_button_hover_closed"}`}
                             onMouseEnter={() => { setShowAdd(true); handleAdding(); }}
                             onMouseLeave={() => { setShowAdd(false); handleAdding(); }}
-                            onClick={() => { setShowChoice(!showChoice) }}   
+                            onClick={() => { setShowAddChoice(!showAddChoice); setShowPseudoChoice(true) }}
                         >
                             {showAdd && <div className="event_button_text"
-                            onMouseEnter={() => { setShowAdd(true); handleAdding(); }}
-                            onMouseLeave={() => { setShowAdd(false); handleAdding(); }}
-                            onClick={() => { setShowChoice(!showChoice) }}>Add</div>}</div>
+                                onMouseEnter={() => { setShowAdd(true); handleAdding(); }}
+                                onMouseLeave={() => { setShowAdd(false); handleAdding(); }}
+                                onClick={() => { setShowAddChoice(!showAddChoice); setShowPseudoChoice(true) }}>Add</div>}</div>
 
-                        <AiFillPlusCircle style={{ 'z-index': '10' }} size={45} color={'#C6AC8D'} id="event_add_button" 
+                        <AiFillPlusCircle style={{ 'z-index': '10' }} size={45} color={'#C6AC8D'} id="event_add_button"
                             onMouseEnter={() => { setShowAdd(true); handleAdding(); }}
                             onMouseLeave={() => { setShowAdd(false); handleAdding(); }}
-                            onClick={() => { setShowChoice(!showChoice) }}
+                            onClick={() => { setShowAddChoice(!showAddChoice); setShowPseudoChoice(true) }}
                         />
-                        <HeaderChoice addEvent={addEvent} state={showChoice} handleAdding={handleAdding} setShowAdd={setShowAdd} setShowChoice={setShowChoice}/>
+                        <AddHeaderChoice
+                            addEvent={addEvent}
+                            state={showAddChoice}
+                            pseudoState={showPseudoChoice}
+                            handleAdding={handleAdding}
+                            setShowAdd={setShowAdd}
+                            setShowPseudoChoice={setShowPseudoChoice}
+                            setShowAddChoice={setShowAddChoice}
+                            showEventCreator={showEventCreator}
+                            setShowEventCreator={setShowEventCreator}
+
+                        />
 
 
                     </div>

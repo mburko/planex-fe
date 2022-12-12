@@ -45,7 +45,7 @@
     transform-origin: 100% 50%;
     max-height: 45px;
     cursor: pointer;
-    
+
 }
 
 
@@ -109,3 +109,9 @@
 }
 
 
+.full_event_edit_button_disabled,
+.full_event_delete_button_disabled {
+   
+   
+
+}
