@@ -160,7 +160,8 @@ export const SignUp = (props) => {
     }
 
     const goToMain = () => {
-        window.location.assign('/weekcalendar');
+       /* window.location.assign('/weekcalendar');*/
+       props.onFormSwitch('login')
     }
 
     function createUser(e) {
