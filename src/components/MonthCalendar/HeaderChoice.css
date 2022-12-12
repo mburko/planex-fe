@@ -24,7 +24,10 @@
 
 }
 
-.pseudo_hd_choice>div {}
+.pseudo_hd_choice_disabled{
+    pointer-events: none;
+    display: hidden;
+}
 
 .hd_choice_text {
     margin-top: 3px;

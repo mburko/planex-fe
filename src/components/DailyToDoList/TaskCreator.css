@@ -44,6 +44,7 @@ option {
 
 }
 
+
 option[value="High"] {
     background-color: rgba(227, 45, 45, 0.3);
 }
@@ -54,7 +55,7 @@ option[value="Middle"] {
 
 option[value="Low"] {
     background-color: rgba(230, 247, 39, 0.3);
-    ;
+
 }
 
 .react-datepicker__month-container * {

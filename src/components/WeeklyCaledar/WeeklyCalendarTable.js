@@ -12,8 +12,7 @@ const WeeklyCalendarTable = (props) => {
   for (let i = 7; i <= 22; i++) {
     time.push(`${i}:00`);
   }
-
- 
+  
   return (
     <div class='weekly-calendar'>
       <div className="wc_lines">
@@ -29,9 +28,14 @@ const WeeklyCalendarTable = (props) => {
             events={dayItem.format('DDMMYYYY') in props.events() ? props.events()[dayItem.format('DDMMYYYY')] : []}
             clickedToDoList={props.clickedToDoList}
             showToDoList={props.showToDoList}
-            key={dayItem.format('DDMMYYYY')}
+            dayItem={dayItem.format('DDMMYYYY')}
             weekday={dayItem.format('dddd')}
             daynum={dayItem.format('D')}
+            editStatus={(a) =>props.editStatus(a)}
+            delStatus={(a) =>props.delStatus(a)}
+            currEvent={props.currEvent}
+            setCurrEvent={props.setCurrEvent}
+            setCurrEvDate={props.setCurrEvDate}
 
           />
         )

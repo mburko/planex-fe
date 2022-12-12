@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 
-const LOGIN_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+
 
 export const Login = (props) => {
 
@@ -35,11 +34,10 @@ export const Login = (props) => {
 
     const loginHandle = (e) => {
         setLogin(e.target.value)
-        if (!LOGIN_REGEX.test(e.target.value)) {
-            setLoginError('Login is not valid!');
-            if (!e.target.value) {
-                setLoginError('Login can not be empty!');
-            }
+
+        if (!e.target.value) {
+            setLoginError('Login can not be empty!');
+
         } else {
             user.login = e.target.value;
             setLoginError('');
@@ -48,11 +46,9 @@ export const Login = (props) => {
     }
     const passwordHandle = (e) => {
         setPassword(e.target.value)
-        if (!PWD_REGEX.test(e.target.value)) {
-            setPasswordError('Password is not valid!');
-            if (!e.target.value) {
-                setPasswordError('Password can not be empty!');
-            }
+        if (!e.target.value) {
+            setPasswordError('Password can not be empty!');
+
         } else {
             user.password = e.target.value;
             setPasswordError('');
@@ -78,7 +74,7 @@ export const Login = (props) => {
         e.preventDefault();
 
     }
-   
+
     const goToMain = () => {
 
         window.location.assign('/weekcalendar');
@@ -90,7 +86,7 @@ export const Login = (props) => {
             login: user.login,
             password: user.password
         }).then((response) => {
-            
+
             console.log(response);
 
         })
@@ -99,7 +95,7 @@ export const Login = (props) => {
             });
 
         goToMain();
-      
+
     }
 
 
