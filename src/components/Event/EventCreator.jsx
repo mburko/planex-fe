@@ -32,6 +32,16 @@ export const EventCreator = (props) => {
 
 
     useEffect(() => {
+        if (newEvent.selectedCategory === 'Deadline' && !newEvent.time_to) {
+            newEvent.time_to = newEvent.time_from;
+            setInpTimeTo(true);
+        }
+            if (eventError || timeToError || timeFromError || !inpTimeFrom || !inpTimeTo || !newEvent.time_from || !newEvent.time_to || !inpEvent) {
+                setFormValid(false)
+            } else {
+                setFormValid(true)
+            }
+        /*
         if (newEvent.selectedCategory != 'Deadline') {
             if (eventError || timeToError || timeFromError || !inpTimeFrom || !inpTimeTo || !newEvent.time_from || !newEvent.time_to || !inpEvent) {
                 setFormValid(false)
@@ -46,7 +56,7 @@ export const EventCreator = (props) => {
                 setFormValid(true)
             }
         }
-
+*/
 
     }, [eventError, timeToError, timeFromError, inpTimeFrom, inpTimeTo, inpEvent])
 
