@@ -71,10 +71,7 @@ export function apiAddEvent(eventInfo) {
 		return 0;
 	});
 
-	//example, tested --------------------------------
-	/*
-	apiAddEvent(eventInfo, e);
-	*/
+
 }
 
 
@@ -84,7 +81,6 @@ export function apiUpdateEvent(eventInfo) {
 	const dateTimeStart = convertDateTime(eventInfo.dateOfEvent, eventInfo.time_from);
 	const dateTimeFinish = convertDateTime(eventInfo.dateOfEvent, eventInfo.time_to);
 
-	//******************** */
 
 	AxiosClient.put('/event', {
 		id: eventInfo.event_id,
@@ -100,16 +96,11 @@ export function apiUpdateEvent(eventInfo) {
 		console.log(error);
 	});
 
-	//example, not tested --------------------------------
-	/*
-	apiUpdateEvent(eventInfo);
-	*/
 }
 
 
 export function apiDeleteEvent(ev_id) {
 
-	//delete has no request body
 	AxiosClient.delete('/event', {
 		data: {
 			event_id: ev_id
@@ -119,16 +110,12 @@ export function apiDeleteEvent(ev_id) {
 	}).catch((error) => {
 		console.log(error);
 	});
-	//example, not tested --------------------------------
-	/*
-	apiDeleteEvent(eventInfo, e);
-	*/
+
 }
 
 
 export async function apiGetAllEvents() {
 
-	//create empty list
 	let allEvents = [];
 
 	let response = await AxiosClient.get('/event');
@@ -140,37 +127,26 @@ export async function apiGetAllEvents() {
 		console.log(response);
 	}
 
-	//console.log("first", allEvents);
 	let allConvEvents = [];
 	allEvents.forEach(element => {
 		allConvEvents.push(convertEvent(element));
 	});
-	//console.log("second", allEvents);
 	return allConvEvents;
 
-	//example, tested-------------------------
-	/*
-	evlst = await apiGetAllEvents(e);
-	console.log("aaaaaaaaa", evlst);
-	let test = evlst[2];
-	console.log('event id', test.id);
-	console.log('event title', test.title);
-	*/
 }
 
 
-// check input parameters format
 export async function apiGetAllEventsPeriod(from_datetime, to_datetime) {
 
-	let dt1 = '2022-11-23T18:00:00';
-	let dt2 = '2022-12-30T18:00:00';
+	//let dt1 = '2022-11-01T18:00:00';
+	//let dt2 = '2023-01-01T18:00:00';
 
 
 	let allEvents = [];
 
 	let response = await AxiosClient.post('/event/period', {
-			start_period: dt1,//from_datetime,
-			finish_period: dt2//to_datetime
+			start_period: from_datetime,
+			finish_period: to_datetime
 	});
 
 	if (response.status === 200) {
@@ -180,7 +156,6 @@ export async function apiGetAllEventsPeriod(from_datetime, to_datetime) {
 		console.log(response);
 	}
 
-	console.log("input", allEvents);
 	let allConvEvents = [];
 	allEvents.forEach(element => {
 		allConvEvents.push(convertEvent(element));
@@ -188,9 +163,4 @@ export async function apiGetAllEventsPeriod(from_datetime, to_datetime) {
 
 	return allConvEvents;
 
-	//example, not tested, check input parameters-------------------------
-	/*
-	evlst = await apiGetAllEventsPeriod(datetime1, datetime2, e);
-	console.log("aaaaaaaaa", evlst);
-	*/
 }

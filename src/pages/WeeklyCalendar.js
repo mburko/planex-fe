@@ -24,7 +24,7 @@ const WeeklyCalendar = () => {
 
      const prevHandler = () => {
           console.log('prev');
-          setToday(prev => prev.clone().subtract(1, 'week'))
+          setToday(prev => prev.clone().subtract(1, 'week'));
      }
      const nextHandler = () => {
           console.log('next');
@@ -42,10 +42,10 @@ const WeeklyCalendar = () => {
      }
 
      async function myGetEvents() {
-          //get array of all events
+          //all events, without repeats
           //let events2 = await apiGetAllEvents();
-          //console.log("idx", category.findIndex(cat => cat === "Birthday"));
-          let events2 = await apiGetAllEventsPeriod("", "");
+          // add date sync
+          let events2 = await apiGetAllEventsPeriod("2022-11-01T18:00:00", "2023-01-01T18:00:00");
 
           console.log("get events", events2);
           let new_events = {};
@@ -56,9 +56,7 @@ const WeeklyCalendar = () => {
                event_list.push(ev);
                new_events[moment(ev.dateOfEvent).format('DDMMYYYY')] = event_list;
 
-               //console.log("cur_new_events", new_events);
           });
-          console.log("new_events", new_events);
 
           setEvents(new_events);
 
@@ -84,7 +82,6 @@ const WeeklyCalendar = () => {
 
      async function deleteEvent(id, date) {
           await apiDeleteEvent(id);
-          //await myGetEvents();
 
           const ev_list = events[date];
 
