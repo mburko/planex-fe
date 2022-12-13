@@ -6,6 +6,7 @@ import 'react-clock/dist/Clock.css'
 import "react-datepicker/dist/react-datepicker.css";
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
+import {category} from '../../api/event_api';
 
 const EVENT_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 // /^[A-z][A-z0-9-_]{2,45}$/;
@@ -13,7 +14,9 @@ const EVENT_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 // /^[\p{L}\p{N} ,.'-()]+$/u
 export const EventCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
-    const category = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
+
+    // category imported from event_api
+    //const category = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
     const repeat = ['Daily', 'Weekly', 'Monthly']
     const [inpEvent, setInpEvent] = useState(false);
     const [inpTimeFrom, setInpTimeFrom] = useState(false);
