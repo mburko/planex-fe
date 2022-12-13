@@ -11,7 +11,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
+
 }
 
 
@@ -39,6 +39,38 @@ select:invalid>option[value=""][disabled] {
 option {
     color: black;
 }
+
+
+option[value="Sport"] {
+    background: rgba(145, 171, 165, 0.8);
+
+}
+
+option[value="Beauty"] {
+    background-color: rgba(227, 45, 45, 0.3);
+
+}
+
+option[value="Birthday"] {
+    background-color: rgba(219, 181, 123, 0.7);
+
+}
+
+option[value="Deadline"] {
+    background-color: rgba(139, 0, 0, 0.5);
+}
+
+option[value="Work"] {
+    background-color: rgba(45, 140, 227, 0.3);
+}
+
+option[value="Other"] {
+    background-color: rgba(170, 170, 170, 0.6);
+}
+option[value="Other"] {
+    background-color: rgba(170, 170, 170, 0.6);
+}
+
 
 .react-datepicker__month-container * {
     z-index: 40;
@@ -83,7 +115,7 @@ option {
     min-width: 250px;
 }
 
-.ev_creator_date {}
+
 
 .ev_creator_category,
 .ev_creator_repeat,

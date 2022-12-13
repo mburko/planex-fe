@@ -12,7 +12,7 @@ const СalendarColumn = (props) => {
   }
 
   return (
-    <div class='column'>
+    <div class='columnC'>
 
       <div className="wcp_events">
         {props.events.map((e) => (
