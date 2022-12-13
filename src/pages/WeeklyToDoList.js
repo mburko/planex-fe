@@ -12,6 +12,7 @@ const WeeklyToDoList = () => {
   moment.updateLocale('en', {week:{dow:1}});
   const [today, setToday] = useState(moment());
   const startDay = today.clone().startOf('week');
+  const [tasks, setTasks] = useState({});
  
  const prevHandler = () => {
       console.log('prev');
@@ -22,14 +23,30 @@ const WeeklyToDoList = () => {
       setToday(prev => prev.clone().add(1, 'week'))
  };
 
+function getTasks() {
+     return tasks;
+}
+function addTask(e) {
+     const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
+     task_list.push(e);
+     setTasks({
+          ...tasks,
+          [moment(e.dateOfTask).format('DDMMYYYY')]: task_list
+     });
+     console.log(tasks);
+}
+
   return (
     <div style={{ 'margin-top':'10%'}}> 
                <MonthCalendarHeader
                     today={today} 
                     prevHandler={prevHandler} 
                     nextHandler={nextHandler}
-                    currCalendar="week"/>
+                    currCalendar="week"
+                    addTask={addTask}/>
+                    
                <WeeklyToDoListTable
+                    tasks={getTasks}
                     today={today} 
                     startDay={startDay}/> 
     </div>

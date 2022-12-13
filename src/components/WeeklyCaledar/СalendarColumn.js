@@ -4,12 +4,11 @@ import { useState } from 'react';
 
 
 
-const СalendarColumn = (props) => {
+const СalendarColumn = (props, { onChange }) => {
 
-  
 
   return (
-    <div class='column'>
+    <div class='columnC'>
 
       <div className="wcp_events">
         {props.events.map((e) => (
@@ -22,16 +21,17 @@ const СalendarColumn = (props) => {
             ev_name={e.event}
             />
             
-        ))};
+        ))}
        
       </div>
 
 
 
-      <h1 class='columnTitle' onClick={props.clickedToDoList ? 'None' : props.showToDoList}>
+      <h1 class='columnTitle' onClick={props.clickedToDoList ? 'None' : (props.showToDoList)}>
         {props.weekday}
         <p>
-          {props.daynum}
+        {props.daynum}
+        {props.date2}
         </p>
       </h1>
     </div>

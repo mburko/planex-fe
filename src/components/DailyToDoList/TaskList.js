@@ -10,36 +10,52 @@ const TaskList = (props) => {
         id: 1,
         checked: false,
         task: 'To walk the dog',
-        date: '25-11-2022',
+        date: '28-11-2022',
         priority: 2
       },
       {
         id: 2,
         checked: false,
         task: 'To go shopping',
-        date: '24-11-2022',
+        date: '29-11-2022',
         priority: 3
       },
       {
         id: 3,
         checked: false,
         task: 'To meet with someone',
-        date: '23-11-2022',
+        date: '29-11-2022',
         priority: 1
       },
       {
         id: 4,
         checked: false,
         task: 'To walk the dog',
-        date: '25-11-2022',
+        date: '30-11-2022',
         priority: 1
       },
       {
         id: 5,
         checked: false,
         task: 'To do a lab',
-        date: '25-11-2022',
+        date: '28-11-2022',
         priority: 2
+      }
+      ,
+      {
+        id: 6,
+        checked: false,
+        task: 'To walk the dog',
+        date: '30-11-2022',
+        priority: 1
+      },
+      ,
+      {
+        id: 7,
+        checked: false,
+        task: 'To walk the dog',
+        date: '28-11-2022',
+        priority: 1
       }
   ])
 
@@ -52,7 +68,9 @@ const TaskList = (props) => {
   return (
     <ul className='task-list'>
       {
-        tasks.sort().map((task) => (props.date===task.date ?
+        tasks.sort((a, b) => { if(a.selectedCategory>b.selectedCategory)return 1;
+          if(a.selectedCategory<b.selectedCategory)return -1;
+          return 0;}).map((task) => (props.date===task.dateOfTask ?
           <MyTask 
             key={task.id}
             task = {task}

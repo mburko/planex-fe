@@ -13,6 +13,7 @@ const WeeklyToDoListTable = (props) => {
     {
       daysArray.map((dayItem) =>(
           <WToDoListColumn 
+            tasks={dayItem.format('DDMMYYYY') in props.tasks() ? props.tasks()[dayItem.format('DDMMYYYY')] : []}
             key = {dayItem.format('DDMMYYYY')}
             date = {dayItem.format('DD-MM-YYYY')}
             weekday = {dayItem.format('dddd')}
