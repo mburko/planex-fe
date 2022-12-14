@@ -50,11 +50,12 @@ option[value="High"] {
 }
 
 option[value="Middle"] {
-    background-color: rgba(45, 140, 227, 0.3);
+    background-color: rgba(230, 247, 39, 0.3);
 }
 
 option[value="Low"] {
-    background-color: rgba(230, 247, 39, 0.3);
+    background-color: rgba(45, 140, 227, 0.3);
+
 
 }
 

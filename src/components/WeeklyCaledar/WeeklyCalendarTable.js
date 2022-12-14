@@ -34,8 +34,10 @@ const WeeklyCalendarTable = (props) => {
             editStatus={(a) =>props.editStatus(a)}
             delStatus={(a) =>props.delStatus(a)}
             currEvent={props.currEvent}
+            currColumn={props.currColumn}
             setCurrEvent={props.setCurrEvent}
             setCurrEvDate={props.setCurrEvDate}
+            setCurrColumn={props.setCurrColumn}
 
           />
         )

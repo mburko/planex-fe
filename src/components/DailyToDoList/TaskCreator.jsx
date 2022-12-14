@@ -3,13 +3,12 @@ import DatePicker from "react-datepicker"
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 import "react-datepicker/dist/react-datepicker.css";
-import {BsFillXCircleFill } from "react-icons/bs";
+import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 import './TaskCreator.css'
 
 
-const EVENT_REGEX = /^[\p{L} ,.'-()]+$/u;
-// /^[A-z][A-z0-9-_]{3,23}$/;
-
+const TASK_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
+const NUMERIC = /^[0-9]+$/;
 
 export const TaskCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
@@ -35,10 +34,12 @@ export const TaskCreator = (props) => {
     }, [taskError])
 
     const [newTask, setState] = useState({
+        id: 34,
         task: '',
         dateOfTask: startDate,
         time_hours: '',
         time_mins: '',
+        checked: false,
         selectedCategory: '',
 
     });
@@ -53,7 +54,7 @@ export const TaskCreator = (props) => {
     const handleChange = (e) => {
         const value = e.target.value;
         if (e.target.name === 'task') {
-            if (!EVENT_REGEX.test(e.target.value)) {
+            if (!TASK_REGEX.test(e.target.value)) {
                 setTaskError('Task is not valid!');
                 if (!e.target.value) {
                     setTaskError('Task can not be empty!');
@@ -62,7 +63,7 @@ export const TaskCreator = (props) => {
                 setTaskError('');
             }
         }
-        if (e.target.name === 'dateOfEvent') {
+        if (e.target.name === 'dateOfTask') {
             setStartDate(e);
         }
 
@@ -78,9 +79,8 @@ export const TaskCreator = (props) => {
 
     function handleForm(e) {
         e.preventDefault();
-        console.log(newTask);
+        props.addTask(newTask)
         if (formValid) {
-
             handleCancel();
         }
 
@@ -90,13 +90,14 @@ export const TaskCreator = (props) => {
 
     const handleCancel = () => {
         props.changeState();
-        setStartDate(new Date());
         setState({
+            id: newTask.id+1,
             task: '',
             dateOfTask: startDate,
             time_hours: '',
             time_mins: '',
-            selectedCategory: ''
+            selectedCategory: '',
+            checked: false
         })
         setInpTask(false);
         setTaskError(false);
@@ -176,8 +177,6 @@ export const TaskCreator = (props) => {
                     name="selectedCategory"
                     required className="task_creator_category"
                     onChange={handleChange}
-                    value={newTask.selectedCategory}
-                    
                 >
                     <option value="" disabled selected hidden>Select</option>
                     {category.map((opt) =>
