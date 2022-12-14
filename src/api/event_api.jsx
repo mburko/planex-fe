@@ -4,8 +4,8 @@ import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
 import AxiosClient from '../utilities/AxiosClient';
 
-export const category = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
-const category2 = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
+const category = ['Birthday', 'Beauty', 'Deadline', 'Sport', 'Work', 'Other'];
+//const category2 = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
 
 // ********************* event crud *****************************************************
 /*
@@ -33,7 +33,7 @@ function convertEvent(eventInfo) {
 		time_from: (t1.getHours().toString() + ":" + t1.getMinutes().toString()),
 		time_to: (t2.getHours().toString() + ":" + t2.getMinutes().toString()),
 
-		selectedCategory: category2[eventInfo.category_id], 
+		selectedCategory: category[eventInfo.category_id-1], 
 		event_id: eventInfo.id
 	}
 }
@@ -57,7 +57,7 @@ export function apiAddEvent(eventInfo) {
 	console.log(eventInfo);
 	AxiosClient.post('/event', {
 
-		category_id: category2.findIndex(cat=> cat === eventInfo.selectedCategory), 
+		category_id: category.findIndex(cat=> cat === eventInfo.selectedCategory)+1, 
 		start: dateTimeStart,
 		finish: dateTimeFinish,
 		title: eventInfo.event,
@@ -84,7 +84,7 @@ export function apiUpdateEvent(eventInfo) {
 
 	AxiosClient.put('/event', {
 		id: eventInfo.event_id,
-		category_id: category.findIndex(cat=> cat === eventInfo.selectedCategory), 
+		category_id: category.findIndex(cat=> cat === eventInfo.selectedCategory)+1, 
 		start: dateTimeStart,
 		finish: dateTimeFinish,
 		title: eventInfo.event,
