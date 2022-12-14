@@ -30,13 +30,14 @@ export const MainContent = (props) => {
         setClickSidebar(!clickedSidebar);
 
     }
-    const exit = () => {
+    const exit = async() => {
+        await AxiosClient.get("/logout", {});
         setClickedExit(!clickedExit);
     }
 
 
     function getUserName() {
-        AxiosClient.get("/info", {
+        AxiosClient.get("/user", {
 
         }).then((response) => {
             console.log(response);
