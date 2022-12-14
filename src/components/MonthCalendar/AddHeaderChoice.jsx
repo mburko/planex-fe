@@ -22,7 +22,7 @@ export const AddHeaderChoice = (props) => {
 
         onMouseEnter={() => { props.setShowAdd(true); props.handleAdding(); }}
         onMouseLeave={() => { props.setShowAdd(false); props.handleAdding(); props.setShowPseudoChoice(false) }}
-        onClick={() => { props.setShowChoice(!props.state); }}
+        onClick={() => { props.setShowAddChoice(!props.state); }}
       >
 
         <div className={props.state ? "hd_choice" : "hd_choice_disabled"}>
@@ -52,7 +52,7 @@ export const AddHeaderChoice = (props) => {
         </div>
       </div>
       <EventCreator createNew={true} addEvent={props.addEvent} changeState={() => { setClickedNewEvent(false) }} clickedEvent={clickedNewEvent} />
-      <TaskCreator changeState={() => { setClickedNewTask(false) }} clickedTask={clickedNewTask} />
+      <TaskCreator createNew={true} addTask={props.addTask} changeState={() => { setClickedNewTask(false) }} clickedTask={clickedNewTask} />
     </>
   )
 }
