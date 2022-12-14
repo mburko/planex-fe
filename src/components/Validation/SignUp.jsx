@@ -177,11 +177,13 @@ export const SignUp = (props) => {
             password: user.password
         }).then((response) => {
             console.log(response);
+            if (response.status === 200) {
+                goToMain();
+            }
         })
             .catch((error) => {
                 console.log(error);
             });
-        goToMain();
     }
 
     return (
