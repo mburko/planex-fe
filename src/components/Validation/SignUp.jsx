@@ -103,14 +103,15 @@ export const SignUp = (props) => {
     const passwordHandle = (e) => {
 
         setPassword(e.target.value)
-        if (password.length < 8) {
+        if (!password) {
+            setPasswordError('Password can not be empty!');
+        }
+        else if (password.length < 8) {
             setPasswordError('Password must be at least 8 charachters long!');
         }
         else if (!PWD_REGEX.test(password)) {
             setPasswordError('Password must contain no symbols, 1 digit, 1 upper and 1 lower letter!');
-            if (!password) {
-                setPasswordError('Password can not be empty!');
-            }
+           
         } else {
             setPasswordError('');
         }
