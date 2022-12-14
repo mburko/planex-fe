@@ -12,7 +12,7 @@ export const RepeatMessage = (props) => {
                 color={'black'}
                 size={22}
                 onClick={() => props.setShowMessage(false)} />
-            <div className='repeat_message_text'>Reload page to see all repeats.</div>
+            <div className='repeat_message_text'>Reload page to see all repeats</div>
         </div>
     )
 }

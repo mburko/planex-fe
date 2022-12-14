@@ -10,6 +10,7 @@
     flex-direction: column;
     background-size: cover;
     min-height: 100vh;
+    
     font-family: 'Karla';
     text-align: center;
     font-weight: 700;
@@ -36,7 +37,6 @@
     background: var(--darkgrey);
     border-radius: 32px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-
 }
 
 .form_title {
@@ -208,7 +208,9 @@ button:disabled:hover {
     align-items: center;
     color: var(--error_color);
     font-weight: 100;
-    font-size: 20px;
+    font-size: 18px;
+    max-width:400px;
+
 }
 
 .form_error_icon {

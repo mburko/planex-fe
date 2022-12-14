@@ -47,7 +47,7 @@ const WeeklyCalendar = () => {
                [moment(e.dateOfEvent).format('DDMMYYYY')]: event_list
           });
           console.log(events);
-          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !=='') {
+          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !=='' && e.selectedRepeat !=='None') {
                setShowMessage(true);
           }
      }

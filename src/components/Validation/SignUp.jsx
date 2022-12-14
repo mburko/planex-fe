@@ -3,7 +3,8 @@ import AxiosClient from '../../utilities/AxiosClient';
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
 const LOGIN_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const NAME_REGEX = /^[\p{L} ,.'-]+$/u;
+const NAME_REGEX = /^[A-Za-z][A-Za-z -]{2,45}$/u;
+///^[\p{L} ,.'-]+$/u
 const EMAIL_REGEX = /^[\w.]+@[\w]+\.[\w]+$/;
 const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
@@ -102,9 +103,12 @@ export const SignUp = (props) => {
     const passwordHandle = (e) => {
 
         setPassword(e.target.value)
-        if (!PWD_REGEX.test(e.target.value)) {
-            setPasswordError('Password is not valid!');
-            if (!e.target.value) {
+        if (password.length < 8) {
+            setPasswordError('Password must be at least 8 charachters long!');
+        }
+        else if (!PWD_REGEX.test(password)) {
+            setPasswordError('Password must contain no symbols, 1 digit, 1 upper and 1 lower letter!');
+            if (!password) {
                 setPasswordError('Password can not be empty!');
             }
         } else {
@@ -160,8 +164,8 @@ export const SignUp = (props) => {
     }
 
     const goToMain = () => {
-       /* window.location.assign('/weekcalendar');*/
-       props.onFormSwitch('login')
+        /* window.location.assign('/weekcalendar');*/
+        props.onFormSwitch('login')
     }
 
     function createUser(e) {
@@ -185,7 +189,6 @@ export const SignUp = (props) => {
             <form onSubmit={handleSubmit} className="form" id="signup">
                 <h1 className="form_title">{props.title}</h1>
                 <div form="form_input">
-                    {(inpName && nameError) && <div className="form_message input_error">{nameError} <BsFillXCircleFill className="form_error_icon" /></div>}
                     <div className="input_success_div">
                         <input
                             name="name"
@@ -196,13 +199,14 @@ export const SignUp = (props) => {
                             onChange={e => nameHandle(e)}
                             onBlur={e => blurHandle(e)}
                         />
+                        {(inpName && nameError) && <div className="form_message input_error">{nameError} <BsFillXCircleFill className="form_error_icon" /></div>}
+
                         {(inpName && !nameError) && <div className="form_message input_success"><BsCheckCircleFill className="form_success_icon" /></div>}
                     </div>
                 </div>
 
 
                 <div form="form_input">
-                    {(inpEmail && emailError) && <div className="form_message input_error">{emailError} <BsFillXCircleFill className="form_error_icon" /></div>}
                     <div className="input_success_div">
                         <input name="email"
                             type="email"
@@ -213,13 +217,15 @@ export const SignUp = (props) => {
                             onChange={e => emailHandle(e)}
                             onBlur={e => blurHandle(e)}
                         />
+                        {(inpEmail && emailError) && <div className="form_message input_error">{emailError} <BsFillXCircleFill className="form_error_icon" /></div>}
+
                         {(inpEmail && !emailError) && <div className="form_message input_success"><BsCheckCircleFill className="form_success_icon" /></div>}
                     </div>
+
                 </div>
 
 
                 <div form="form_input">
-                    {(inpLogin && loginError) && <div className="form_message input_error">{loginError}<BsFillXCircleFill className="form_error_icon" /></div>}
                     <div className="input_success_div">
                         <input name="login"
                             type="text"
@@ -230,13 +236,14 @@ export const SignUp = (props) => {
                             onChange={e => loginHandle(e)}
                             onBlur={e => blurHandle(e)}
                         />
+                        {(inpLogin && loginError) && <div className="form_message input_error">{loginError}<BsFillXCircleFill className="form_error_icon" /></div>}
+
                         {(inpLogin && !loginError) && <div className="form_message input_success"><BsCheckCircleFill className="form_success_icon" /></div>}
                     </div>
                 </div>
 
 
                 <div form="form_input">
-                    {(inpPassword && passwordError) && <div className="form_message input_error">{passwordError} <BsFillXCircleFill className="form_error_icon" /></div>}
                     <div className="input_success_div">
                         <input
                             ref={currPass}
@@ -249,13 +256,14 @@ export const SignUp = (props) => {
                             onChange={e => passwordHandle(e)}
                             onBlur={e => blurHandle(e)}
                         />
+                        {(inpPassword && passwordError) && <div className="form_message input_error">{passwordError} <BsFillXCircleFill className="form_error_icon" /></div>}
+
                         {(inpPassword && !passwordError) && <div className="form_message input_success"><BsCheckCircleFill className="form_success_icon" /></div>}
                     </div>
                 </div>
 
 
                 <div form="form_input">
-                    {(inpConfirmPass && matchPassError) && <div className="form_message input_error">{matchPassError} <BsFillXCircleFill className="form_error_icon" /></div>}
                     <div className="input_success_div">
                         <input name="confirmPass"
                             type="password"
@@ -266,6 +274,8 @@ export const SignUp = (props) => {
                             onChange={e => confirmPassHandle(e)}
                             onBlur={e => blurHandle(e)}
                         />
+                        {(inpConfirmPass && matchPassError) && <div className="form_message input_error">{matchPassError} <BsFillXCircleFill className="form_error_icon" /></div>}
+
                         {(inpConfirmPass && !matchPassError) && <div className="form_message input_success"><BsCheckCircleFill className="form_success_icon" /></div>}
                     </div>
                 </div>

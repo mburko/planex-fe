@@ -106,7 +106,6 @@ export const Login = (props) => {
 
 
                 <div form="form_input">
-                    {(inpLogin && loginError) && <div className="form_message input_error">{loginError}<BsFillXCircleFill className="form_error_icon" /></div>}
 
                     <div className="input_success_div">
                         <input
@@ -119,13 +118,14 @@ export const Login = (props) => {
                             onBlur={e => blurHandle(e)}
 
                         />
+                        {(inpLogin && loginError) && <div className="form_message input_error">{loginError}<BsFillXCircleFill className="form_error_icon" /></div>}
+
                         {(inpLogin && !loginError) && <div className="form_message input_success"><BsCheckCircleFill className="form_success_icon" /></div>}
                     </div>
                 </div>
 
 
                 <div form="form_input">
-                    {(inpPassword && passwordError) && <div className="form_message input_error">{passwordError} <BsFillXCircleFill className="form_error_icon" /></div>}
 
                     <div className="input_success_div">
                         <input
@@ -138,6 +138,8 @@ export const Login = (props) => {
                             onBlur={e => blurHandle(e)}
 
                         />
+                        {(inpPassword && passwordError) && <div className="form_message input_error">{passwordError} <BsFillXCircleFill className="form_error_icon" /></div>}
+
                         {(inpPassword && !passwordError) && <div className="form_message input_success"><BsCheckCircleFill className="form_success_icon" /></div>}
 
                     </div>

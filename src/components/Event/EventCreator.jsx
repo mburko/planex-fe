@@ -13,8 +13,8 @@ const EVENT_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 // /^[\p{L}\p{N} ,.'-()]+$/u
 export const EventCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
-    const category = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
-    const repeat = ['Daily', 'Weekly', 'Monthly']
+    const category = ['Birthday', 'Beauty', 'Deadline', 'Sport', 'Work', 'Other'];
+    const repeat = ['None','Daily', 'Weekly', 'Monthly']
     const [inpEvent, setInpEvent] = useState(false);
     const [inpTimeFrom, setInpTimeFrom] = useState(false);
     const [inpTimeTo, setInpTimeTo] = useState(false);

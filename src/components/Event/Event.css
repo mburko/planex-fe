@@ -8,24 +8,22 @@
     cursor: pointer;
     pointer-events: all;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     transition: all 0.5s;
     opacity: 1;
+    align-items:center;
+    min-height: 100%;
+    height: 100%;
 
 }
 
-.WeekEvent_deadline,
+
 .MonthEvent_deadline {
     background: rgba(139, 0, 0, 0.7);
 }
 
-.WeekEvent_basic {
-    background: rgba(145, 171, 165, 0.7);
-}
 
 .MonthEvent_basic {
-    background: rgba(145, 171, 165, 2);
     border: 1px solid black;
 }
 
@@ -53,6 +51,13 @@
 
 }
 
+.weekevent_icon {
+    align-self: flex-start;
+    margin-top: 4px;
+    margin-left: 4px;
+    position: relative;
+
+}
 
 .full_info_wc_event_hidden,
 .full_info_mc_event_hidden {
@@ -69,7 +74,6 @@
 }
 
 .wc_event_deadline {
-    background: rgb(215, 151, 151);
     border: 1px solid rgba(139, 0, 0, 0.7);
 }
 
@@ -81,7 +85,6 @@
 
 .wc_event_basic,
 .mc_event_basic {
-    background: rgba(145, 171, 165, 1);
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
@@ -129,11 +132,13 @@
 }
 
 .show_name_weekevent {
+
     font-family: 'Quicksand';
     text-align: center;
     font-size: 22px;
     font-weight: 300;
     transform: scale(1);
+    margin: auto;
 }
 
 
@@ -147,7 +152,6 @@
 .MonthEvent {
     min-width: 100%;
     height: 5px;
-    /* align-self: flex-end; */
     margin-left: auto;
 
 }
