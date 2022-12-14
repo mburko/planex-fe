@@ -17,7 +17,8 @@ const DailyToDoList = (props) => {
       <h1 class = 'to-do-list-header'>To-Do List</h1>
       <div class = 'left-line'/>
       <div class = 'right-line'/>
-      <TaskList date={props.date}/>
+      <TaskList date={props.date}
+      tasks={props.tasks}/>
     </div>
   )
 };

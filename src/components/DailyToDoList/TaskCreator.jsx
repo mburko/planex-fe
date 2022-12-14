@@ -102,11 +102,10 @@ export const TaskCreator = (props) => {
     function handleForm(e) {
         e.preventDefault();
 
-        // console.log(newTask);
-
-        props.addTask(newTask)
-
+        // console.log(newTask)
+        
         if (formValid) {
+            props.addTask(newTask);
             handleCancel();
         }
 
@@ -116,6 +115,7 @@ export const TaskCreator = (props) => {
 
     const handleCancel = () => {
         props.changeState();
+        setStartDate(new Date());
         setState({
             id: newTask.id+1,
             task: '',

@@ -21,6 +21,7 @@ const WeeklyCalendar = () => {
      const [currColumn, setCurrColumn] = useState(null);
      const [currEvDate, setCurrEvDate] = useState(null);
      const [showMessage, setShowMessage] = useState(false);
+     const [tasks, setTasks] = useState({});
 
 
      const prevHandler = () => {
@@ -130,12 +131,27 @@ const WeeklyCalendar = () => {
           await myGetEvents();
      }, []);
 
+     function getTasks() {
+          return tasks;
+     }
+     function addTask(e) {
+          const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
+          task_list.push(e);
+          setTasks({
+               ...tasks,
+               [moment(e.dateOfTask).format('DDMMYYYY')]: task_list
+          });
+          console.log(tasks);
+     }
+     
+
      return (
           <div className="weekly-calendar-page">
                <RepeatMessage showMessage={showMessage} setShowMessage={setShowMessage}/>
                <DailyToDoList
                     clickedToDoList={clickedToDoList}
                     showToDoList={showToDoList} 
+                    tasks={getTasks}
                     date={currColumn}/>
                     
                <div style={{ 'margin': '10% 2% 0 20%' }}>
@@ -146,6 +162,7 @@ const WeeklyCalendar = () => {
                          nextHandler={nextHandler}
                          currCalendar="week"
                          addEvent={addEvent}
+                         addTask={addTask}
                          editEvent={editEvent}
                          deleteEvent={deleteEvent}
                          activateDel={activateDel}
