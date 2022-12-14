@@ -9,7 +9,7 @@ const EMAIL_REGEX = /^[\w.]+@[\w]+\.[\w]+$/;
 const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
 export const SignUp = (props) => {
-    const url = "/register";
+    const url = "/user/register";
     const [user] = useState({
         name: "",
         email: "",
@@ -178,11 +178,13 @@ export const SignUp = (props) => {
             password: user.password
         }).then((response) => {
             console.log(response);
+            if (response.status === 200) {
+                goToMain();
+            }
         })
             .catch((error) => {
                 console.log(error);
             });
-        goToMain();
     }
 
     return (

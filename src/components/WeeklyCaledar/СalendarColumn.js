@@ -11,6 +11,21 @@ const СalendarColumn = (props) => {
     
   }
 
+  function dateOfClickedColumn(){
+    props.setCurrColumn(props.dayItem);
+    
+  }
+
+  function handleClick(){
+    if(props.clickedToDoList)
+    {
+      dateOfClickedColumn();
+    }
+    else{
+      props.showToDoList();
+      dateOfClickedColumn();
+    }
+  }
   return (
     <div class='columnC'>
 
@@ -38,7 +53,7 @@ const СalendarColumn = (props) => {
 
 
 
-      <h1 class='columnTitle' onClick={props.clickedToDoList ? 'None' : props.showToDoList}>
+      <h1 class='columnTitle' onClick={handleClick}>
         {props.weekday}
         <p>
           {props.daynum}

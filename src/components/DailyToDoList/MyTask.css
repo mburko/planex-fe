@@ -75,7 +75,9 @@
   display: inline-flex;
   align-items: center;
   user-select: none;
-  margin: 5%
+  margin: 5%;
+  margin-top: 7%;
+  
 }
 .custom-checkbox+label::before {
   content: '';

@@ -3,7 +3,9 @@ import DatePicker from "react-datepicker"
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 import "react-datepicker/dist/react-datepicker.css";
-import { BsFillXCircleFill } from "react-icons/bs";
+
+import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
+
 import './TaskCreator.css'
 import { ContentCutOutlined } from '@mui/icons-material';
 
@@ -11,6 +13,8 @@ import { ContentCutOutlined } from '@mui/icons-material';
 const TASK_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 ///^[\p{L} ,.'-()]+$/u;
 // /^[A-z][A-z0-9-_]{3,23}$/;
+
+const NUMERIC = /^[0-9]+$/;
 
 
 export const TaskCreator = (props) => {
@@ -24,10 +28,12 @@ export const TaskCreator = (props) => {
     const [hours, setHours] = useState('');
     const [mins, setMins] = useState('');
     const [newTask, setState] = useState({
+        id: 34,
         task: '',
         dateOfTask: startDate,
         time_hours: '',
         time_mins: '',
+        checked: false,
         selectedCategory: '',
 
     });
@@ -79,7 +85,7 @@ export const TaskCreator = (props) => {
                 setTaskError('');
             }
         }
-        if (e.target.name === 'dateOfEvent') {
+        if (e.target.name === 'dateOfTask') {
             setStartDate(e);
         }
 
@@ -95,9 +101,12 @@ export const TaskCreator = (props) => {
 
     function handleForm(e) {
         e.preventDefault();
-        // console.log(newTask);
-        if (formValid) {
 
+        // console.log(newTask);
+
+        props.addTask(newTask)
+
+        if (formValid) {
             handleCancel();
         }
 
@@ -107,13 +116,14 @@ export const TaskCreator = (props) => {
 
     const handleCancel = () => {
         props.changeState();
-        setStartDate(new Date());
         setState({
+            id: newTask.id+1,
             task: '',
             dateOfTask: startDate,
             time_hours: '',
             time_mins: '',
-            selectedCategory: ''
+            selectedCategory: '',
+            checked: false
         })
         setInpTask(false);
         setTaskError(false);

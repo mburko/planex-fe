@@ -1,4 +1,4 @@
-import React, { useState, useRoutes } from 'react'
+import React, { useState, useRoutes , useEffect} from 'react'
 
 import { Home } from '../pages/Home';
 import { MonthCalendar } from '../pages/MonthCalendar';
@@ -21,7 +21,18 @@ import { RedirectToHome } from './RedirectToHome';
 
 export const MainContent = (props) => {
 
+    const [userInfo, setUserInfo] = useState({});
 
+    useEffect(() => async () => {
+        let response = await AxiosClient.get("/user", {});
+        if (response.status === 200) {
+            console.log(response);
+            setUserInfo(response.data);
+        }
+        else {
+            console.log(response);
+        }
+    }, []);
 
     const [clickedSidebar, setClickSidebar] = useState(false);
     const [clickedExit, setClickedExit] = useState(false);
@@ -30,43 +41,20 @@ export const MainContent = (props) => {
         setClickSidebar(!clickedSidebar);
 
     }
-    const exit = () => {
+    const exit = async() => {
+        await AxiosClient.get("/logout", {});
         setClickedExit(!clickedExit);
     }
 
 
     function getUserName() {
-        AxiosClient.get("/info", {
-
-        }).then((response) => {
-            console.log(response);
-            let userInfo = response.data['username'];
-            return userInfo;
-        })
-            .catch((error) => {
-                console.log(error);
-            });
-
-        console.log("username");
-
-
+        return userInfo['username'];
     }
-
+    function getLogin() {
+        return userInfo['login'];
+    }
     function getEmail() {
-        AxiosClient.get("/info", {
-
-        }).then((response) => {
-            console.log(response);
-            let userInfo = response.data['email'];
-            return userInfo;
-        })
-            .catch((error) => {
-                console.log(error);
-            });
-
-        console.log("email");
-
-
+        return userInfo['email'];
     }
 
 
@@ -79,14 +67,14 @@ export const MainContent = (props) => {
                 {!window.location.pathname.includes('/home') ?
 
                     <Header
-                        userName={getUserName}
+                        userName={getUserName()}
                         className={clickedExit ? "hidden_Header" : "Header"}
                         exit={exit}
                         showSidebar={showSidebar} />
                     : null}
                 <Sidebar
-                    login={getUserName}
-                    email={getEmail}
+                    login={getLogin()}
+                    email={getEmail()}
                     exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
                 <Routes >
                     <Route path='/monthcalendar' element={<MonthCalendar />} />
