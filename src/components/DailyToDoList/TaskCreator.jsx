@@ -3,37 +3,26 @@ import DatePicker from "react-datepicker"
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
 import "react-datepicker/dist/react-datepicker.css";
-import {BsFillXCircleFill } from "react-icons/bs";
+import { BsFillXCircleFill } from "react-icons/bs";
 import './TaskCreator.css'
+import { ContentCutOutlined } from '@mui/icons-material';
 
 
-const EVENT_REGEX = /^[\p{L} ,.'-()]+$/u;
+const TASK_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
+///^[\p{L} ,.'-()]+$/u;
 // /^[A-z][A-z0-9-_]{3,23}$/;
 
 
 export const TaskCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
-
-    const [showForm, setShowForm] = useState(false);
     const category = ['High', 'Middle', 'Low'];
 
     const [inpTask, setInpTask] = useState(false);
-
     const [taskError, setTaskError] = useState('Task can not be empty!');
 
-
     const [formValid, setFormValid] = useState(false);
-
-
-    useEffect(() => {
-        if (taskError) {
-            setFormValid(false)
-        } else {
-            setFormValid(true)
-        }
-
-    }, [taskError])
-
+    const [hours, setHours] = useState('');
+    const [mins, setMins] = useState('');
     const [newTask, setState] = useState({
         task: '',
         dateOfTask: startDate,
@@ -42,6 +31,17 @@ export const TaskCreator = (props) => {
         selectedCategory: '',
 
     });
+    useEffect(() => {
+        console.log(newTask);
+        if (taskError || !newTask.task || !newTask.selectedCategory) {
+            setFormValid(false)
+        } else {
+            setFormValid(true)
+        }
+        console.log(formValid);
+    }, [taskError, newTask])
+
+   
 
 
     const blurHandle = (e) => {
@@ -49,11 +49,28 @@ export const TaskCreator = (props) => {
 
     }
 
+    useEffect(() => {
+        if (newTask.time_hours === '1') {
+            setHours('hour')
+        }
+        else {
+            setHours('hours')
+
+        }
+        if (newTask.time_mins === '1') {
+            setMins('minute')
+        }
+        else {
+            setMins('minutes')
+
+        }
+
+    }, [newTask.time_hours, newTask.time_mins])
 
     const handleChange = (e) => {
         const value = e.target.value;
         if (e.target.name === 'task') {
-            if (!EVENT_REGEX.test(e.target.value)) {
+            if (!TASK_REGEX.test(e.target.value)) {
                 setTaskError('Task is not valid!');
                 if (!e.target.value) {
                     setTaskError('Task can not be empty!');
@@ -67,18 +84,18 @@ export const TaskCreator = (props) => {
         }
 
 
-        // console.log(value);
-
         setState({
             ...newTask,
             [e.target.name]: value
         });
 
+        
+
     }
 
     function handleForm(e) {
         e.preventDefault();
-        console.log(newTask);
+        // console.log(newTask);
         if (formValid) {
 
             handleCancel();
@@ -152,7 +169,7 @@ export const TaskCreator = (props) => {
                         onChange={handleChange}
 
                     />
-                    <div className="task_creator_time_text">hours</div>
+                    <div className="task_creator_time_text">{hours}</div>
                 </div>
                 <div className="overdiv_mins">
                     <input
@@ -166,7 +183,7 @@ export const TaskCreator = (props) => {
                         onChange={handleChange}
 
                     />
-                    <div className="task_creator_time_text">minutes</div>
+                    <div className="task_creator_time_text">{mins}</div>
                 </div>
 
 
@@ -177,7 +194,7 @@ export const TaskCreator = (props) => {
                     required className="task_creator_category"
                     onChange={handleChange}
                     value={newTask.selectedCategory}
-                    
+
                 >
                     <option value="" disabled selected hidden>Select</option>
                     {category.map((opt) =>
@@ -190,7 +207,7 @@ export const TaskCreator = (props) => {
                 <div className="div_option">
                     <p
                         className="task_creator_text text_option"
-                        onClick={() => handleCancel()}
+                        onClick={handleCancel}
                     >Cancel</p>
 
                     <p

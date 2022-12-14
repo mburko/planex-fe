@@ -1,9 +1,6 @@
 import AxiosClient from '../../utilities/AxiosClient';
 import React, { useEffect, useState } from 'react'
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
-import { useNavigate } from 'react-router-dom';
-
-
 
 export const Login = (props) => {
 
