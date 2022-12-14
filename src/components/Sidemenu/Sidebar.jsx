@@ -9,12 +9,7 @@ import { IoExitOutline } from 'react-icons/io5'
 
 export const Sidebar = (props) => {
 
-    function getEmail() {
-        return props.email;
-    }
-    function getLogin() {
-        return props.login;
-    }
+   
     return (
         <>
             <div className="Sidebar">
@@ -33,8 +28,8 @@ export const Sidebar = (props) => {
                         <div className='sidebar_top'>
                             <BsPersonCircle size={55} className="person_icon" />
                             <div className="div_sidebar_top_text">
-                                <p className="sidebar_top_text">{getLogin}</p>
-                                <p className="sidebar_top_text">{getEmail}</p>
+                                <p className="sidebar_top_text">{props.login}</p>
+                                <p className="sidebar_top_text">{props.email}</p>
                             </div>
 
                         </div>

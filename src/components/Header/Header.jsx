@@ -6,10 +6,8 @@ import { useState } from "react";
 
 
 export const Header = (props) => {
- 
-    function getUserName() {
-        return props.userName;
-    }
+   
+
     return (
         <div className={props.className} >
 
@@ -24,7 +22,7 @@ export const Header = (props) => {
             </div>
 
             <div id="headerUserBlock">
-                <UserBlock userName={getUserName()} />
+                <UserBlock userName={props.userName} />
             </div>
         </div>
     )
