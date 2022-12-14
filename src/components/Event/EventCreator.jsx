@@ -6,7 +6,6 @@ import 'react-clock/dist/Clock.css'
 import "react-datepicker/dist/react-datepicker.css";
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
-
 const EVENT_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 // /^[A-z][A-z0-9-_]{2,45}$/;
 // /^[A-Za-z0-9_ ,.'`"()-;]+$/u
@@ -14,7 +13,7 @@ const EVENT_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 export const EventCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
     const category = ['Birthday', 'Beauty', 'Deadline', 'Sport', 'Work', 'Other'];
-    const repeat = ['None','Daily', 'Weekly', 'Monthly']
+    const repeat = ['None','Daily', 'Weekly', 'Monthly'];
     const [inpEvent, setInpEvent] = useState(false);
     const [inpTimeFrom, setInpTimeFrom] = useState(false);
     const [inpTimeTo, setInpTimeTo] = useState(false);
@@ -33,27 +32,11 @@ export const EventCreator = (props) => {
             newEvent.time_to = newEvent.time_from;
             setInpTimeTo(true);
         }
-            if (eventError || timeToError || timeFromError || !inpTimeFrom || !inpTimeTo || !newEvent.time_from || !newEvent.time_to || !inpEvent) {
-                setFormValid(false)
-            } else {
-                setFormValid(true)
-            }
-        /*
-        if (newEvent.selectedCategory != 'Deadline') {
-            if (eventError || timeToError || timeFromError || !inpTimeFrom || !inpTimeTo || !newEvent.time_from || !newEvent.time_to || !inpEvent) {
-                setFormValid(false)
-            } else {
-                setFormValid(true)
-            }
+        if (eventError || timeToError || timeFromError || !inpTimeFrom || !inpTimeTo || !newEvent.time_from || !newEvent.time_to || !inpEvent) {
+            setFormValid(false)
+        } else {
+            setFormValid(true)
         }
-        else {
-            if (eventError || timeToError || timeFromError || !inpTimeFrom || !newEvent.time_from || !inpEvent) {
-                setFormValid(false)
-            } else {
-                setFormValid(true)
-            }
-        }
-*/
 
     }, [eventError, timeToError, timeFromError, inpTimeFrom, inpTimeTo, inpEvent])
 
