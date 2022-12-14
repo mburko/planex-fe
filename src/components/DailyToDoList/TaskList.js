@@ -10,36 +10,36 @@ const TaskList = (props) => {
         id: 1,
         checked: false,
         task: 'To walk the dog',
-        date: '25-11-2022',
-        priority: 2
+        date: '14122022',
+        selectedCategory: 'Middle'
       },
       {
         id: 2,
         checked: false,
         task: 'To go shopping',
-        date: '24-11-2022',
-        priority: 3
+        date: '16122022',
+        selectedCategory: 'Low'
       },
       {
         id: 3,
         checked: false,
         task: 'To meet with someone',
-        date: '23-11-2022',
-        priority: 1
+        date: '14122022',
+        selectedCategory: 'High'
       },
       {
         id: 4,
         checked: false,
         task: 'To walk the dog',
-        date: '25-11-2022',
-        priority: 1
+        date: '15122022',
+        selectedCategory: 'Low'
       },
       {
         id: 5,
         checked: false,
         task: 'To do a lab',
-        date: '25-11-2022',
-        priority: 2
+        date: '15122022',
+        selectedCategory: 'High'
       }
   ])
 

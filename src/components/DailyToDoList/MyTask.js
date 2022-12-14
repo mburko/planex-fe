@@ -2,7 +2,7 @@ import './MyTask.css'
 
 const MyTask = (props) => {
   return (
-      <li className={(props.task.priority===1) ? "task-high" : (props.task.priority===2) ? "task-medium" : "task-low" }
+      <li className={(props.task.selectedCategory==='High') ? "task-high" : (props.task.selectedCategory==='Middle') ? "task-medium" : "task-low" }
           key={props.task.id}>
         <input
           type='checkbox'

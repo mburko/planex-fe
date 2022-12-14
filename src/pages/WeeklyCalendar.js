@@ -17,6 +17,7 @@ const WeeklyCalendar = () => {
      const [activateDel, setActivateDel] = useState(false);
      const [activateEdit, setActivateEdit] = useState(false);
      const [currEvent, setCurrEvent] = useState(null);
+     const [currColumn, setCurrColumn] = useState(null);
      const [currEvDate, setCurrEvDate] = useState(null);
      const [showMessage, setShowMessage] = useState(false);
 
@@ -102,7 +103,9 @@ const WeeklyCalendar = () => {
                <RepeatMessage showMessage={showMessage} setShowMessage={setShowMessage}/>
                <DailyToDoList
                     clickedToDoList={clickedToDoList}
-                    showToDoList={showToDoList} />
+                    showToDoList={showToDoList} 
+                    date={currColumn}/>
+                    
                <div style={{ 'margin': '10% 2% 0 20%' }}>
                     <MonthCalendarHeader
                          events={getEvents}
@@ -129,9 +132,10 @@ const WeeklyCalendar = () => {
                          editStatus={(a) => editStatus(a)}
                          delStatus={(a) => delStatus(a)}
                          currEvent={currEvent}
+                         currColumn={currColumn}
                          setCurrEvent={setCurrEvent}
                          setCurrEvDate={setCurrEvDate}
-
+                         setCurrColumn={setCurrColumn}
 
                     />
                </div>
