@@ -5,6 +5,7 @@ import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHe
 import { DailyToDoList } from '../components/DailyToDoList/DailyToDoList';
 import { RepeatMessage } from '../components/Event/RepeatMessage';
 import { apiAddEvent, apiGetAllEvents, apiDeleteEvent, apiUpdateEvent, apiGetAllEventsPeriod } from '../api/event_api';
+import { add } from 'date-fns';
 
 
 const MonthCalendar = () => {
@@ -19,11 +20,11 @@ const MonthCalendar = () => {
      const [currEvDate, setCurrEvDate] = useState(null);
      const [showMessage, setShowMessage] = useState(false);
 
-     async function myGetEventsNew(curr, moment_str, moment_end) {
-          if (curr === true) {
-               moment_str = today.clone().subtract(1, 'month').startOf('month');
-               moment_end = today.clone().add(1, 'month').endOf('month');
-          } 
+
+     async function myGetEvents(curr_date) {
+          let moment_str = curr_date.clone()/*.subtract(1, 'month')*/.startOf('month');
+          let moment_end = curr_date.clone()/*.add(1, 'month')*/.endOf('month');
+          
           const m_format = 'YYYY-MM-DD[T]HH:mm:ss';
           let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format),moment_end.format(m_format));
 
@@ -44,18 +45,15 @@ const MonthCalendar = () => {
      const prevHandler = async() => {
           console.log('prev');
           setToday(prev => prev.clone().subtract(1, 'month'));
-          let start_m = today.clone().subtract(2, 'month').startOf('month');
-          let end_m = today.clone().endOf('month');
-          await myGetEventsNew(0, start_m, end_m);
+          
+          await myGetEvents(today.clone().subtract(1, 'month'));
      };
 
      const nextHandler = async() => {
           console.log('next');
           setToday(prev => prev.clone().add(1, 'month'));
-          console.log(today);
-          let start_m = today.clone().startOf('month');
-          let end_m = today.clone().add(2, 'month').endOf('month');
-          await myGetEventsNew(0, start_m, end_m);
+
+          await myGetEvents(today.clone().add(1, 'month'));
      };
 
      const [clickedToDoList, setClickToDoList] = useState(false);
@@ -67,31 +65,11 @@ const MonthCalendar = () => {
      function getEvents() {
           return events;
      }
-     async function myGetEvents() {
-          //all events, without repeats
-          //let events2 = await apiGetAllEvents();
-          // add date sync
-          let events2 = await apiGetAllEventsPeriod("2022-11-01T18:00:00", "2023-01-01T18:00:00");
-
-          console.log("get events", events2);
-          let new_events = {};
-
-          events2.forEach(ev => {
-               const event_list = moment(ev.dateOfEvent).format('DDMMYYYY') in new_events ? new_events[moment(ev.dateOfEvent).format('DDMMYYYY')] : [];
-
-               event_list.push(ev);
-               new_events[moment(ev.dateOfEvent).format('DDMMYYYY')] = event_list;
-
-          });
-
-          setEvents(new_events);
-
-     }
-
+     
      async function addEvent(e) {
           await apiAddEvent(e);
-//change to new get events
-          await myGetEvents();
+
+          await myGetEvents(today);
 
           const event_list = moment(e.dateOfEvent).format('DDMMYYYY') in events ? events[moment(e.dateOfEvent).format('DDMMYYYY')] : [];
           event_list.push(e);
@@ -148,7 +126,7 @@ const MonthCalendar = () => {
      
      useEffect(() => async () => {
           console.log("useEffect");
-          await myGetEvents();
+          await myGetEvents(today);
      }, []);
 
      return (

@@ -22,31 +22,12 @@ const WeeklyCalendar = () => {
      const [currEvDate, setCurrEvDate] = useState(null);
      const [showMessage, setShowMessage] = useState(false);
 
-
-     const prevHandler = () => {
-          console.log('prev');
-          setToday(prev => prev.clone().subtract(1, 'week'));
-     }
-     const nextHandler = () => {
-          console.log('next');
-          setToday(prev => prev.clone().add(1, 'week'))
-     };
-
-     const [clickedToDoList, setClickToDoList] = useState(false);
-
-     const showToDoList = () => {
-          setClickToDoList(!clickedToDoList);
-
-     }
-     function getEvents() {
-          return events;
-     }
-
-     async function myGetEvents() {
-          //all events, without repeats
-          //let events2 = await apiGetAllEvents();
-          // add date sync
-          let events2 = await apiGetAllEventsPeriod("2022-11-01T18:00:00", "2023-01-01T18:00:00");
+     async function myGetEvents(curr_date) {
+          let moment_str = curr_date.clone().startOf('week');
+          let moment_end = curr_date.clone().endOf('week');
+          
+          const m_format = 'YYYY-MM-DD[T]HH:mm:ss';
+          let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format),moment_end.format(m_format));
 
           console.log("get events", events2);
           let new_events = {};
@@ -63,11 +44,36 @@ const WeeklyCalendar = () => {
 
      }
 
+
+     const prevHandler = async () => {
+          console.log('prev');
+          setToday(prev => prev.clone().subtract(1, 'week'));
+
+          await myGetEvents(today.clone().subtract(1, 'week'));
+     }
+     const nextHandler =async () => {
+          console.log('next');
+          setToday(prev => prev.clone().add(1, 'week'))
+
+          await myGetEvents(today.clone().add(1, 'week'));
+     };
+
+     const [clickedToDoList, setClickToDoList] = useState(false);
+
+     const showToDoList = () => {
+          setClickToDoList(!clickedToDoList);
+
+     }
+     function getEvents() {
+          return events;
+     }
+
+     
      async function addEvent(e) {
 
           await apiAddEvent(e);
 
-          await myGetEvents();
+          await myGetEvents(today);
 
           const event_list = moment(e.dateOfEvent).format('DDMMYYYY') in events ? events[moment(e.dateOfEvent).format('DDMMYYYY')] : [];
           event_list.push(e);
@@ -127,7 +133,7 @@ const WeeklyCalendar = () => {
 
      useEffect(() => async () => {
           console.log("useEffect");
-          await myGetEvents();
+          await myGetEvents(today);
      }, []);
 
      return (
