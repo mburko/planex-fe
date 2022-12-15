@@ -19,13 +19,43 @@ const MonthCalendar = () => {
      const [currEvDate, setCurrEvDate] = useState(null);
      const [showMessage, setShowMessage] = useState(false);
 
-     const prevHandler = () => {
-          console.log('prev');
-          setToday(prev => prev.clone().subtract(1, 'month'))
+     async function myGetEventsNew(curr, moment_str, moment_end) {
+          if (curr === true) {
+               moment_str = today.clone().subtract(1, 'month').startOf('month');
+               moment_end = today.clone().add(1, 'month').endOf('month');
+          } 
+          const m_format = 'YYYY-MM-DD[T]HH:mm:ss';
+          let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format),moment_end.format(m_format));
+
+          console.log("get events", events2);
+          let new_events = {};
+
+          events2.forEach(ev => {
+               const event_list = moment(ev.dateOfEvent).format('DDMMYYYY') in new_events ? new_events[moment(ev.dateOfEvent).format('DDMMYYYY')] : [];
+
+               event_list.push(ev);
+               new_events[moment(ev.dateOfEvent).format('DDMMYYYY')] = event_list;
+          });
+          setEvents(new_events);
      }
-     const nextHandler = () => {
+
+
+
+     const prevHandler = async() => {
+          console.log('prev');
+          setToday(prev => prev.clone().subtract(1, 'month'));
+          let start_m = today.clone().subtract(2, 'month').startOf('month');
+          let end_m = today.clone().endOf('month');
+          await myGetEventsNew(0, start_m, end_m);
+     };
+
+     const nextHandler = async() => {
           console.log('next');
-          setToday(prev => prev.clone().add(1, 'month'))
+          setToday(prev => prev.clone().add(1, 'month'));
+          console.log(today);
+          let start_m = today.clone().startOf('month');
+          let end_m = today.clone().add(2, 'month').endOf('month');
+          await myGetEventsNew(0, start_m, end_m);
      };
 
      const [clickedToDoList, setClickToDoList] = useState(false);
@@ -60,7 +90,7 @@ const MonthCalendar = () => {
 
      async function addEvent(e) {
           await apiAddEvent(e);
-
+//change to new get events
           await myGetEvents();
 
           const event_list = moment(e.dateOfEvent).format('DDMMYYYY') in events ? events[moment(e.dateOfEvent).format('DDMMYYYY')] : [];
