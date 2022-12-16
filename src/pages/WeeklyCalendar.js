@@ -26,9 +26,6 @@ const WeeklyCalendar = () => {
      const [access, setAccess] = useState(false);
 
     
-     const prevHandler = () => {
-
-    
      async function myGetEvents(curr_date) {
           let moment_str = curr_date.clone().startOf('week');
           let moment_end = curr_date.clone().endOf('week');
@@ -153,12 +150,12 @@ const WeeklyCalendar = () => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowAllocationMessage(false);
           }
-     }, [showRepeatMessage])
+     }, [showRepeatMessage]);
      useEffect(() => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowRepeatMessage(false);
           }
-     }, [showAllocationMessage])
+     }, [showAllocationMessage]);
 
      return (
           <>
