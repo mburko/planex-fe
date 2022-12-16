@@ -1,14 +1,11 @@
-import React, { useState, useRoutes , useEffect} from 'react'
-
+import React, { useState, useEffect } from 'react'
 import { Home } from '../pages/Home';
 import { MonthCalendar } from '../pages/MonthCalendar';
 import { WeeklyCalendar } from '../pages/WeeklyCalendar';
-import { MyTask } from '../components/DailyToDoList/MyTask';
 import { Settings } from '../Settings'
-import { Route, Routes, BrowserRouter, withRouter, Navigate } from 'react-router-dom';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Sidebar } from '../components/Sidemenu/Sidebar';
 import { Header } from '../components/Header/Header';
-import { Tasks } from '../Tasks';
 import { WeeklyToDoList } from './WeeklyToDoList';
 import AxiosClient from '../utilities/AxiosClient';
 import '../components/Header/Logo.css';
@@ -41,8 +38,9 @@ export const MainContent = (props) => {
         setClickSidebar(!clickedSidebar);
 
     }
-    const exit = async() => {
+    const exit = async () => {
         await AxiosClient.get("/logout", {});
+        setUserInfo({});
         setClickedExit(!clickedExit);
     }
 
@@ -78,7 +76,7 @@ export const MainContent = (props) => {
                     exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
                 <Routes >
                     <Route path='/monthcalendar' element={<MonthCalendar />} />
-                    <Route path="/weekcalendar" element={<WeeklyCalendar />} />
+                    <Route path="/weekcalendar" element={ <WeeklyCalendar />} />
                     <Route path='/tasks' element={<WeeklyToDoList />} />
                     <Route path='/settings' element={<Settings />} />
                     <Route path='/home' element={<Home />} />

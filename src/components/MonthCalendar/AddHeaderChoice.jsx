@@ -52,7 +52,7 @@ export const AddHeaderChoice = (props) => {
         </div>
       </div>
       <EventCreator createNew={true} addEvent={props.addEvent} changeState={() => { setClickedNewEvent(false) }} clickedEvent={clickedNewEvent} />
-      <TaskCreator createNew={true} addTask={props.addTask} changeState={() => { setClickedNewTask(false) }} clickedTask={clickedNewTask} />
+      <TaskCreator setShowAllocationMessage={props.setShowAllocationMessage} createNew={true} addTask={props.addTask} changeState={() => { setClickedNewTask(false) }} clickedTask={clickedNewTask} />
     </>
   )
 }

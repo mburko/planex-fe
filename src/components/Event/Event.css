@@ -11,7 +11,7 @@
     flex-direction: column;
     transition: all 0.5s;
     opacity: 1;
-    align-items:center;
+    align-items: center;
     min-height: 100%;
     height: 100%;
 
@@ -168,13 +168,13 @@
     margin-right: 6px;
 }
 
-.RepeatMessage {
+.RepeatMessage,
+.AllocationMessage {
     display: flex;
     flex-direction: column;
     z-index: 20;
     min-height: 55px;
-    min-width: 350px;
-    max-width: 450px;
+
     text-align: center;
     background-color: white;
     border-radius: 6px;
@@ -185,18 +185,37 @@
 
 }
 
+.RepeatMessage {
+    min-width: 350px;
+    max-width: 450px;
+}
+
+.AllocationMessage {
+    min-width: 290px;
+    max-width: 390px;
+}
+
 .RepeatMessage_hidden {
     transform: translateX(-100%);
 }
 
-.repeat_message_text {
-    min-width: 100%;
+.repeat_message_text,
+.allocation_message_text {
     text-align: start;
     font-size: 22px;
     font-family: 'Quicksand';
     font-weight: 500;
     justify-self: flex-end;
     user-select: none;
+}
+
+.repeat_message_text {
+    min-width: 100%;
+
+}
+
+.allocation_message_text {
+    max-width: 95%;
 }
 
 .repeat_message_icon {
