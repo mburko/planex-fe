@@ -46,7 +46,7 @@ export default class FooterHome extends Component {
                 <Paper style={classes.paperFooter}>
                     <h2 className='text-aboutus-h2'>Social Media<hr/></h2>
                     <div className="icon">
-                        <a href=''><FontAwesomeIcon icon={faGithub} /></a>
+                        <a href='https://github.com/mburko/planex-fe'><FontAwesomeIcon icon={faGithub} /></a>
                         <a href=''><FontAwesomeIcon icon={faGoogle} /></a>
                         <a href=''><FontAwesomeIcon icon={faTwitter} /></a>
                         <a href=''><FontAwesomeIcon icon={faFacebook} /></a>

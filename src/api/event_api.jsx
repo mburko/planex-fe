@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import AxiosClient from '../utilities/AxiosClient';
 
 const category = ['Birthday', 'Beauty', 'Deadline', 'Sport', 'Work', 'Other'];
-//const category2 = ['Birthday', 'Deadline', 'Work', 'Sport', 'Beauty'];
 
 // ********************* event crud *****************************************************
 /*
@@ -24,7 +23,7 @@ const mockEventInfo = {
 function convertEvent(eventInfo) {
 
 	let t1 = new Date(eventInfo.start);
-	let t2 = new Date(eventInfo.finish);//.toLocaleTimeString('en-GB').split('T')[1];
+	let t2 = new Date(eventInfo.finish);
 
 	return {
 		event: eventInfo.title,
@@ -33,8 +32,12 @@ function convertEvent(eventInfo) {
 		time_from: (t1.getHours().toString() + ":" + t1.getMinutes().toString()),
 		time_to: (t2.getHours().toString() + ":" + t2.getMinutes().toString()),
 
-		selectedCategory: category[eventInfo.category_id-1], 
-		event_id: eventInfo.id
+		selectedCategory: category[eventInfo.category_id - 1],
+		orig_event_id: eventInfo.id,
+
+		event_id: eventInfo.id * 10000 + Math.floor(Math.random() * 1000)
+
+
 	}
 }
 
@@ -57,7 +60,7 @@ export function apiAddEvent(eventInfo) {
 	console.log(eventInfo);
 	AxiosClient.post('/event', {
 
-		category_id: category.findIndex(cat=> cat === eventInfo.selectedCategory)+1, 
+		category_id: category.findIndex(cat => cat === eventInfo.selectedCategory) + 1,
 		start: dateTimeStart,
 		finish: dateTimeFinish,
 		title: eventInfo.event,
@@ -83,8 +86,8 @@ export function apiUpdateEvent(eventInfo) {
 
 
 	AxiosClient.put('/event', {
-		id: eventInfo.event_id,
-		category_id: category.findIndex(cat=> cat === eventInfo.selectedCategory)+1, 
+		id: eventInfo.orig_event_id,
+		category_id: category.findIndex(cat => cat === eventInfo.selectedCategory) + 1,
 		start: dateTimeStart,
 		finish: dateTimeFinish,
 		title: eventInfo.event,
@@ -145,8 +148,8 @@ export async function apiGetAllEventsPeriod(from_datetime, to_datetime) {
 	let allEvents = [];
 
 	let response = await AxiosClient.post('/event/period', {
-			start_period: from_datetime,
-			finish_period: to_datetime
+		start_period: from_datetime,
+		finish_period: to_datetime
 	});
 
 	if (response.status === 200) {
