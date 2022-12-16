@@ -82,19 +82,20 @@ const WeeklyCalendar = () => {
      }
 
      async function deleteEvent(id, date) {
-          await apiDeleteEvent(id);
-
+          
           const ev_list = events[date];
-
+          
           let i = ev_list.findIndex(ev => ev.event_id === id);
-          ev_list.splice(i, 1);
+          
+          await apiDeleteEvent(ev_list[i].orig_event_id);
 
+          ev_list.splice(i, 1);
      }
 
      async function editEvent(id, date, newEvent) {
           newEvent.event_id = id;
           await apiUpdateEvent(newEvent);
-
+          
           const ev_list = events[date];
           let i = ev_list.findIndex(ev => ev.event_id === id);
 
