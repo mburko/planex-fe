@@ -10,7 +10,7 @@
     flex-direction: column;
     background-size: cover;
     min-height: 100vh;
-    
+
     font-family: 'Karla';
     text-align: center;
     font-weight: 700;
@@ -126,7 +126,7 @@ input[type=email] {
 }
 
 .form_button {
-
+    transition: all 0.5s;
     text-align: center;
     color: var(--white);
     font-family: 'Karla';
@@ -140,6 +140,10 @@ input[type=email] {
     border-radius: 15px;
     cursor: pointer;
     border: none;
+}
+
+.form_button:active:enabled {
+    transform: scale(1.1);
 }
 
 button:disabled:hover {
@@ -158,10 +162,6 @@ button:disabled:hover {
 
 .form_button:hover {
     background-color: var(--darkgreen);
-}
-
-.form_button:active {
-    transform: scale(1.1);
 }
 
 .form_text,
@@ -209,7 +209,7 @@ button:disabled:hover {
     color: var(--error_color);
     font-weight: 100;
     font-size: 18px;
-    max-width:400px;
+    max-width: 400px;
 
 }
 

@@ -1,14 +1,14 @@
 import WeeklyCalendarTable from '../components/WeeklyCaledar/WeeklyCalendarTable';
 import { DailyToDoList } from '../components/DailyToDoList/DailyToDoList';
 import { useState, useEffect } from 'react';
-import format from 'date-fns/format';
-import { Event } from '../components/Event/WeekEvent';
 import moment from "moment";
 import '../components/WeeklyCaledar/WeeklyCalendar.css'
+import AxiosClient from '../utilities/AxiosClient';
 import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHeader';
-import { RepeatMessage } from '../components/Event/RepeatMessage';
 import { apiAddEvent, apiGetAllEvents, apiDeleteEvent, apiUpdateEvent, apiGetAllEventsPeriod } from '../api/event_api';
-
+import { RepeatMessage } from '../components/Event/RepeatMessage';
+import { AllocationMessage } from '../components/DailyToDoList/AllocationMessage';
+import { RedirectToHome } from './RedirectToHome';
 const WeeklyCalendar = () => {
 
      moment.updateLocale('en', { week: { dow: 1 } });
@@ -20,8 +20,15 @@ const WeeklyCalendar = () => {
      const [currEvent, setCurrEvent] = useState(null);
      const [currColumn, setCurrColumn] = useState(null);
      const [currEvDate, setCurrEvDate] = useState(null);
-     const [showMessage, setShowMessage] = useState(false);
 
+     const [showRepeatMessage, setShowRepeatMessage] = useState(false);
+     const [showAllocationMessage, setShowAllocationMessage] = useState(false);
+     const [access, setAccess] = useState(false);
+
+    
+     const prevHandler = () => {
+
+    
      async function myGetEvents(curr_date) {
           let moment_str = curr_date.clone().startOf('week');
           let moment_end = curr_date.clone().endOf('week');
@@ -46,6 +53,7 @@ const WeeklyCalendar = () => {
 
 
      const prevHandler = async () => {
+
           console.log('prev');
           setToday(prev => prev.clone().subtract(1, 'week'));
 
@@ -82,10 +90,12 @@ const WeeklyCalendar = () => {
                [moment(e.dateOfEvent).format('DDMMYYYY')]: event_list
           });
           console.log(events);
-          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !=='' && e.selectedRepeat !=='None') {
-               setShowMessage(true);
+          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !== '' && e.selectedRepeat !== 'None') {
+               setShowRepeatMessage(true);
           }
      }
+
+
 
      async function deleteEvent(id, date) {
           
@@ -133,54 +143,74 @@ const WeeklyCalendar = () => {
      }
 
      useEffect(() => async () => {
+
           console.log("useEffect");
           await myGetEvents(today);
+
      }, []);
 
+     useEffect(() => {
+          if (showRepeatMessage && showAllocationMessage) {
+               setShowAllocationMessage(false);
+          }
+     }, [showRepeatMessage])
+     useEffect(() => {
+          if (showRepeatMessage && showAllocationMessage) {
+               setShowRepeatMessage(false);
+          }
+     }, [showAllocationMessage])
+
      return (
-          <div className="weekly-calendar-page">
-               <RepeatMessage showMessage={showMessage} setShowMessage={setShowMessage}/>
-               <DailyToDoList
-                    clickedToDoList={clickedToDoList}
-                    showToDoList={showToDoList} 
-                    date={currColumn}/>
-                    
-               <div style={{ 'margin': '10% 2% 0 20%' }}>
-                    <MonthCalendarHeader
-                         events={getEvents}
-                         today={today}
-                         prevHandler={prevHandler}
-                         nextHandler={nextHandler}
-                         currCalendar="week"
-                         addEvent={addEvent}
-                         editEvent={editEvent}
-                         deleteEvent={deleteEvent}
-                         activateDel={activateDel}
-                         activateEdit={activateEdit}
-                         currEvent={currEvent}
-                         setCurrEvent={setCurrEvent}
-                         currEvDate={currEvDate}
-                    />
+          <>
+            
+                    <div className="weekly-calendar-page">
+                         <RepeatMessage text={'Reload page to see all repeats'} showMessage={showRepeatMessage} setShowMessage={setShowRepeatMessage} />
+                         <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={showAllocationMessage} setShowMessage={setShowAllocationMessage} />
 
-                    <WeeklyCalendarTable
-                         events={getEvents}
-                         showToDoList={showToDoList}
-                         today={today}
-                         clickedToDoList={clickedToDoList}
-                         startDay={startDay}
-                         editStatus={(a) => editStatus(a)}
-                         delStatus={(a) => delStatus(a)}
-                         currEvent={currEvent}
-                         currColumn={currColumn}
-                         setCurrEvent={setCurrEvent}
-                         setCurrEvDate={setCurrEvDate}
-                         setCurrColumn={setCurrColumn}
+                         <DailyToDoList
+                              clickedToDoList={clickedToDoList}
+                              showToDoList={showToDoList}
+                              date={currColumn} />
 
-                    />
-               </div>
+                         <div style={{ 'margin': '10% 2% 0 20%' }}>
+                              <MonthCalendarHeader
+                                   events={getEvents}
+                                   today={today}
+                                   prevHandler={prevHandler}
+                                   nextHandler={nextHandler}
+                                   currCalendar="week"
+                                   addEvent={addEvent}
+                                   editEvent={editEvent}
+                                   deleteEvent={deleteEvent}
+                                   activateDel={activateDel}
+                                   activateEdit={activateEdit}
+                                   currEvent={currEvent}
+                                   setCurrEvent={setCurrEvent}
+                                   currEvDate={currEvDate}
+                                   setShowAllocationMessage={setShowAllocationMessage}
 
-          </div>
+                              />
 
+                              <WeeklyCalendarTable
+                                   events={getEvents}
+                                   showToDoList={showToDoList}
+                                   today={today}
+                                   clickedToDoList={clickedToDoList}
+                                   startDay={startDay}
+                                   editStatus={(a) => editStatus(a)}
+                                   delStatus={(a) => delStatus(a)}
+                                   currEvent={currEvent}
+                                   currColumn={currColumn}
+                                   setCurrEvent={setCurrEvent}
+                                   setCurrEvDate={setCurrEvDate}
+                                   setCurrColumn={setCurrColumn}
+
+                              />
+                         </div>
+
+                    </div>
+                  
+          </>
      )
 
 };

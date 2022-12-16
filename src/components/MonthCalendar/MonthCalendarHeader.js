@@ -38,7 +38,7 @@ const ButtonWrapper = styled('button')`
     background-color: white;
     border-radius: 50%;
 `;*/
-const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, setCurrEvent, addEvent, addTask, deleteEvent, activateDel, activateEdit, currEvent, events, currEvDate, editEvent }) => {
+const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocationMessage, currCalendar, setCurrEvent, addEvent, addTask, deleteEvent, activateDel, activateEdit, currEvent, events, currEvDate, editEvent }) => {
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
@@ -176,6 +176,7 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, currCalendar, se
                             setShowAddChoice={setShowAddChoice}
                             showEventCreator={showEventCreator}
                             setShowEventCreator={setShowEventCreator}
+                            setShowAllocationMessage={setShowAllocationMessage}
 
                         />
 
