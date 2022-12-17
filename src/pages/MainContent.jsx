@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Home } from '../pages/Home';
 import { MonthCalendar } from '../pages/MonthCalendar';
 import { WeeklyCalendar } from '../pages/WeeklyCalendar';
-import { Settings } from '../Settings'
+import { Settings } from './Settings'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { Sidebar } from '../components/Sidemenu/Sidebar';
 import { Header } from '../components/Header/Header';
