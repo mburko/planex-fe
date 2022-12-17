@@ -20,19 +20,18 @@ const WeeklyCalendar = () => {
      const [currEvent, setCurrEvent] = useState(null);
      const [currColumn, setCurrColumn] = useState(null);
      const [currEvDate, setCurrEvDate] = useState(null);
-     const [showMessage, setShowMessage] = useState(false);
      const [tasks, setTasks] = useState({});
      const [showRepeatMessage, setShowRepeatMessage] = useState(false);
      const [showAllocationMessage, setShowAllocationMessage] = useState(false);
      const [access, setAccess] = useState(false);
 
-    
+
      async function myGetEvents(curr_date) {
           let moment_str = curr_date.clone().startOf('week');
           let moment_end = curr_date.clone().endOf('week');
-          
+
           const m_format = 'YYYY-MM-DD[T]HH:mm:ss';
-          let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format),moment_end.format(m_format));
+          let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format), moment_end.format(m_format));
 
           console.log("get events", events2);
           let new_events = {};
@@ -58,7 +57,7 @@ const WeeklyCalendar = () => {
 
           await myGetEvents(today.clone().subtract(1, 'week'));
      }
-     const nextHandler =async () => {
+     const nextHandler = async () => {
           console.log('next');
           setToday(prev => prev.clone().add(1, 'week'))
 
@@ -75,7 +74,7 @@ const WeeklyCalendar = () => {
           return events;
      }
 
-     
+
      async function addEvent(e) {
 
           await apiAddEvent(e);
@@ -97,11 +96,11 @@ const WeeklyCalendar = () => {
 
 
      async function deleteEvent(id, date) {
-          
+
           const ev_list = events[date];
-          
+
           let i = ev_list.findIndex(ev => ev.event_id === id);
-          
+
           await apiDeleteEvent(ev_list[i].orig_event_id);
 
           ev_list.splice(i, 1);
@@ -110,7 +109,7 @@ const WeeklyCalendar = () => {
      async function editEvent(id, date, newEvent) {
           newEvent.event_id = id;
           await apiUpdateEvent(newEvent);
-          
+
           const ev_list = events[date];
           let i = ev_list.findIndex(ev => ev.event_id === id);
 
@@ -162,21 +161,24 @@ const WeeklyCalendar = () => {
           });
           console.log(tasks);
      }
-     
-     const handleCheck = (id) =>{
-          const listTasks = tasks[currColumn].map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+
+     const handleCheck = (id) => {
+          const listTasks = tasks[currColumn].map((task) => task.id === id ? { ...task, checked: !task.checked } : task);
           setTasks({
                ...tasks,
-               [currColumn]:listTasks
+               [currColumn]: listTasks
           })
-        }
+     }
 
-     
+
+
      useEffect(() => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowAllocationMessage(false);
           }
      }, [showRepeatMessage]);
+
+
      useEffect(() => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowRepeatMessage(false);
@@ -186,54 +188,57 @@ const WeeklyCalendar = () => {
 
      return (
           <>
-            
-                    <div className="weekly-calendar-page">
-                         <RepeatMessage text={'Reload page to see all repeats'} showMessage={showRepeatMessage} setShowMessage={setShowRepeatMessage} />
-                         <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={showAllocationMessage} setShowMessage={setShowAllocationMessage} />
 
-                         <DailyToDoList
-                              clickedToDoList={clickedToDoList}
+               <div className="weekly-calendar-page">
+                    <RepeatMessage text={'Reload page to see all repeats'} showMessage={showRepeatMessage} setShowMessage={setShowRepeatMessage} />
+                    <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={showAllocationMessage} setShowMessage={setShowAllocationMessage} />
+
+                    <DailyToDoList
+                         clickedToDoList={clickedToDoList}
+                         handleCheck={handleCheck}
+                         showToDoList={showToDoList}
+                         tasks={currColumn in tasks ? tasks[currColumn] : []}
+                         clickedColumn={currColumn} />
+
+
+                    <div style={{ 'margin': '10% 2% 0 20%' }}>
+                         <MonthCalendarHeader
+                              events={getEvents}
+                              today={today}
+                              prevHandler={prevHandler}
+                              nextHandler={nextHandler}
+                              currCalendar="week"
+                              addEvent={addEvent}
+                              editEvent={editEvent}
+                              deleteEvent={deleteEvent}
+                              activateDel={activateDel}
+                              activateEdit={activateEdit}
+                              currEvent={currEvent}
+                              setCurrEvent={setCurrEvent}
+                              currEvDate={currEvDate}
+                              setShowAllocationMessage={setShowAllocationMessage}
+
+                         />
+
+                         <WeeklyCalendarTable
+                              events={getEvents}
                               showToDoList={showToDoList}
-                              date={currColumn} />
+                              today={today}
+                              clickedToDoList={clickedToDoList}
+                              startDay={startDay}
+                              editStatus={(a) => editStatus(a)}
+                              delStatus={(a) => delStatus(a)}
+                              currEvent={currEvent}
+                              currColumn={currColumn}
+                              setCurrEvent={setCurrEvent}
+                              setCurrEvDate={setCurrEvDate}
+                              setCurrColumn={setCurrColumn}
 
-                         <div style={{ 'margin': '10% 2% 0 20%' }}>
-                              <MonthCalendarHeader
-                                   events={getEvents}
-                                   today={today}
-                                   prevHandler={prevHandler}
-                                   nextHandler={nextHandler}
-                                   currCalendar="week"
-                                   addEvent={addEvent}
-                                   editEvent={editEvent}
-                                   deleteEvent={deleteEvent}
-                                   activateDel={activateDel}
-                                   activateEdit={activateEdit}
-                                   currEvent={currEvent}
-                                   setCurrEvent={setCurrEvent}
-                                   currEvDate={currEvDate}
-                                   setShowAllocationMessage={setShowAllocationMessage}
-
-                              />
-
-                              <WeeklyCalendarTable
-                                   events={getEvents}
-                                   showToDoList={showToDoList}
-                                   today={today}
-                                   clickedToDoList={clickedToDoList}
-                                   startDay={startDay}
-                                   editStatus={(a) => editStatus(a)}
-                                   delStatus={(a) => delStatus(a)}
-                                   currEvent={currEvent}
-                                   currColumn={currColumn}
-                                   setCurrEvent={setCurrEvent}
-                                   setCurrEvDate={setCurrEvDate}
-                                   setCurrColumn={setCurrColumn}
-
-                              />
-                         </div>
-
+                         />
                     </div>
-                  
+
+               </div>
+
           </>
      )
 
