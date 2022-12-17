@@ -1,10 +1,8 @@
 import './DailyToDoList.css'
 import { SlClose } from 'react-icons/sl'
-import TaskComponent from './TaskComponent'
 import format from 'date-fns/format';
 import moment from "moment";
 import { TaskList } from './TaskList'
-<link rel="stylesheet" type="text/css" href="C:\Users\ACER\planex\src\DailyToDoList.css"></link>
 
 const DailyToDoList = (props) => {
   return (
