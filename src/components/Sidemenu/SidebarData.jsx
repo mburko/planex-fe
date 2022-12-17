@@ -1,5 +1,5 @@
 import React from 'react'
-import {Settings} from '../../Settings'  
+import {Settings} from '../../pages/Settings'  
 
 export const SidebarData = [
     {
