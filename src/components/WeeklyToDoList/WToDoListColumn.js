@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TaskList } from '../DailyToDoList/TaskList';
 import './WToDoListColumn.css'
 import { useState, useEffect } from 'react';
@@ -8,16 +8,17 @@ const WToDoListColumn = (props) => {
 
   const [tasks, setTasks] = useState(props.tasks);
 
-  const category = {'High' : 1, 'Middle':2, 'Low':3};
- 
-  const handleCheck = (id) =>{
-    const listTasks = tasks.map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+  const category = { 'High': 1, 'Middle': 2, 'Low': 3 };
+
+  const handleCheck = (id) => {
+    const listTasks = tasks.map((task) => task.id === id ? { ...task, checked: !task.checked } : task);
     setTasks(listTasks)
   }
 
   useEffect(() => {
     setTasks(props.tasks);
   }, [props.tasks])
+  
 
   return (
     <div class = 'columnT'>
@@ -38,11 +39,12 @@ const WToDoListColumn = (props) => {
             handleCheck={props.handleCheck}
             />
             
+
         ))}
-       
+
       </div>
-</div>
+    </div>
   )
 }
 
-export {WToDoListColumn};
+export { WToDoListColumn };

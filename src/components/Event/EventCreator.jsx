@@ -13,7 +13,7 @@ const EVENT_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 export const EventCreator = (props) => {
     const [startDate, setStartDate] = useState(new Date());
     const category = ['Birthday', 'Beauty', 'Deadline', 'Sport', 'Work', 'Other'];
-    const repeat = ['None','Daily', 'Weekly', 'Monthly'];
+    const repeat = ['None', 'Daily', 'Weekly', 'Monthly'];
     const [inpEvent, setInpEvent] = useState(false);
     const [inpTimeFrom, setInpTimeFrom] = useState(false);
     const [inpTimeTo, setInpTimeTo] = useState(false);
@@ -25,20 +25,39 @@ export const EventCreator = (props) => {
     const [timeFromError, setTimeFromError] = useState(false);
 
     const [formValid, setFormValid] = useState(false);
+    const [newEvent, setState] = useState({
+        event: '',
+        notes: '',
+        dateOfEvent: startDate,
+        time_from: '',
+        time_to: '',
+        selectedCategory: '',
+        selectedRepeat: '',
+        event_id: 0,
+
+    });
 
 
     useEffect(() => {
-        if (newEvent.selectedCategory === 'Deadline' && !newEvent.time_to) {
-            newEvent.time_to = newEvent.time_from;
-            setInpTimeTo(true);
+        if (newEvent.selectedCategory !== 'Deadline') {
+            if (eventError || timeToError || timeFromError || !newEvent.time_from || !newEvent.time_to || !newEvent.event || !newEvent.selectedCategory || !newEvent.selectedRepeat) {
+                setFormValid(false)
+            }
+            else {
+                setFormValid(true)
+            }
         }
-        if (eventError || timeToError || timeFromError || !inpTimeFrom || !inpTimeTo || !newEvent.time_from || !newEvent.time_to || !inpEvent) {
-            setFormValid(false)
-        } else {
-            setFormValid(true)
+        else {
+            if (eventError || timeFromError || !newEvent.time_from || !newEvent.event || !newEvent.selectedCategory || !newEvent.selectedRepeat) {
+                setFormValid(false)
+            }
+            else {
+                setFormValid(true)
+            }
         }
 
-    }, [eventError, timeToError, timeFromError, inpTimeFrom, inpTimeTo, inpEvent])
+
+    }, [newEvent, eventError, timeToError, timeFromError])
 
     useEffect(() => {
 
@@ -64,17 +83,6 @@ export const EventCreator = (props) => {
         }
     }, [props.showEventCreator])
 
-    const [newEvent, setState] = useState({
-        event: '',
-        notes: '',
-        dateOfEvent: startDate,
-        time_from: '',
-        time_to: '',
-        selectedCategory: '',
-        selectedRepeat: '',
-        event_id: 0,
-
-    });
 
 
     const blurHandle = (e) => {
@@ -163,6 +171,7 @@ export const EventCreator = (props) => {
         });
 
     }
+    
     const [toSave, setToSave] = useState(false);
     function handleForm(e) {
         e.preventDefault();
@@ -305,7 +314,7 @@ export const EventCreator = (props) => {
                 />
                 <p className="ev_creator_text">Time:</p>
 
-                {newEvent.selectedCategory != "Deadline" ?
+                {newEvent.selectedCategory !== "Deadline" ?
                     <>
 
 
@@ -340,23 +349,7 @@ export const EventCreator = (props) => {
                             </div>
                         </div>
 
-                        <p className="ev_creator_text">Repeat:</p>
-                        <select
-                            defaultValue=""
-                            name="selectedRepeat"
-                            required className="ev_creator_repeat"
-                            onChange={handleChange}
-                            value={newEvent.selectedRepeat}
-                        >
 
-                            <option value="" disabled selected hidden>Select</option>
-                            {repeat.map((opt) =>
-                                (<option value={opt}>{opt}</option>)
-
-                            )}
-
-
-                        </select>
 
                     </> :
                     <input
@@ -372,7 +365,24 @@ export const EventCreator = (props) => {
 
                 }
 
+                <p className="ev_creator_text">Repeat:</p>
+                <select
+                    defaultValue=""
+                    name="selectedRepeat"
+                    required className="ev_creator_repeat"
+                    onChange={handleChange}
+                    value={newEvent.selectedRepeat}
+                >
 
+                    <option value="" disabled selected hidden>Select</option>
+                    {repeat.map((opt) =>
+                        (<option value={opt}>{opt}</option>)
+
+                    )}
+
+
+                </select>
+                
                 <div className="div_option">
                     <p
                         className="ev_creator_text text_option"
