@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import React, { useRef, useEffect, useState } from 'react'
 
 import './Settings.css';
+
 import { confirmAlert } from 'react-confirm-alert';
 
 
@@ -27,6 +28,7 @@ const ChangePasswordCont = styled('div')`
 const ExitDeleteCont = styled('div')`
     margin-top: 5%;
 `;
+
 const SettingsProfile = () => {
     const [user] = useState({
         updated_name: "",
@@ -134,7 +136,7 @@ const SettingsProfile = () => {
             setEmailError('');
         }
     }
-    
+
     const oldPasswordHandle = (e) => {
         setOldPassword(e.target.value)
         if (e.target.value != current_password) {
@@ -389,6 +391,8 @@ const SettingsProfile = () => {
                 </div>
                 </div>
             </ExitDeleteCont>
+        
+            </ChangePasswordCont>
 
        </SettingsProfileCont>
        

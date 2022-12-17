@@ -19,6 +19,8 @@ const MonthCalendar = () => {
      const [currEvent, setCurrEvent] = useState(null);
      const [currEvDate, setCurrEvDate] = useState(null);
      const [showMessage, setShowMessage] = useState(false);
+     const [tasks, setTasks] = useState({});
+     const [clickedDay, setClickedDay] = useState(null);
 
 
      async function myGetEvents(curr_date) {
@@ -129,12 +131,33 @@ const MonthCalendar = () => {
           await myGetEvents(today);
      }, []);
 
+     function addTask(e) {
+          const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
+          task_list.push(e);
+          setTasks({
+               ...tasks,
+               [moment(e.dateOfTask).format('DDMMYYYY')]: task_list
+          });
+          console.log(tasks);
+     }
+     
+     const handleCheck = (id) =>{
+          const listTasks = tasks[clickedDay].map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+          setTasks({
+               ...tasks,
+               [clickedDay]:listTasks
+          })
+        }
+
      return (
           <div >
                <RepeatMessage showMessage={showMessage} setShowMessage={setShowMessage} />
                <DailyToDoList
                     clickedToDoList={clickedToDoList}
-                    showToDoList={showToDoList} />
+                    showToDoList={showToDoList} 
+                    //handleCheck={handleCheck} 
+                    tasks={'19122022' in tasks ? tasks['19122022']:[]}
+                    />
                <div style={{ 'margin': '10% 2% 0 20%' }}>
 
                     <MonthCalendarHeader
@@ -144,6 +167,7 @@ const MonthCalendar = () => {
                          nextHandler={nextHandler}
                          currCalendar="month"
                          addEvent={addEvent}
+                         addTask={addTask}
                          editEvent={editEvent}
                          deleteEvent={deleteEvent}
                          activateDel={activateDel}
@@ -161,6 +185,8 @@ const MonthCalendar = () => {
                          editStatus={(a) => editStatus(a)}
                          delStatus={(a) => delStatus(a)}
                          currEvent={currEvent}
+                         clickedDay={clickedDay}
+                         setClickedDay={setClickedDay}
                          setCurrEvent={setCurrEvent}
                          setCurrEvDate={setCurrEvDate}
 
