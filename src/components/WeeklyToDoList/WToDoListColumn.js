@@ -1,7 +1,7 @@
 import React from 'react'
 import { TaskList } from '../DailyToDoList/TaskList';
 import './WToDoListColumn.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MyTask } from '../DailyToDoList/MyTask';
 
 const WToDoListColumn = (props) => {
@@ -15,6 +15,9 @@ const WToDoListColumn = (props) => {
     setTasks(listTasks)
   }
 
+  useEffect(() => {
+    setTasks(props.tasks);
+  }, [props.tasks])
 
   return (
     <div class = 'columnT'>
@@ -25,12 +28,14 @@ const WToDoListColumn = (props) => {
       </p>
     </h1>
     <div>
+      {console.log(tasks)}
         {tasks.sort((a, b) => { if(category[a.selectedCategory]>category[b.selectedCategory])return 1;
           if(category[a.selectedCategory]<category[b.selectedCategory])return -1;
           return 0;}).map((e) => (
           <MyTask
             task={e}
-            handleCheck={handleCheck}
+            date={props.date}
+            handleCheck={props.handleCheck}
             />
             
         ))}

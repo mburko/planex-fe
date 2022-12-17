@@ -5,24 +5,25 @@ import './MyTask.css'
 
 const TaskList = (props) => {
 
-  const [tasks, setTasks] = useState([
-     props.tasks
-  ])
+  const [taskList, setTasks] = useState(props.tasks);
 
+  const category = {'High' : 1, 'Middle':2, 'Low':3};
+ 
   const handleCheck = (id) =>{
-    const listTasks = tasks.map((task) => task.id === id ? {...task, checked: !task.checked } : task);
-    setTasks(listTasks);
+    const listTasks = taskList.map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+    setTasks(listTasks)
   }
+
  
 
   return (
     <ul className='task-list'>
       {
-        tasks.sort().map((task) => (props.date===task.date ?
+        taskList.map((task) => (
           <MyTask 
             key={task.id}
             task = {task}
-            handleCheck={handleCheck}/> : null
+            handleCheck={handleCheck}/>
         ))
       }
     </ul>

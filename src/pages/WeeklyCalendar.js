@@ -134,6 +134,7 @@ const WeeklyCalendar = () => {
      function getTasks() {
           return tasks;
      }
+
      function addTask(e) {
           const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
           task_list.push(e);
@@ -144,15 +145,23 @@ const WeeklyCalendar = () => {
           console.log(tasks);
      }
      
+     const handleCheck = (id) =>{
+          const listTasks = tasks[currColumn].map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+          setTasks({
+               ...tasks,
+               [currColumn]:listTasks
+          })
+        }
 
      return (
           <div className="weekly-calendar-page">
                <RepeatMessage showMessage={showMessage} setShowMessage={setShowMessage}/>
                <DailyToDoList
                     clickedToDoList={clickedToDoList}
+                    handleCheck={handleCheck}
                     showToDoList={showToDoList} 
-                    tasks={getTasks}
-                    date={currColumn}/>
+                    tasks={currColumn in tasks ? tasks[currColumn]:[]}
+                    clickedColumn={currColumn}/>
                     
                <div style={{ 'margin': '10% 2% 0 20%' }}>
                     <MonthCalendarHeader

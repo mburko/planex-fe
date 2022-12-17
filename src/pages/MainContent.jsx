@@ -77,7 +77,7 @@ export const MainContent = (props) => {
                     email={getEmail()}
                     exit={exit} clickedSidebar={clickedSidebar} showSidebar={showSidebar} />
                 <Routes >
-                    <Route path='/monthcalendar' element={<MonthCalendar />} />
+                     <Route path='/monthcalendar' element={<MonthCalendar />} />
                     <Route path="/weekcalendar" element={<WeeklyCalendar />} />
                     <Route path='/tasks' element={<WeeklyToDoList />} />
                     <Route path='/settings' element={<Settings />} />

@@ -33,7 +33,16 @@ const WeeklyToDoList = () => {
              ...tasks,
              [moment(e.dateOfTask).format('DDMMYYYY')]: task_list
         });
-        console.log(tasks);
+       
+   }
+
+   const handleCheck = (id, date) =>{
+     const listTasks = tasks[date].map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+     setTasks({
+          ...tasks,
+          [date]:listTasks
+     })
+     
    }
    
      return (
@@ -47,6 +56,7 @@ const WeeklyToDoList = () => {
                        
                   <WeeklyToDoListTable
                        tasks={getTasks}
+                       handleCheck={handleCheck}
                        today={today} 
                        startDay={startDay}/> 
        </div>

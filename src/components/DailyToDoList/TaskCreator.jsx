@@ -38,13 +38,13 @@ export const TaskCreator = (props) => {
 
     });
     useEffect(() => {
-        console.log(newTask);
+        //console.log(newTask);
         if (taskError || !newTask.task || !newTask.selectedCategory) {
             setFormValid(false)
         } else {
             setFormValid(true)
         }
-        console.log(formValid);
+       //console.log(formValid);
     }, [taskError, newTask])
 
    
