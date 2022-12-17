@@ -73,6 +73,7 @@ const WeeklyToDoList = () => {
 
                <WeeklyToDoListTable
                     tasks={getTasks}
+                    handleCheck={handleCheck}
                     today={today}
                     startDay={startDay} />
           </div>

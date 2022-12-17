@@ -171,58 +171,12 @@ const WeeklyCalendar = () => {
           })
         }
 
-     return (
-          <div className="weekly-calendar-page">
-               <RepeatMessage showMessage={showMessage} setShowMessage={setShowMessage}/>
-               <DailyToDoList
-                    clickedToDoList={clickedToDoList}
-                    handleCheck={handleCheck}
-                    showToDoList={showToDoList} 
-                    tasks={currColumn in tasks ? tasks[currColumn]:[]}
-                    clickedColumn={currColumn}/>
-                    
-               <div style={{ 'margin': '10% 2% 0 20%' }}>
-                    <MonthCalendarHeader
-                         events={getEvents}
-                         today={today}
-                         prevHandler={prevHandler}
-                         nextHandler={nextHandler}
-                         currCalendar="week"
-                         addEvent={addEvent}
-                         addTask={addTask}
-                         editEvent={editEvent}
-                         deleteEvent={deleteEvent}
-                         activateDel={activateDel}
-                         activateEdit={activateEdit}
-                         currEvent={currEvent}
-                         setCurrEvent={setCurrEvent}
-                         currEvDate={currEvDate}
-                    />
-
-                    <WeeklyCalendarTable
-                         events={getEvents}
-                         showToDoList={showToDoList}
-                         today={today}
-                         clickedToDoList={clickedToDoList}
-                         startDay={startDay}
-                         editStatus={(a) => editStatus(a)}
-                         delStatus={(a) => delStatus(a)}
-                         currEvent={currEvent}
-                         currColumn={currColumn}
-                         setCurrEvent={setCurrEvent}
-                         setCurrEvDate={setCurrEvDate}
-                         setCurrColumn={setCurrColumn}
-
-                    />
-               </div>
-
-          </div>
-
      useEffect(() => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowAllocationMessage(false);
           }
      }, [showRepeatMessage]);
+     
      useEffect(() => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowRepeatMessage(false);
@@ -251,6 +205,7 @@ const WeeklyCalendar = () => {
                                    currCalendar="week"
                                    addEvent={addEvent}
                                    editEvent={editEvent}
+                                   addTask={addTask}
                                    deleteEvent={deleteEvent}
                                    activateDel={activateDel}
                                    activateEdit={activateEdit}

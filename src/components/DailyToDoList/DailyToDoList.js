@@ -1,5 +1,6 @@
 import './DailyToDoList.css'
 import { useEffect, useState } from 'react';
+import { MyTask } from './MyTask';
 import { SlClose } from 'react-icons/sl'
 import format from 'date-fns/format';
 import moment from "moment";
@@ -17,6 +18,11 @@ const DailyToDoList = (props) => {
     const listTasks = tasks.map((task) => task.id === id ? {...task, checked: !task.checked } : task);
     setTasks(listTasks)
   }
+
+  useEffect(() => {
+    setTasks(props.tasks);
+  }, [props.tasks])
+  
 
 
 
