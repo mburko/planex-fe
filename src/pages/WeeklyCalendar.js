@@ -71,6 +71,7 @@ const WeeklyCalendar = () => {
           setClickToDoList(!clickedToDoList);
 
      }
+     
      function getEvents() {
           return events;
      }
@@ -194,7 +195,9 @@ const WeeklyCalendar = () => {
                          <DailyToDoList
                               clickedToDoList={clickedToDoList}
                               showToDoList={showToDoList}
-                              date={currColumn} />
+                              tasks={currColumn in tasks ? tasks[currColumn]:[]}
+                              clickedColumn={currColumn}
+                              handleCheck={handleCheck} />
 
                          <div style={{ 'margin': '10% 2% 0 20%' }}>
                               <MonthCalendarHeader

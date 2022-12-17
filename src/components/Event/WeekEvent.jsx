@@ -40,6 +40,7 @@ export const WeekEvent = (props) => {
 
         }
     }, [props.category])
+    
     useEffect(() => {
         if (props.id === props.currEvent) {
             setShowFullEvent(true);
