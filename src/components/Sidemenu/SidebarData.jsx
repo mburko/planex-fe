@@ -27,17 +27,6 @@ export const SidebarData = [
         cName: 'sidebar_text sb_big_text',
 
     },
-    {
-        title: 'Profile',
-        path: '/profile',
-        cName: 'sidebar_text sb_small_text',
-
-    },
-    {
-        title: 'Notifications',
-        path: '/notifications',
-        cName: 'sidebar_text sb_small_text',
-
-    },
+   
    
 ]

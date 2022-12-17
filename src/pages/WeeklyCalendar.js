@@ -1,14 +1,14 @@
 import WeeklyCalendarTable from '../components/WeeklyCaledar/WeeklyCalendarTable';
 import { DailyToDoList } from '../components/DailyToDoList/DailyToDoList';
 import { useState, useEffect } from 'react';
-import format from 'date-fns/format';
-import { Event } from '../components/Event/WeekEvent';
 import moment from "moment";
 import '../components/WeeklyCaledar/WeeklyCalendar.css'
+import AxiosClient from '../utilities/AxiosClient';
 import { MonthCalendarHeader } from '../components/MonthCalendar/MonthCalendarHeader';
-import { RepeatMessage } from '../components/Event/RepeatMessage';
 import { apiAddEvent, apiGetAllEvents, apiDeleteEvent, apiUpdateEvent, apiGetAllEventsPeriod } from '../api/event_api';
-
+import { RepeatMessage } from '../components/Event/RepeatMessage';
+import { AllocationMessage } from '../components/DailyToDoList/AllocationMessage';
+import { RedirectToHome } from './RedirectToHome';
 const WeeklyCalendar = () => {
 
      moment.updateLocale('en', { week: { dow: 1 } });
@@ -22,32 +22,17 @@ const WeeklyCalendar = () => {
      const [currEvDate, setCurrEvDate] = useState(null);
      const [showMessage, setShowMessage] = useState(false);
      const [tasks, setTasks] = useState({});
+     const [showRepeatMessage, setShowRepeatMessage] = useState(false);
+     const [showAllocationMessage, setShowAllocationMessage] = useState(false);
+     const [access, setAccess] = useState(false);
 
-
-     const prevHandler = () => {
-          console.log('prev');
-          setToday(prev => prev.clone().subtract(1, 'week'));
-     }
-     const nextHandler = () => {
-          console.log('next');
-          setToday(prev => prev.clone().add(1, 'week'))
-     };
-
-     const [clickedToDoList, setClickToDoList] = useState(false);
-
-     const showToDoList = () => {
-          setClickToDoList(!clickedToDoList);
-
-     }
-     function getEvents() {
-          return events;
-     }
-
-     async function myGetEvents() {
-          //all events, without repeats
-          //let events2 = await apiGetAllEvents();
-          // add date sync
-          let events2 = await apiGetAllEventsPeriod("2022-11-01T18:00:00", "2023-01-01T18:00:00");
+    
+     async function myGetEvents(curr_date) {
+          let moment_str = curr_date.clone().startOf('week');
+          let moment_end = curr_date.clone().endOf('week');
+          
+          const m_format = 'YYYY-MM-DD[T]HH:mm:ss';
+          let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format),moment_end.format(m_format));
 
           console.log("get events", events2);
           let new_events = {};
@@ -64,11 +49,38 @@ const WeeklyCalendar = () => {
 
      }
 
+
+
+     const prevHandler = async () => {
+
+          console.log('prev');
+          setToday(prev => prev.clone().subtract(1, 'week'));
+
+          await myGetEvents(today.clone().subtract(1, 'week'));
+     }
+     const nextHandler =async () => {
+          console.log('next');
+          setToday(prev => prev.clone().add(1, 'week'))
+
+          await myGetEvents(today.clone().add(1, 'week'));
+     };
+
+     const [clickedToDoList, setClickToDoList] = useState(false);
+
+     const showToDoList = () => {
+          setClickToDoList(!clickedToDoList);
+
+     }
+     function getEvents() {
+          return events;
+     }
+
+     
      async function addEvent(e) {
 
           await apiAddEvent(e);
 
-          await myGetEvents();
+          await myGetEvents(today);
 
           const event_list = moment(e.dateOfEvent).format('DDMMYYYY') in events ? events[moment(e.dateOfEvent).format('DDMMYYYY')] : [];
           event_list.push(e);
@@ -77,25 +89,28 @@ const WeeklyCalendar = () => {
                [moment(e.dateOfEvent).format('DDMMYYYY')]: event_list
           });
           console.log(events);
-          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !=='' && e.selectedRepeat !=='None') {
-               setShowMessage(true);
+          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !== '' && e.selectedRepeat !== 'None') {
+               setShowRepeatMessage(true);
           }
      }
 
+
+
      async function deleteEvent(id, date) {
-          await apiDeleteEvent(id);
-
+          
           const ev_list = events[date];
-
+          
           let i = ev_list.findIndex(ev => ev.event_id === id);
-          ev_list.splice(i, 1);
+          
+          await apiDeleteEvent(ev_list[i].orig_event_id);
 
+          ev_list.splice(i, 1);
      }
 
      async function editEvent(id, date, newEvent) {
           newEvent.event_id = id;
           await apiUpdateEvent(newEvent);
-
+          
           const ev_list = events[date];
           let i = ev_list.findIndex(ev => ev.event_id === id);
 
@@ -127,13 +142,17 @@ const WeeklyCalendar = () => {
      }
 
      useEffect(() => async () => {
+
           console.log("useEffect");
-          await myGetEvents();
+          await myGetEvents(today);
+
      }, []);
+
 
      function getTasks() {
           return tasks;
      }
+
      function addTask(e) {
           const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
           task_list.push(e);
@@ -144,15 +163,23 @@ const WeeklyCalendar = () => {
           console.log(tasks);
      }
      
+     const handleCheck = (id) =>{
+          const listTasks = tasks[currColumn].map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+          setTasks({
+               ...tasks,
+               [currColumn]:listTasks
+          })
+        }
 
      return (
           <div className="weekly-calendar-page">
                <RepeatMessage showMessage={showMessage} setShowMessage={setShowMessage}/>
                <DailyToDoList
                     clickedToDoList={clickedToDoList}
+                    handleCheck={handleCheck}
                     showToDoList={showToDoList} 
-                    tasks={getTasks}
-                    date={currColumn}/>
+                    tasks={currColumn in tasks ? tasks[currColumn]:[]}
+                    clickedColumn={currColumn}/>
                     
                <div style={{ 'margin': '10% 2% 0 20%' }}>
                     <MonthCalendarHeader
@@ -191,6 +218,69 @@ const WeeklyCalendar = () => {
 
           </div>
 
+     useEffect(() => {
+          if (showRepeatMessage && showAllocationMessage) {
+               setShowAllocationMessage(false);
+          }
+     }, [showRepeatMessage]);
+     useEffect(() => {
+          if (showRepeatMessage && showAllocationMessage) {
+               setShowRepeatMessage(false);
+          }
+     }, [showAllocationMessage]);
+
+
+     return (
+          <>
+            
+                    <div className="weekly-calendar-page">
+                         <RepeatMessage text={'Reload page to see all repeats'} showMessage={showRepeatMessage} setShowMessage={setShowRepeatMessage} />
+                         <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={showAllocationMessage} setShowMessage={setShowAllocationMessage} />
+
+                         <DailyToDoList
+                              clickedToDoList={clickedToDoList}
+                              showToDoList={showToDoList}
+                              date={currColumn} />
+
+                         <div style={{ 'margin': '10% 2% 0 20%' }}>
+                              <MonthCalendarHeader
+                                   events={getEvents}
+                                   today={today}
+                                   prevHandler={prevHandler}
+                                   nextHandler={nextHandler}
+                                   currCalendar="week"
+                                   addEvent={addEvent}
+                                   editEvent={editEvent}
+                                   deleteEvent={deleteEvent}
+                                   activateDel={activateDel}
+                                   activateEdit={activateEdit}
+                                   currEvent={currEvent}
+                                   setCurrEvent={setCurrEvent}
+                                   currEvDate={currEvDate}
+                                   setShowAllocationMessage={setShowAllocationMessage}
+
+                              />
+
+                              <WeeklyCalendarTable
+                                   events={getEvents}
+                                   showToDoList={showToDoList}
+                                   today={today}
+                                   clickedToDoList={clickedToDoList}
+                                   startDay={startDay}
+                                   editStatus={(a) => editStatus(a)}
+                                   delStatus={(a) => delStatus(a)}
+                                   currEvent={currEvent}
+                                   currColumn={currColumn}
+                                   setCurrEvent={setCurrEvent}
+                                   setCurrEvDate={setCurrEvDate}
+                                   setCurrColumn={setCurrColumn}
+
+                              />
+                         </div>
+
+                    </div>
+                  
+          </>
      )
 
 };
