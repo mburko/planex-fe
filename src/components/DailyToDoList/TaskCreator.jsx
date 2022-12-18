@@ -55,6 +55,26 @@ export const TaskCreator = (props) => {
     }, [newTask.autoAllocation])
 
 
+    useEffect(() => {
+
+        if (!props.createNew && props.showTaskCreator) {
+            setFormValid(true);
+            setInpTask(true);
+            setTaskError(false);
+            let task;
+            for (let i = 0; i < props.tasks.length; i++) {
+                if (props.currTask === props.tasks[i].id) {
+                    task = props.tasks[i];
+                    break;
+                }
+            }
+            setStartDate('19122022');
+            setState({ ...task });
+        }
+    }, [props.showTaskCreator])
+
+
+
     const blurHandle = (e) => {
         setInpTask(true);
 
@@ -77,6 +97,38 @@ export const TaskCreator = (props) => {
         }
 
     }, [newTask.time_hours, newTask.time_mins])
+
+      
+    const [toSave, setToSave] = useState(false);
+    function handleForm(e) {
+        e.preventDefault();
+        if (formValid) {
+            if (props.createNew) {
+                let random = Math.floor(Math.random() * 50);
+                setToSave(true);
+                setState({
+                    ...newTask,
+                    event_id: random
+                });
+            } else {
+                props.editTask(props.currTask, props.currTaskDate, newTask);
+                props.setCurrTask(null);
+                handleCancel();
+
+            }
+
+
+        }
+
+    }
+
+    useEffect(() => {
+        if (toSave) {
+            props.addTask(newTask);
+            handleCancel();
+            setToSave(false);
+        }
+    }, [newTask]);
 
     const handleChange = (e) => {
         let value;
@@ -113,17 +165,6 @@ export const TaskCreator = (props) => {
         });
 
     }
-
-    function handleForm(e) {
-
-        if (formValid) {
-            props.addTask(newTask);
-            handleCancel();
-        }
-
-    }
-
-
 
     const handleCancel = () => {
         props.changeState();

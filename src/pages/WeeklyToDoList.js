@@ -83,7 +83,7 @@ const WeeklyToDoList = () => {
           task_list.splice(i, 1);
      }
 
-     async function editEvent(id, date, newTask) {
+     async function editTask(id, date, newTask) {
           newTask.id = id;
           await apiEditTask(newTask);
           
@@ -95,7 +95,7 @@ const WeeklyToDoList = () => {
                t_list.splice(i, 1);
                const task_list = t_date in tasks ? tasks[t_date] : [];
                task_list.push(newTask);
-               setEvents({
+               setTasks({
                     ...tasks,
                     [t_date]: task_list
                });
@@ -130,10 +130,12 @@ const WeeklyToDoList = () => {
                   <MonthCalendarHeader
                        today={today} 
                        prevHandler={prevHandler} 
+                       tasks={currTaskDate in tasks ? tasks[currTaskDate]:[]} 
                        nextHandler={nextHandler}
                        currCalendar="week"
                        addTask={addTask}
                        deleteTask={deleteTask}
+                       editTask={editTask}
                        currTask={currTask}
                        setCurrTask={setCurrTask}
                        currTaskDate={currTaskDate}

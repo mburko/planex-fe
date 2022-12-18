@@ -201,6 +201,7 @@ const WeeklyCalendar = () => {
                          <div style={{ 'margin': '10% 2% 0 20%' }}>
                               <MonthCalendarHeader
                                    events={getEvents}
+                                   tasks={getTasks}
                                    today={today}
                                    prevHandler={prevHandler}
                                    nextHandler={nextHandler}

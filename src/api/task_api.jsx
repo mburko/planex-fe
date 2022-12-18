@@ -116,8 +116,11 @@ export function apiEditTask(taskInfo) {
 
     console.log("task info", taskInfo);
 
-    AxiosClient.put('/task', 
-        convertTaskPost(taskInfo)
+    const converted_task=convertTaskPost(taskInfo);
+    converted_task.deadline=converted_task.time_to_do;
+   
+    AxiosClient.put('/task/'+ taskInfo.id, 
+       converted_task
     ).then((response) => {
         console.log(response);
         return 1;

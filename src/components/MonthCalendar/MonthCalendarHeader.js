@@ -8,6 +8,7 @@ import { RiDeleteBin5Line } from 'react-icons/ri'
 import { AddHeaderChoice } from './AddHeaderChoice';
 import { DeleteHeaderChoice } from './DeleteHeaderChoice';
 import { EventCreator } from '../Event/EventCreator';
+import { TaskCreator } from '../DailyToDoList/TaskCreator';
 
 
 
@@ -38,7 +39,7 @@ const ButtonWrapper = styled('button')`
     background-color: white;
     border-radius: 50%;
 `;*/
-const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocationMessage, currCalendar, setCurrEvent, addEvent, addTask, deleteEvent, deleteTask, activateDel, activateEdit, currEvent, events, currEvDate, editEvent, currTask, currTaskDate, setCurrTask }) => {
+const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocationMessage, currCalendar, setCurrEvent, addEvent, addTask, deleteEvent, deleteTask, activateDel, activateEdit, currEvent, events, tasks,  currEvDate, editEvent, editTask, currTask, currTaskDate, setCurrTask }) => {
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
@@ -46,6 +47,7 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
     const [showAddChoice, setShowAddChoice] = useState(false);
     const [showDeleteChoice, setShowDeleteChoice] = useState(false);
     const [showEventCreator, setShowEventCreator] = useState(false);
+    const [showTaskCreator, setShowTaskCreator] = useState(false)
     const [showPseudoChoice, setShowPseudoChoice] = useState(false);
 
     const [clickedAdd, setClickedAdd] = useState(false);
@@ -129,7 +131,7 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
                     <div className="full_event_edit_button"
                         onMouseEnter={() => setShowEdit(true)}
                         onMouseLeave={() => setShowEdit(false)}
-                        onClick={() => setShowEventCreator(true)}
+                        onClick={() => {setShowEventCreator(true); setShowTaskCreator(true)}}
                     >
 
                         <div className={`event_edit_button_hover ${((currEvent != null || currTask!=null)  && showEdit && activateEdit) ? "event_edit_button_hover_active" : "event_edit_button_hover_closed"}`}>{
@@ -137,7 +139,7 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
 
                         <FiEdit style={{ 'z-index': '10', 'cursor': `${(currEvent != null || currTask!=null) && activateEdit ? "pointer" : "default"}` }} size={40} color={(currEvent != null || currTask!=null) && activateEdit ? '#C6AC8D' : '#D3D3D3'} id="event_change_button" />
                     </div>
-                    {((currEvent != null || currTask!=null) && showEventCreator) ? <EventCreator
+                    {((currEvent != null ) && showEventCreator) ? <EventCreator
                         setCurrEvent={setCurrEvent}
                         editEvent={editEvent}
                         currEvDate={currEvDate}
@@ -145,7 +147,18 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
                         showEventCreator={showEventCreator}
                         setShowEventCreator={setShowEventCreator}
                         currEvent={currEvent}
-                        events={events} /> : null}
+                        events={events} 
+                        /> : null}
+                    {((currTask != null) && showTaskCreator) ? <TaskCreator
+                        setCurrTask={setCurrTask}
+                        editTask={editTask}
+                        currTaskDate={currTaskDate}
+                        createNew={false}
+                        showTaskCreator={showTaskCreator}
+                        setShowTaskCreator={setShowTaskCreator}
+                        currTask={currTask}
+                        tasks={tasks} 
+                        /> : null}
 
 
 
