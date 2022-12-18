@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react'
-import { TaskList } from '../DailyToDoList/TaskList';
 import './WToDoListColumn.css'
 import { useState, useEffect } from 'react';
 import { MyTask } from '../DailyToDoList/MyTask';

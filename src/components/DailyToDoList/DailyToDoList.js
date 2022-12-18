@@ -1,11 +1,10 @@
 import './DailyToDoList.css'
 import { useEffect, useState } from 'react';
+import { MyTask } from './MyTask';
 import { SlClose } from 'react-icons/sl'
 import format from 'date-fns/format';
 import moment from "moment";
-import { TaskList } from './TaskList'
-import { MyTask } from './MyTask';
-<link rel="stylesheet" type="text/css" href="C:\Users\ACER\planex\src\DailyToDoList.css"></link>
+
 
 const DailyToDoList = (props) => {
 
@@ -19,6 +18,11 @@ const DailyToDoList = (props) => {
     const listTasks = tasks.map((task) => task.id === id ? {...task, checked: !task.checked } : task);
     setTasks(listTasks)
   }
+
+  useEffect(() => {
+    setTasks(props.tasks);
+  }, [props.tasks])
+  
 
 
 
