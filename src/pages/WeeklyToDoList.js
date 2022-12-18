@@ -83,6 +83,28 @@ const WeeklyToDoList = () => {
           task_list.splice(i, 1);
      }
 
+     async function editEvent(id, date, newTask) {
+          newTask.id = id;
+          await apiEditTask(newTask);
+          
+          const t_list = tasks[moment(date).format('DDMMYYYY')];
+          let i = t_list.findIndex(task => task.id === id);
+
+          const t_date = moment(newTask.dateOfTask).format('DDMMYYYY');
+          if (date != t_date) {
+               t_list.splice(i, 1);
+               const task_list = t_date in tasks ? tasks[t_date] : [];
+               task_list.push(newTask);
+               setEvents({
+                    ...tasks,
+                    [t_date]: task_list
+               });
+          } else {
+               Object.assign(t_list[i], newTask);
+          }
+
+
+     }
   
      const handleCheck = async(id, date) => {
 
