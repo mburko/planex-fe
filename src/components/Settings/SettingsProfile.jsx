@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AxiosClient from '../../utilities/AxiosClient';
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 import ToggleSwitch from './ToggleSwitch';
+import { apiDeleteUser, apiEditUser, apiGetUser } from '../../api/user_api';
 
 const LOGIN_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const NAME_REGEX = /^[A-Za-z][A-Za-z -]{2,45}$/u;
@@ -36,6 +37,7 @@ const SettingsProfile = () => {
         updated_name: "",
         updated_email: "",
         updated_login: "",
+        password:"",
         updated_password: ""
     })
     const current_password = 'password1Curr'; /*test*/
@@ -70,6 +72,15 @@ const SettingsProfile = () => {
     const [passwordFormValid, setPasswordFormValid] = useState(false);
 
     const currPass = useRef(null);
+
+    const [currUser, setCurrUser] = useState({});
+    
+    
+    useEffect(() => async()=> { 
+         setCurrUser(await apiGetUser());
+         console.log(currUser);
+    }, []);
+    
 
     useEffect(() => {
         if (loginError || nameError || emailError) {
@@ -141,12 +152,13 @@ const SettingsProfile = () => {
     
     const oldPasswordHandle = (e) => {
         setOldPassword(e.target.value)
-        if (e.target.value != current_password) {
-            setOldPasswordError('Incorrect password!')
+        //if (e.target.value != current_password) {
+       //     setOldPasswordError('Incorrect password!')
             if (!e.target.value) {
                 setOldPasswordError('Current password can not be empty!');
             }
-        } else {
+       // } 
+       else {
             setOldPasswordError('');
         }
     }
@@ -209,11 +221,17 @@ const SettingsProfile = () => {
         window.location.assign('/home');
     }
 
-    function updateUser(e) {
+    async function updateUser(e) {
         e.preventDefault();
+        console.log(user);
+        await apiEditUser(user);
     }
-    function changePass(e) {
+
+    async function changePass(e) {
         e.preventDefault();
+        user.password = oldpassword;
+        console.log(user);
+        await apiEditUser(user);
     }
 
 
@@ -229,7 +247,8 @@ const SettingsProfile = () => {
               },
               {
                 label: 'Delete',
-                onClick: () => {
+                onClick: async() => {
+                    await apiDeleteUser();
                     goToMain();
                  {/* appState.deleteUser(user)
                   .then(() => {
@@ -255,7 +274,7 @@ const SettingsProfile = () => {
                             name="name"
                             type="text"
                             className={(nameError && inpName) ? "updated_form_input_error" : "updated_form_input_success"}
-                            autofocus placeholder="old_name"
+                            autofocus placeholder= "old_name"
                             value={updated_name}
                             onChange={e => nameHandle(e)}
                             onBlur={e => blurHandle(e)}
