@@ -2,9 +2,13 @@ import { BsBell, BsPersonCircle } from "react-icons/bs";
 
 
 export const UserBlock = (props) => {
+    const goToSettings = () => {
+        window.location.assign('/settings');
+    }
+   
     return (
 
-        <div id="headerUserBlock">
+        <div id="headerUserBlock" onClick={goToSettings}>
             <div id="userBlock_elements">
             
                 <p id="userName" className="userBlock_elem">{props.userName}</p>
