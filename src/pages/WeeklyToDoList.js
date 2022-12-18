@@ -1,6 +1,7 @@
 import { WeeklyToDoListTable } from "../components/WeeklyToDoList/WToDoListTable";
 import { MonthCalendarHeader } from "../components/MonthCalendar/MonthCalendarHeader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { apiAddTask, apiDeletetask, apiGetAllTasks } from "../api/task_api";
 import moment from "moment";
 
 
@@ -29,15 +30,45 @@ const WeeklyToDoList = () => {
    function getTasks() {
         return tasks;
    }
-   function addTask(e) {
-        const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
-        task_list.push(e);
-        setTasks({
-             ...tasks,
-             [moment(e.dateOfTask).format('DDMMYYYY')]: task_list
-        });
-       
-   }
+   
+   async function myGetTasks() {
+     let tasks_temp = await apiGetAllTasks();
+
+     console.log("get tasks", tasks_temp);
+     let new_tasks = {};
+     tasks_temp.forEach(tsk => {
+
+          let task_list = moment(tsk.dateOfTask).format('DDMMYYYY') in new_tasks ? new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] : [];
+
+          task_list.push(tsk);
+          new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] = task_list;
+     });
+
+     // console.log("res new tasks", new_tasks);
+     setTasks(new_tasks);
+
+     
+}
+
+     const [tempTask, setTempTask] = useState({});
+     async function addTask(e) {
+          // console.log("task", e);
+          await apiAddTask(e);
+          await apiGetAllTasks();
+
+          const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
+          task_list.push(e);
+          setTasks({
+               ...tasks,
+               [moment(e.dateOfTask).format('DDMMYYYY')]: task_list
+          });
+
+          console.log(tasks);
+     }
+
+     useEffect(() => async () => {
+          await myGetTasks();
+     }, []);
 
   
    const handleCheck = (id, date) =>{
