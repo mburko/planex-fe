@@ -24,7 +24,7 @@ function convertUserPost(userInfo)
         password: userInfo.password,
         username: userInfo.username,
         email: userInfo.email,
-        team_working: userInfo.notifications,
+        notifications: userInfo.notifications,
     }
 }
 
@@ -47,17 +47,11 @@ function convertUserEdit(userInfo)
     if (userInfo['password']) {
         res['password'] = userInfo['password'];
     }
+    if ('notifications' in userInfo) {
+        res['notifications'] = userInfo['notifications'];
+    }
     return res;
 }
-
-const mockUserInfo = {
-        login: "TestLogin",
-        password: "bad_password",
-        username: "TestUser",
-        email: "planex_user@gmail.com",
-        notifications: false
-    };
-
 
 
 export function apiAddUser(userInfo) {
