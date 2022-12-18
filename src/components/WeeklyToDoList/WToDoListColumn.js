@@ -8,9 +8,9 @@ const WToDoListColumn = (props) => {
 
   const category = { 'High': 1, 'Middle': 2, 'Low': 3 };
 
-  const handleCheck = (id) => {
-    const listTasks = tasks.map((task) => task.id === id ? { ...task, checked: !task.checked } : task);
-    setTasks(listTasks)
+  function dateOfClickedTask(){
+    props.setCurrTaskDate(props.dayItem);
+    
   }
 
   useEffect(() => {
@@ -35,6 +35,9 @@ const WToDoListColumn = (props) => {
             task={e}
             date={props.date}
             handleCheck={props.handleCheck}
+            dateOfClickedTask={dateOfClickedTask}
+            currTask={props.currTask}
+            setCurrTask={props.setCurrTask}
             />
             
 
