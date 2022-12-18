@@ -15,8 +15,7 @@ const WeeklyToDoListTable = (props) => {
           <WToDoListColumn 
             tasks={dayItem.format('DDMMYYYY') in props.tasks() ? props.tasks()[dayItem.format('DDMMYYYY')] : []}
             key = {dayItem.format('DDMMYYYY')}
-            date = {dayItem.format('DDMMYYYY')}
-            handleCheck={props.handleCheck}
+            date = {dayItem.format('DD-MM-YYYY')}
             weekday = {dayItem.format('dddd')}
             daynum = {dayItem.format('D')}
             />

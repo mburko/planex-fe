@@ -36,13 +36,12 @@ export const TaskCreator = (props) => {
 
     });
     useEffect(() => {
-        //console.log(newTask);
+        console.log(newTask);
         if (taskError || !newTask.task || !newTask.selectedCategory) {
             setFormValid(false)
         } else {
             setFormValid(true)
         }
-        
     }, [taskError, newTask])
 
     useEffect(() => {
@@ -111,6 +110,9 @@ export const TaskCreator = (props) => {
             ...newTask,
             [e.target.name]: value
         });
+
+
+
 
     }
 

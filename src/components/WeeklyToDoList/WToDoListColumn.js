@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { TaskList } from '../DailyToDoList/TaskList';
 import './WToDoListColumn.css'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MyTask } from '../DailyToDoList/MyTask';
 
 const WToDoListColumn = (props) => {
@@ -19,26 +19,24 @@ const WToDoListColumn = (props) => {
     setTasks(props.tasks);
   }, [props.tasks])
   
-
   return (
-    <div class = 'columnT'>
-    <h1 class='columnTitleT'>
-      {props.weekday}
-      <p>
-      {props.daynum}
-      </p>
-    </h1>
-    <div>
-      {console.log(tasks)}
-        {tasks.sort((a, b) => { if(category[a.selectedCategory]>category[b.selectedCategory])return 1;
-          if(category[a.selectedCategory]<category[b.selectedCategory])return -1;
-          return 0;}).map((e) => (
+    <div class='columnT'>
+      <h1 class='columnTitleT'>
+        {props.weekday}
+        <p>
+          {props.daynum}
+        </p>
+      </h1>
+      <div>
+        {tasks.sort((a, b) => {
+          if (category[a.selectedCategory] > category[b.selectedCategory]) return 1;
+          if (category[a.selectedCategory] < category[b.selectedCategory]) return -1;
+          return 0;
+        }).map((e) => (
           <MyTask
             task={e}
-            date={props.date}
-            handleCheck={props.handleCheck}
-            />
-            
+            handleCheck={handleCheck}
+          />
 
         ))}
 

@@ -5,25 +5,58 @@ import './MyTask.css'
 
 const TaskList = (props) => {
 
-  const [taskList, setTasks] = useState(props.tasks);
+  const [tasks, setTasks] = useState([
+      {
+        id: 1,
+        checked: false,
+        task: 'To walk the dog',
+        date: '14122022',
+        selectedCategory: 'Middle'
+      },
+      {
+        id: 2,
+        checked: false,
+        task: 'To go shopping',
+        date: '16122022',
+        selectedCategory: 'Low'
+      },
+      {
+        id: 3,
+        checked: false,
+        task: 'To meet with someone',
+        date: '14122022',
+        selectedCategory: 'High'
+      },
+      {
+        id: 4,
+        checked: false,
+        task: 'To walk the dog',
+        date: '15122022',
+        selectedCategory: 'Low'
+      },
+      {
+        id: 5,
+        checked: false,
+        task: 'To do a lab',
+        date: '15122022',
+        selectedCategory: 'High'
+      }
+  ])
 
-  const category = {'High' : 1, 'Middle':2, 'Low':3};
- 
   const handleCheck = (id) =>{
-    const listTasks = taskList.map((task) => task.id === id ? {...task, checked: !task.checked } : task);
-    setTasks(listTasks)
+    const listTasks = tasks.map((task) => task.id === id ? {...task, checked: !task.checked } : task);
+    setTasks(listTasks);
   }
-
  
 
   return (
     <ul className='task-list'>
       {
-        taskList.map((task) => (
+        tasks.sort().map((task) => (props.date===task.date ?
           <MyTask 
             key={task.id}
             task = {task}
-            handleCheck={handleCheck}/>
+            handleCheck={handleCheck}/> : null
         ))
       }
     </ul>

@@ -60,7 +60,7 @@ const CurrentDay = styled.div`
     border-style: double;
 `;
 const MonthCalendarGrid = ({
-    today, startDay, showToDoList, clickedToDoList, events, editStatus, delStatus, currEvent, setCurrEvent, setCurrEvDate, setClickedDay,  }) => {
+    today, startDay, showToDoList, clickedToDoList, events, editStatus, delStatus, currEvent, setCurrEvent, setCurrEvDate }) => {
 
     const totalDays = 42;
     const day = startDay.clone().subtract(1, 'day');
@@ -69,18 +69,6 @@ const MonthCalendarGrid = ({
 
     function getEvents(dayItem) {
         return dayItem.format('DDMMYYYY') in events() ? events()[dayItem.format('DDMMYYYY')] : [];
-    }
-
- 
-    
-    function handleClick(){
-    if(clickedToDoList)
-    {
-        showToDoList();
-    }
-    else{
-       console.log('uio')
-    }
     }
 
 
@@ -104,7 +92,7 @@ const MonthCalendarGrid = ({
                         isVisible={dayItem.clone().format('MM') === today.clone().format('MM')} >
                         <RowInCell >
 
-                            <DayWrapper onClick={showToDoList}>
+                            <DayWrapper onClick={clickedToDoList ? 'None' : showToDoList}>
 
                                 {!isCurrentDay(dayItem) && dayItem.format('D')}
                                 {isCurrentDay(dayItem) && <CurrentDay isOneDigit={dayItem.clone().format('D') in [1, 2, 3, 4, 5, 6, 7, 8, 9]}>

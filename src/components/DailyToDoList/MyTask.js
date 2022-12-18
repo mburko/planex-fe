@@ -7,13 +7,13 @@ const MyTask = (props) => {
         <input
           type='checkbox'
           class="custom-checkbox" id={props.task.id}
-          onChange={() => props.handleCheck(props.task.id, props.date)}
+          onChange={() => props.handleCheck(props.task.id)}
           checked={props.task.checked}
           />
           <label
               for={props.task.id}
               style = {(props.task.checked) ? {textDecoration: 'line-through'} : null}
-              onDoubleClick={() => props.handleCheck(props.task.id, props.date)}>
+              onDoubleClick={() => props.handleCheck(props.task.id)}>
              {props.task.task}
           </label>
       </li>

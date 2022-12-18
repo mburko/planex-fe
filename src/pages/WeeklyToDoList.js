@@ -13,35 +13,21 @@ const WeeklyToDoList = () => {
      const [today, setToday] = useState(moment());
      const startDay = today.clone().startOf('week');
      const [tasks, setTasks] = useState({});
-
-    
-    const prevHandler = () => {
-         console.log('prev');
-         setToday(prev => prev.clone().subtract(1, 'week'))
-    }
-    const nextHandler = () => {
-         console.log('next');
-         setToday(prev => prev.clone().add(1, 'week'))
-    };
-   
-   function getTasks() {
-        return tasks;
-   }
-
-
-   const handleCheck = (id, date) =>{
-     const listTasks = tasks[date].map((task) => task.id === id ? {...task, checked: !task.checked } : task);
-     setTasks({
-          ...tasks,
-          [date]:listTasks
-     })
-     
-   }
-
-
      const [showAllocationMessage, setShowAllocationMessage] = useState(false);
 
-    
+     const prevHandler = () => {
+          console.log('prev');
+          setToday(prev => prev.clone().subtract(1, 'week'))
+     }
+     const nextHandler = () => {
+          console.log('next');
+          setToday(prev => prev.clone().add(1, 'week'))
+     };
+
+     function getTasks() {
+          return tasks;
+     }
+
      const [tempTask, setTempTask] = useState({})
      function addTask(e) {
           const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
@@ -76,7 +62,6 @@ const WeeklyToDoList = () => {
                     today={today}
                     startDay={startDay} />
           </div>
-
 
      )
 
