@@ -4,6 +4,12 @@ import React, { useRef, useEffect, useState } from 'react'
 
 import './Settings.css';
 
+import { confirmAlert } from 'react-confirm-alert';
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import AxiosClient from '../../utilities/AxiosClient';
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
@@ -14,11 +20,15 @@ const PWD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
 
 
 const SettingsProfileCont = styled('div')`
-    margin: 10% 20%;
+    margin: 10% 20% 5% 20%;
 `;
 const ChangePasswordCont = styled('div')`
     margin-top: 5%;
 `;
+const ExitDeleteCont = styled('div')`
+    margin-top: 5%;
+`;
+
 const SettingsProfile = () => {
     const [user] = useState({
         updated_name: "",
@@ -155,7 +165,6 @@ const SettingsProfile = () => {
         }
     }
 
-    
     const confirmPassHandle = (e) => {
         setConfirmPass(e.target.value)
         if (e.target.value != currPass.current.value) {
@@ -194,11 +203,43 @@ const SettingsProfile = () => {
         }
     }
 
+    const goToMain = () => {
+        window.location.assign('/home');
+    }
+
     function updateUser(e) {
         e.preventDefault();
     }
     function changePass(e) {
         e.preventDefault();
+    }
+
+
+    function  deleteAccount(){
+        
+        confirmAlert({
+            title: 'Delete account',
+            message: `Are you sure you want to delete account?`,
+            buttons: [
+              {
+                label: 'Cancel',
+                className: 'settings_del_button'
+              },
+              {
+                label: 'Delete',
+                onClick: () => {
+                    goToMain();
+                 {/* appState.deleteUser(user)
+                  .then(() => {
+                    toast.success(`User deleted.`);
+                  })
+                  .catch(err => {
+                    toast.error(`Failed to delete user ${user.username}: ${err.message}`);
+                  });*/}
+                }
+              }     
+            ]
+          });
     }
 
     return (
@@ -337,6 +378,19 @@ const SettingsProfile = () => {
                     >Change Password</button>
                 </div>
                 </div>
+            </ChangePasswordCont>
+            <ExitDeleteCont>
+                <h3 className='settings_title'>Delete Account<hr className='sett-hr'/></h3> 
+                <div style={{"marginTop":"3%"}}>  
+                <p className='setting_title_item' style={{"marginTop":"0%"}}>If you delete your account, you will permanently lose your profile, events, tasks.<br/> You can't undo this action.</p>
+                <div className='set_button'>
+                    <button
+                        className="settings_button settings_del_button"
+                        onClick={() => deleteAccount()}
+                    >Delete Account</button>
+                </div>
+                </div>
+            </ExitDeleteCont>
         
             </ChangePasswordCont>
 
