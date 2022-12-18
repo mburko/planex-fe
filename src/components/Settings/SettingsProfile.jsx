@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import React, { useRef, useEffect, useState } from 'react'
 
 import './Settings.css';
-
 import { confirmAlert } from 'react-confirm-alert';
 
 
@@ -12,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import AxiosClient from '../../utilities/AxiosClient';
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
+import ToggleSwitch from './ToggleSwitch';
 
 const LOGIN_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const NAME_REGEX = /^[A-Za-z][A-Za-z -]{2,45}$/u;
@@ -28,7 +28,9 @@ const ChangePasswordCont = styled('div')`
 const ExitDeleteCont = styled('div')`
     margin-top: 5%;
 `;
-
+const NotificationCont = styled('div')`
+    margin-top: 5%;
+`;
 const SettingsProfile = () => {
     const [user] = useState({
         updated_name: "",
@@ -136,7 +138,7 @@ const SettingsProfile = () => {
             setEmailError('');
         }
     }
-
+    
     const oldPasswordHandle = (e) => {
         setOldPassword(e.target.value)
         if (e.target.value != current_password) {
@@ -379,6 +381,12 @@ const SettingsProfile = () => {
                 </div>
                 </div>
             </ChangePasswordCont>
+            <NotificationCont>
+                <h3 className='settings_title'>Notification<hr className='sett-hr'/></h3> 
+                <div style={{"marginTop":"3%"}}>  
+                    <ToggleSwitch/>
+                </div>
+            </NotificationCont>
             <ExitDeleteCont>
                 <h3 className='settings_title'>Delete Account<hr className='sett-hr'/></h3> 
                 <div style={{"marginTop":"3%"}}>  
@@ -391,9 +399,6 @@ const SettingsProfile = () => {
                 </div>
                 </div>
             </ExitDeleteCont>
-        
-            </ChangePasswordCont>
-
        </SettingsProfileCont>
        
     );
