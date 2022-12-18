@@ -15,7 +15,7 @@ export const DeleteHeaderChoice = (props) => {
 
                 <div className={props.state ? "hd_choice" : "hd_choice_disabled"}>
                     <div className="hd_choice_text"
-                        onClick={() => { props.deleteEvent(props.currEvent, props.currEvDate); props.setCurrEvent(null) }}>Confirm</div>
+                        onClick={() => {  props.deleteTask(props.currTask, props.currTaskDate);props.setCurrTask(null) }}>Confirm</div>
 
                     <div className="hd_choice_text"
                         onClick={() => { props.setShowDeleteChoice(!props.state); }}

@@ -38,7 +38,7 @@ const ButtonWrapper = styled('button')`
     background-color: white;
     border-radius: 50%;
 `;*/
-const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocationMessage, currCalendar, setCurrEvent, addEvent, addTask, deleteEvent, activateDel, activateEdit, currEvent, events, currEvDate, editEvent }) => {
+const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocationMessage, currCalendar, setCurrEvent, addEvent, addTask, deleteEvent, deleteTask, activateDel, activateEdit, currEvent, events, currEvDate, editEvent, currTask, currTaskDate, setCurrTask }) => {
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
@@ -86,7 +86,7 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
                         onMouseLeave={() => setShowDeleteChoice(false)}
                     >
 
-                        <div className={`event_delete_button_hover ${(currEvent != null && showDelete && activateDel) ? "event_delete_button_hover_active" : "event_delete_button_hover_closed"}`}
+                        <div className={`event_delete_button_hover ${((currEvent != null || currTask!=null) && showDelete && activateDel) ? "event_delete_button_hover_active" : "event_delete_button_hover_closed"}`}
                             onMouseEnter={() => { setShowDelete(true); handleDelete(); }}
                             onMouseLeave={() => { setShowDelete(false); handleDelete(); }}
                             onClick={() => { setShowDeleteChoice(!showDeleteChoice); setShowPseudoChoice(true) }}
@@ -99,13 +99,17 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
                             >Delete</div>}</div>
 
 
-                        <RiDeleteBin5Line style={{ 'z-index': '10', 'cursor': `${currEvent != null && activateDel ? "pointer" : "default"}` }} size={40} color={currEvent != null && activateDel ? '#C6AC8D' : '#D3D3D3'} id="event_delete_button"
+                        <RiDeleteBin5Line style={{ 'z-index': '10', 'cursor': `${(currEvent != null || currTask!=null) && activateDel ? "pointer" : "default"}` }} size={40} color={(currEvent != null || currTask!=null) && activateDel ? '#C6AC8D' : '#D3D3D3'} id="event_delete_button"
                             onMouseEnter={() => { setShowDelete(true); handleDelete(); }}
                             onMouseLeave={() => { setShowDelete(false); handleDelete(); }}
                             onClick={() => { setShowDeleteChoice(!showDeleteChoice); setShowPseudoChoice(true) }}
                         />
-                        {currEvent != null? <DeleteHeaderChoice
+                        {(currEvent != null || currTask!=null)? <DeleteHeaderChoice
                             deleteEvent={deleteEvent}
+                            deleteTask={deleteTask}
+                            currTask={currTask}
+                            setCurrTask={setCurrTask}
+                            currTaskDate={currTaskDate}
                             currEvent={currEvent}
                             setCurrEvent={setCurrEvent}
                             currEvDate={currEvDate}
@@ -128,12 +132,12 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
                         onClick={() => setShowEventCreator(true)}
                     >
 
-                        <div className={`event_edit_button_hover ${(currEvent != null && showEdit && activateEdit) ? "event_edit_button_hover_active" : "event_edit_button_hover_closed"}`}>{
+                        <div className={`event_edit_button_hover ${((currEvent != null || currTask!=null)  && showEdit && activateEdit) ? "event_edit_button_hover_active" : "event_edit_button_hover_closed"}`}>{
                             showEdit && <div className="event_button_text">Edit</div>}</div>
 
-                        <FiEdit style={{ 'z-index': '10', 'cursor': `${currEvent != null && activateEdit ? "pointer" : "default"}` }} size={40} color={currEvent != null && activateEdit ? '#C6AC8D' : '#D3D3D3'} id="event_change_button" />
+                        <FiEdit style={{ 'z-index': '10', 'cursor': `${(currEvent != null || currTask!=null) && activateEdit ? "pointer" : "default"}` }} size={40} color={(currEvent != null || currTask!=null) && activateEdit ? '#C6AC8D' : '#D3D3D3'} id="event_change_button" />
                     </div>
-                    {(currEvent != null && showEventCreator) ? <EventCreator
+                    {((currEvent != null || currTask!=null) && showEventCreator) ? <EventCreator
                         setCurrEvent={setCurrEvent}
                         editEvent={editEvent}
                         currEvDate={currEvDate}

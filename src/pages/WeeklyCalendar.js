@@ -194,7 +194,9 @@ const WeeklyCalendar = () => {
                          <DailyToDoList
                               clickedToDoList={clickedToDoList}
                               showToDoList={showToDoList}
-                              date={currColumn} />
+                              tasks={currColumn in tasks ? tasks[currColumn]:[]}
+                              clickedColumn={currColumn}
+                              handleCheck={handleCheck} />
 
                          <div style={{ 'margin': '10% 2% 0 20%' }}>
                               <MonthCalendarHeader
@@ -204,9 +206,9 @@ const WeeklyCalendar = () => {
                                    nextHandler={nextHandler}
                                    currCalendar="week"
                                    addEvent={addEvent}
-                                   editEvent={editEvent}
-                                   addTask={addTask}
+                                   editEvent={editEvent}                                   
                                    deleteEvent={deleteEvent}
+                                   addTask={addTask}
                                    activateDel={activateDel}
                                    activateEdit={activateEdit}
                                    currEvent={currEvent}

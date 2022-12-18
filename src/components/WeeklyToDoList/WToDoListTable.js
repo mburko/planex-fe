@@ -22,6 +22,9 @@ const WeeklyToDoListTable = (props) => {
             daynum = {dayItem.format('D')}
             currTask={props.currTask}
             setCurrTask={props.setCurrTask}
+            setCurrTaskDate={props.setCurrTaskDate}
+            editStatus={(a) => props.editStatus(a)}
+            delStatus={(a) => props.delStatus(a)}
             />
           
       ))

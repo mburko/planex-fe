@@ -1,7 +1,7 @@
 import { WeeklyToDoListTable } from "../components/WeeklyToDoList/WToDoListTable";
 import { MonthCalendarHeader } from "../components/MonthCalendar/MonthCalendarHeader";
 import { useState, useEffect } from "react";
-import { apiAddTask, apiDeletetask, apiGetAllTasks } from "../api/task_api";
+import { apiAddTask, apiDeleteTask, apiGetAllTasks, apiEditTask } from "../api/task_api";
 import moment from "moment";
 
 
@@ -17,6 +17,7 @@ const WeeklyToDoList = () => {
      const [activateDel, setActivateDel] = useState(false);
      const [activateEdit, setActivateEdit] = useState(false);
      const [currTask, setCurrTask]=useState(null);
+     const [currTaskDate, setCurrTaskDate]=useState(null);
     
     const prevHandler = () => {
          console.log('prev');
@@ -70,15 +71,26 @@ const WeeklyToDoList = () => {
           await myGetTasks();
      }, []);
 
+
+     async function deleteTask(id, date) {
+          
+          const task_list = tasks[moment(date).format('DDMMYYYY')];
+          console.log(currTaskDate)
+          let i = task_list.findIndex(task => task.id === id);
+          
+          await apiDeleteTask(task_list[i]);
+
+          task_list.splice(i, 1);
+     }
+
   
-   const handleCheck = (id, date) =>{
-     const listTasks = tasks[date].map((task) => task.id === id ? {...task, checked: !task.checked } : task);
-     setTasks({
-          ...tasks,
-          [date]:listTasks
-     })
-     
-   }
+     const handleCheck = async(id, date) => {
+
+          let t = tasks[date].find(temp => temp.id === id);
+          t.checked = !t.checked;
+          await apiEditTask(t);
+      
+        };
 
      const editStatus = (a) => {
           setActivateEdit(a);
@@ -93,13 +105,18 @@ const WeeklyToDoList = () => {
    
      return (
        <div style={{ 'margin-top':'10%'}}> 
-       {console.log(currTask)}
                   <MonthCalendarHeader
                        today={today} 
                        prevHandler={prevHandler} 
                        nextHandler={nextHandler}
                        currCalendar="week"
                        addTask={addTask}
+                       deleteTask={deleteTask}
+                       currTask={currTask}
+                       setCurrTask={setCurrTask}
+                       currTaskDate={currTaskDate}
+                       activateDel={activateDel}
+                       activateEdit={activateEdit}
                        />
                        
                   <WeeklyToDoListTable
@@ -109,6 +126,7 @@ const WeeklyToDoList = () => {
                        startDay={startDay}
                        currTask={currTask}
                        setCurrTask={setCurrTask}
+                       setCurrTaskDate={setCurrTaskDate}
                        editStatus={(a) => editStatus(a)}
                        delStatus={(a) => delStatus(a)}/> 
        </div>

@@ -38,6 +38,8 @@ const WToDoListColumn = (props) => {
             dateOfClickedTask={dateOfClickedTask}
             currTask={props.currTask}
             setCurrTask={props.setCurrTask}
+            editStatus={(a) => props.editStatus(a)}
+            delStatus={(a) => props.delStatus(a)}
             />
             
 
