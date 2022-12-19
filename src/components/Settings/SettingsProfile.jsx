@@ -37,17 +37,41 @@ const SettingsProfile = () => {
         updated_name: "",
         updated_email: "",
         updated_login: "",
-        password:"",
+        password: "",
         updated_password: ""
     })
+
+    const [userInfo, setUserInfo] = useState({});
+
+    useEffect(() => async () => {
+        let response = await AxiosClient.get("/user", {});
+        if (response.status === 200) {
+            console.log(response);
+            setUserInfo(response.data);
+        }
+        else {
+            console.log(response);
+        }
+    }, []);
+
+    function getUserName() {
+        return userInfo['username'];
+    }
+    function getLogin() {
+        return userInfo['login'];
+    }
+    function getEmail() {
+        return userInfo['email'];
+    }
+
     const current_password = 'password1Curr'; /*test*/
-    const [updated_name, setName] = useState('');
+    const [updated_name, setName] = useState(getUserName());
     const [inpName, setInpName] = useState(false);
 
-    const [updated_login, setLogin] = useState('');
+    const [updated_login, setLogin] = useState(getLogin());
     const [inpLogin, setInpLogin] = useState(false);
 
-    const [updated_email, setEmail] = useState('');
+    const [updated_email, setEmail] = useState(getEmail());
     const [inpEmail, setInpEmail] = useState(false);
 
     const [oldpassword, setOldPassword] = useState('');
@@ -67,20 +91,20 @@ const SettingsProfile = () => {
     const [oldPasswordError, setOldPasswordError] = useState('Current password can not be empty!');
     const [passwordError, setPasswordError] = useState('New password can not be empty!');
     const [matchPassError, setMatchPassError] = useState('Confirm new password can not be empty!');
-    
+
     const [profileFormValid, setProfileFormValid] = useState(false);
     const [passwordFormValid, setPasswordFormValid] = useState(false);
 
     const currPass = useRef(null);
 
     const [currUser, setCurrUser] = useState({});
-    
-    
-    useEffect(() => async()=> { 
-         setCurrUser(await apiGetUser());
-         console.log(currUser);
+
+
+    useEffect(() => async () => {
+        setCurrUser(await apiGetUser());
+        console.log(currUser);
     }, []);
-    
+
 
     useEffect(() => {
         if (loginError || nameError || emailError) {
@@ -98,15 +122,17 @@ const SettingsProfile = () => {
         }
     }, [passwordError, oldPasswordError, matchPassError])
 
-   /* useEffect(() => {
-        if (loginError || passwordError || nameError || emailError || matchPassError || oldPassworError) {
-            setProfileFormValid(false)
-        } else {
-            setProfileFormValid(true)
-        }
-    }, [nameError, loginError, emailError, passwordError, matchPassError, oldPasswordError])
+    /* useEffect(() => {
+         if (loginError || passwordError || nameError || emailError || matchPassError || oldPassworError) {
+             setProfileFormValid(false)
+         } else {
+             setProfileFormValid(true)
+         }
+     }, [nameError, loginError, emailError, passwordError, matchPassError, oldPasswordError])
+ 
+ */
 
-*/
+   
 
     const nameHandle = (e) => {
         setName(e.target.value)
@@ -149,16 +175,16 @@ const SettingsProfile = () => {
             setEmailError('');
         }
     }
-    
+
     const oldPasswordHandle = (e) => {
         setOldPassword(e.target.value)
         //if (e.target.value != current_password) {
-       //     setOldPasswordError('Incorrect password!')
-            if (!e.target.value) {
-                setOldPasswordError('Current password can not be empty!');
-            }
-       // } 
-       else {
+        //     setOldPasswordError('Incorrect password!')
+        if (!e.target.value) {
+            setOldPasswordError('Current password can not be empty!');
+        }
+        // } 
+        else {
             setOldPasswordError('');
         }
     }
@@ -173,7 +199,7 @@ const SettingsProfile = () => {
         }
         else if (!PWD_REGEX.test(updated_password)) {
             setPasswordError('New password must contain no symbols, 1 digit, 1 upper and 1 lower letter!');
-           
+
         } else {
             setPasswordError('');
         }
@@ -235,38 +261,38 @@ const SettingsProfile = () => {
     }
 
 
-    function  deleteAccount(){
-        
+    function deleteAccount() {
+
         confirmAlert({
             title: 'Delete account',
             message: `Are you sure you want to delete account?`,
             buttons: [
-              {
-                label: 'Cancel',
-                className: 'settings_del_button'
-              },
-              {
-                label: 'Delete',
-                onClick: async() => {
-                    await apiDeleteUser();
-                    goToMain();
-                 {/* appState.deleteUser(user)
+                {
+                    label: 'Cancel',
+                    className: 'settings_del_button'
+                },
+                {
+                    label: 'Delete',
+                    onClick: async () => {
+                        await apiDeleteUser();
+                        goToMain();
+                        {/* appState.deleteUser(user)
                   .then(() => {
                     toast.success(`User deleted.`);
                   })
                   .catch(err => {
                     toast.error(`Failed to delete user ${user.username}: ${err.message}`);
                   });*/}
+                    }
                 }
-              }     
             ]
-          });
+        });
     }
 
     return (
-       <SettingsProfileCont>
-            <h3 className='settings_title'>Profile<hr className='sett-hr'/></h3> 
-            <div style={{"marginTop":"3%"}}>
+        <SettingsProfileCont>
+            <h3 className='settings_title'>Profile<hr className='sett-hr' /></h3>
+            <div style={{ "marginTop": "3%" }}>
                 <p className='setting_title_item'>Name</p>
                 <div className="updated_form_input" form="form_input">
                     <div className="updated_input_success_div">
@@ -274,152 +300,152 @@ const SettingsProfile = () => {
                             name="name"
                             type="text"
                             className={(nameError && inpName) ? "updated_form_input_error" : "updated_form_input_success"}
-                            autofocus placeholder= "old_name"
+                            autofocus placeholder={getUserName()}
                             value={updated_name}
                             onChange={e => nameHandle(e)}
                             onBlur={e => blurHandle(e)}
                         />
-                        {(inpName && nameError) && <div className="updated_form_message updated_input_error">{nameError} 
+                        {(inpName && nameError) && <div className="updated_form_message updated_input_error">{nameError}
                             <BsFillXCircleFill className="updated_form_error_icon" /></div>}
                         {(inpName && !nameError) && <div className="form_message updated_input_success">
                             <BsCheckCircleFill className="updated_form_success_icon" /></div>}
-                </div>
-                <p className='setting_title_item'>Login</p>
-                <div className="updated_form_input" form="form_input" style={{"marginTop":"-7%"}}>
-                    <div className="updated_input_success_div">
-                        <input name="login"
-                            type="text"
-                            id="login"
-                            className={(loginError && inpLogin) ?  "updated_form_input_error" : "updated_form_input_success"}
-                            autofocus placeholder="old_login"
-                            value={updated_login}
-                            onChange={e => loginHandle(e)}
-                            onBlur={e => blurHandle(e)}
-                        />
-                        {(inpLogin && loginError) && <div className="updated_form_message updated_input_error">{loginError}
-                            <BsFillXCircleFill className="updated_form_error_icon" /></div>}
-                        {(inpLogin && !loginError) && <div className="form_message updated_input_success">
-                            <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                    </div>
+                    <p className='setting_title_item'>Login</p>
+                    <div className="updated_form_input" form="form_input" style={{ "marginTop": "-7%" }}>
+                        <div className="updated_input_success_div">
+                            <input name="login"
+                                type="text"
+                                id="login"
+                                className={(loginError && inpLogin) ? "updated_form_input_error" : "updated_form_input_success"}
+                                autofocus placeholder={getLogin()}
+                                value={updated_login}
+                                onChange={e => loginHandle(e)}
+                                onBlur={e => blurHandle(e)}
+                            />
+                            {(inpLogin && loginError) && <div className="updated_form_message updated_input_error">{loginError}
+                                <BsFillXCircleFill className="updated_form_error_icon" /></div>}
+                            {(inpLogin && !loginError) && <div className="form_message updated_input_success">
+                                <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                        </div>
+                    </div>
+                    <p className='setting_title_item'>Email</p>
+                    <div className="updated_form_input" form="form_input" style={{ "marginTop": "-7%" }}>
+                        <div className="updated_input_success_div">
+                            <input name="email"
+                                type="email"
+                                id="email"
+                                className={(emailError && inpEmail) ? "updated_form_input_error" : "updated_form_input_success"}
+                                autofocus placeholder={getEmail()}
+                                value={updated_email}
+                                onChange={e => emailHandle(e)}
+                                onBlur={e => blurHandle(e)}
+                            />
+                            {(inpEmail && emailError) && <div className="updated_form_message updated_input_error">{emailError}
+                                <BsFillXCircleFill className="updated_form_error_icon" /></div>}
+                            {(inpEmail && !emailError) && <div className="form_message updated_input_success">
+                                <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                        </div>
                     </div>
                 </div>
-                <p className='setting_title_item'>Email</p>
-                <div className="updated_form_input" form="form_input" style={{"marginTop":"-7%"}}>
-                    <div className="updated_input_success_div">
-                        <input name="email"
-                            type="email"
-                            id="email"
-                            className={(emailError && inpEmail) ? "updated_form_input_error" : "updated_form_input_success"}
-                            autofocus placeholder="old_email"
-                            value={updated_email}
-                            onChange={e => emailHandle(e)}
-                            onBlur={e => blurHandle(e)}
-                        />
-                        {(inpEmail && emailError) && <div className="updated_form_message updated_input_error">{emailError}
-                            <BsFillXCircleFill className="updated_form_error_icon" /></div>}
-                        {(inpEmail && !emailError) && <div className="form_message updated_input_success">
-                            <BsCheckCircleFill className="updated_form_success_icon" /></div>}
-                    </div>
+                <div className='set_button'>
+                    <button
+                        disabled={!profileFormValid}
+                        className="settings_button"
+                        onClick={(e) => updateUser(e)}
+                    >Save</button>
                 </div>
-            </div>
-            <div className='set_button'>
-            <button
-                    disabled={!profileFormValid}
-                    className="settings_button"
-                    onClick={(e) => updateUser(e)}
-                >Save</button>
-            </div>
             </div>
 
             <ChangePasswordCont>
-                <h3 className='settings_title'>Password<hr className='sett-hr'/></h3> 
-                <div style={{"marginTop":"3%"}}>     
-                <p className='setting_title_item'>Current password</p>
-                <div className="updated_form_input" form="form_input" style={{"marginTop":"-2.5%"}}>
-                    <div className="updated_input_success_div">
-                        <input
-                            name="curr_password"
-                            type="password"
-                            className={(oldPasswordError && inpOldPassword) ? "updated_form_input_error" : "updated_form_input_success"}
-                            autofocus placeholder="current password"
-                            value={oldpassword}
-                            onChange={e => oldPasswordHandle(e)}
-                            onBlur={e => blurHandle(e)}
+                <h3 className='settings_title'>Password<hr className='sett-hr' /></h3>
+                <div style={{ "marginTop": "3%" }}>
+                    <p className='setting_title_item'>Current password</p>
+                    <div className="updated_form_input" form="form_input" style={{ "marginTop": "-2.5%" }}>
+                        <div className="updated_input_success_div">
+                            <input
+                                name="curr_password"
+                                type="password"
+                                className={(oldPasswordError && inpOldPassword) ? "updated_form_input_error" : "updated_form_input_success"}
+                                autofocus placeholder="current password"
+                                value={oldpassword}
+                                onChange={e => oldPasswordHandle(e)}
+                                onBlur={e => blurHandle(e)}
 
-                        />
-                        {(inpOldPassword && oldPasswordError) && <div className="updated_form_message updated_input_error">{oldPasswordError} 
-                            <BsFillXCircleFill className="updated_form_error_icon" /></div>}
-                        {(inpOldPassword && !oldPasswordError) && <div className="form_message updated_input_success">
-                            <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                            />
+                            {(inpOldPassword && oldPasswordError) && <div className="updated_form_message updated_input_error">{oldPasswordError}
+                                <BsFillXCircleFill className="updated_form_error_icon" /></div>}
+                            {(inpOldPassword && !oldPasswordError) && <div className="form_message updated_input_success">
+                                <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                        </div>
                     </div>
-                </div>
-                <p className='setting_title_item' style={{"marginTop":"0%"}}>New password</p>
-                <div className="updated_form_input" form="form_input" style={{"marginTop":"-2.5%"}}>
-                    <div className="updated_input_success_div">
-                        <input
-                            ref={currPass}
-                            name="password"
-                            type="password"
-                            id="password"
-                            className={(passwordError && inpPassword) ? "updated_form_input_error" : "updated_form_input_success"}
-                            autofocus placeholder="new password"
-                            value={updated_password}
-                            onChange={e => passwordHandle(e)}
-                            onBlur={e => blurHandle(e)}
-                        />
-                        {(inpPassword && passwordError) && <div className="updated_form_message updated_input_error">{passwordError} 
-                            <BsFillXCircleFill className="updated_form_error_icon" /></div>}
-                        {(inpPassword && !passwordError) && <div className="form_message updated_input_success">
-                            <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                    <p className='setting_title_item' style={{ "marginTop": "0%" }}>New password</p>
+                    <div className="updated_form_input" form="form_input" style={{ "marginTop": "-2.5%" }}>
+                        <div className="updated_input_success_div">
+                            <input
+                                ref={currPass}
+                                name="password"
+                                type="password"
+                                id="password"
+                                className={(passwordError && inpPassword) ? "updated_form_input_error" : "updated_form_input_success"}
+                                autofocus placeholder="new password"
+                                value={updated_password}
+                                onChange={e => passwordHandle(e)}
+                                onBlur={e => blurHandle(e)}
+                            />
+                            {(inpPassword && passwordError) && <div className="updated_form_message updated_input_error">{passwordError}
+                                <BsFillXCircleFill className="updated_form_error_icon" /></div>}
+                            {(inpPassword && !passwordError) && <div className="form_message updated_input_success">
+                                <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                        </div>
                     </div>
-                </div>
-                <p className='setting_title_item' style={{"marginTop":"0%"}}>Confirm new password</p>
-                <div className="updated_form_input" form="form_input" style={{"marginTop":"-2.5%"}}>
-                    <div className="updated_input_success_div">
-                        <input
-                            name="confirmPass"
-                            type="password"
-                            id="confirm_password"
-                            className={(matchPassError && inpConfirmPass) ? "updated_form_input_error" : "updated_form_input_success"}
-                            autofocus placeholder="new password"
-                            value={confirmPass}
-                            onChange={e => confirmPassHandle(e)}
-                            onBlur={e => blurHandle(e)}
-                        />
-                        {(inpConfirmPass && matchPassError) && <div className="updated_form_message updated_input_error">{matchPassError} 
-                            <BsFillXCircleFill className="updated_form_error_icon" /></div>}
-                        {(inpConfirmPass && !matchPassError) && <div className="form_message updated_input_success">
-                            <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                    <p className='setting_title_item' style={{ "marginTop": "0%" }}>Confirm new password</p>
+                    <div className="updated_form_input" form="form_input" style={{ "marginTop": "-2.5%" }}>
+                        <div className="updated_input_success_div">
+                            <input
+                                name="confirmPass"
+                                type="password"
+                                id="confirm_password"
+                                className={(matchPassError && inpConfirmPass) ? "updated_form_input_error" : "updated_form_input_success"}
+                                autofocus placeholder="new password"
+                                value={confirmPass}
+                                onChange={e => confirmPassHandle(e)}
+                                onBlur={e => blurHandle(e)}
+                            />
+                            {(inpConfirmPass && matchPassError) && <div className="updated_form_message updated_input_error">{matchPassError}
+                                <BsFillXCircleFill className="updated_form_error_icon" /></div>}
+                            {(inpConfirmPass && !matchPassError) && <div className="form_message updated_input_success">
+                                <BsCheckCircleFill className="updated_form_success_icon" /></div>}
+                        </div>
                     </div>
-                </div>
-                <div className='set_button'>
-                    <button
-                        disabled={!passwordFormValid}
-                        className="settings_button"
-                        onClick={(e) => changePass(e)}
-                    >Change Password</button>
-                </div>
+                    <div className='set_button'>
+                        <button
+                            disabled={!passwordFormValid}
+                            className="settings_button"
+                            onClick={(e) => changePass(e)}
+                        >Change Password</button>
+                    </div>
                 </div>
             </ChangePasswordCont>
             <NotificationCont>
-                <h3 className='settings_title'>Notification<hr className='sett-hr'/></h3> 
-                <div style={{"marginTop":"3%"}}>  
-                    <ToggleSwitch/>
+                <h3 className='settings_title'>Notification<hr className='sett-hr' /></h3>
+                <div style={{ "marginTop": "3%" }}>
+                    <ToggleSwitch />
                 </div>
             </NotificationCont>
             <ExitDeleteCont>
-                <h3 className='settings_title'>Delete Account<hr className='sett-hr'/></h3> 
-                <div style={{"marginTop":"3%"}}>  
-                <p className='setting_title_item' style={{"marginTop":"0%"}}>If you delete your account, you will permanently lose your profile, events, tasks.<br/> You can't undo this action.</p>
-                <div className='set_button'>
-                    <button
-                        className="settings_button settings_del_button"
-                        onClick={() => deleteAccount()}
-                    >Delete Account</button>
-                </div>
+                <h3 className='settings_title'>Delete Account<hr className='sett-hr' /></h3>
+                <div style={{ "marginTop": "3%" }}>
+                    <p className='setting_title_item' style={{ "marginTop": "0%" }}>If you delete your account, you will permanently lose your profile, events, tasks.<br /> You can't undo this action.</p>
+                    <div className='set_button'>
+                        <button
+                            className="settings_button settings_del_button"
+                            onClick={() => deleteAccount()}
+                        >Delete Account</button>
+                    </div>
                 </div>
             </ExitDeleteCont>
-       </SettingsProfileCont>
-       
+        </SettingsProfileCont>
+
     );
 };
 export { SettingsProfile };
