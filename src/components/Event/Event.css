@@ -141,6 +141,10 @@
     margin: auto;
 }
 
+.show_name_weekevent:hover {
+    transform: scale(1.1);
+
+}
 
 .hide_weekevent_name {
     opacity: 0;

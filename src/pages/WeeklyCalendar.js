@@ -77,6 +77,7 @@ const WeeklyCalendar = () => {
           setClickToDoList(!clickedToDoList);
 
      }
+     
      function getEvents() {
           return events;
      }
@@ -273,6 +274,7 @@ const WeeklyCalendar = () => {
                               setCurrTaskDate={setCurrTaskDate}
                               editStatus={(a) => editStatus(a)}
                               delStatus={(a) => delStatus(a)} />
+
 
                          <div style={{ 'margin': '10% 2% 0 20%' }}>
                               <MonthCalendarHeader

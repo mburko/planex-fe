@@ -23,6 +23,7 @@ function convertTaskGet(taskInfo) {
     let t = new Date(taskInfo.time_to_do);
 
     return {
+
         checked: taskInfo.done,
         dateOfTask: new Date(taskInfo.time_to_do),
         id: taskInfo.id,
@@ -125,4 +126,5 @@ export function apiEditTask(taskInfo) {
         console.log(error);
         return 0;
     });
+
 }

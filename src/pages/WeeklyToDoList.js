@@ -19,6 +19,7 @@ const WeeklyToDoList = () => {
      const [currTask, setCurrTask]=useState(null);
      const [currEvent, setCurrEvent]=useState(null);
      const [currTaskDate, setCurrTaskDate]=useState(null);
+
     
     const prevHandler = () => {
          console.log('prev');
@@ -147,12 +148,14 @@ const WeeklyToDoList = () => {
                        currTaskDate={currTaskDate}
                        activateDel={activateDel}
                        activateEdit={activateEdit}
+
                        />
                        
                   <WeeklyToDoListTable
                        tasks={getTasks}
                        handleCheck={handleCheck}
                        today={today}
+
                        startDay={startDay}
                        currTask={currTask}
                        setCurrTask={setCurrTask}

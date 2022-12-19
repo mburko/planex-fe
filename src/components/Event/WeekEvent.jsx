@@ -40,6 +40,7 @@ export const WeekEvent = (props) => {
 
         }
     }, [props.category])
+
     useEffect(() => {
         if (props.id === props.currEvent) {
             setShowFullEvent(true);
@@ -98,9 +99,7 @@ export const WeekEvent = (props) => {
 
             }
             {(props.height < 20) ? null :
-                <div className={`show_name_weekevent name_weekevent_transition ${showEventName ? "" : "hide_weekevent_name"} `}
-                    onMouseEnter={() => setShowEventName(true)}>
-
+                <div className="show_name_weekevent name_weekevent_transition">
                     {ellipsify(props.ev_name)}
                 </div>}
         </div>
