@@ -200,14 +200,13 @@ const WeeklyCalendar = () => {
      }, []);
 
 
-     async function deleteTask(id, date) {
+     async function deleteTask(id) {
           
-          const task_list = tasks[moment(date).format('DDMMYYYY')];
+          const task_list = tasks[currColumn];
           console.log(currTaskDate)
           let i = task_list.findIndex(task => task.id === id);
           
           await apiDeleteTask(task_list[i]);
-
           task_list.splice(i, 1);
      }
 
@@ -285,6 +284,7 @@ const WeeklyCalendar = () => {
                                    addEvent={addEvent}
                                    editEvent={editEvent}                                   
                                    deleteEvent={deleteEvent}
+                                   deleteTask={deleteTask}
                                    addTask={addTask}
                                    activateDel={activateDel}
                                    activateEdit={activateEdit}

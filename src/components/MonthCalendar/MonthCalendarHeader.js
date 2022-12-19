@@ -104,7 +104,7 @@ const MonthCalendarHeader = ({ today, prevHandler, nextHandler, setShowAllocatio
                             onMouseLeave={() => { setShowDelete(false); handleDelete(); }}
                             onClick={() => { setShowDeleteChoice(!showDeleteChoice); setShowPseudoChoice(true) }}
                         />
-                        {(currEvent != null || currTask!=null)? <DeleteHeaderChoice
+                         {(currEvent != null || currTask!=null)? <DeleteHeaderChoice
                             deleteEvent={deleteEvent}
                             deleteTask={deleteTask}
                             currTask={currTask}

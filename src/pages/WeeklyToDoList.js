@@ -17,6 +17,7 @@ const WeeklyToDoList = () => {
      const [activateDel, setActivateDel] = useState(false);
      const [activateEdit, setActivateEdit] = useState(false);
      const [currTask, setCurrTask]=useState(null);
+     const [currEvent, setCurrEvent]=useState(null);
      const [currTaskDate, setCurrTaskDate]=useState(null);
     
     const prevHandler = () => {
@@ -51,6 +52,10 @@ const WeeklyToDoList = () => {
      
 }
 
+     function deleteEvent(){
+          console.log('event');
+     }
+
      const [tempTask, setTempTask] = useState({});
      async function addTask(e) {
           // console.log("task", e);
@@ -74,8 +79,8 @@ const WeeklyToDoList = () => {
 
      async function deleteTask(id, date) {
           
-          const task_list = tasks[moment(date).format('DDMMYYYY')];
-          console.log(currTaskDate)
+          const task_list = tasks[moment(currTaskDate).format('DDMMYYYY')];
+          console.log(moment(currTaskDate).format('DDMMYYYY'));
           let i = task_list.findIndex(task => task.id === id);
           
           await apiDeleteTask(task_list[i]);
@@ -135,8 +140,10 @@ const WeeklyToDoList = () => {
                        currCalendar="week"
                        addTask={addTask}
                        deleteTask={deleteTask}
+                       deleteEvent={deleteEvent}
                        currTask={currTask}
                        setCurrTask={setCurrTask}
+                       setCurrEvent={setCurrEvent}
                        currTaskDate={currTaskDate}
                        activateDel={activateDel}
                        activateEdit={activateEdit}
