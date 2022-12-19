@@ -95,7 +95,7 @@ const WeeklyToDoList = () => {
                t_list.splice(i, 1);
                const task_list = t_date in tasks ? tasks[t_date] : [];
                task_list.push(newTask);
-               setEvents({
+               setTasks({
                     ...tasks,
                     [t_date]: task_list
                });

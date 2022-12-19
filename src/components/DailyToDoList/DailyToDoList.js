@@ -43,7 +43,12 @@ const DailyToDoList = (props) => {
           return 0;}).map((e) => (
           <MyTask
             task={e}
-            handleCheck={props.handleCheck}/>
+            handleCheck={props.handleCheck}
+            currTask={props.currTask}
+            setCurrTask={props.setCurrTask}
+            setCurrTaskDate={props.setCurrTaskDate}
+            editStatus={(a) => props.editStatus(a)}
+            delStatus={(a) => props.delStatus(a)}/>
           ))}
           </div>
     </div>
