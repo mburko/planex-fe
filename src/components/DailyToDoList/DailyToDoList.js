@@ -14,16 +14,16 @@ const DailyToDoList = (props) => {
 
   const category = { 'High': 1, 'Middle': 2, 'Low': 3 };
 
-  const handleCheck = (id) => {
-    const listTasks = tasks.map((task) => task.id === id ? { ...task, checked: !task.checked } : task);
-    setTasks(listTasks)
-  }
 
   useEffect(() => {
     setTasks(props.tasks);
   }, [props.tasks])
 
 
+  function dateOfClickedTask(date){
+    console.log('9');
+    
+  }
 
 
   return (
@@ -45,9 +45,16 @@ const DailyToDoList = (props) => {
         }).map((e) => (
           <MyTask
             task={e}
-            handleCheck={props.handleCheck} />
-        ))}
-      </div>
+            handleCheck={props.handleCheck}
+            currTask={props.currTask}
+            setCurrTask={props.setCurrTask}
+            dateOfClickedTask={dateOfClickedTask}
+            setCurrTaskDate={props.setCurrTaskDate}
+            editStatus={(a) => props.editStatus(a)}
+            delStatus={(a) => props.delStatus(a)}/>
+          ))}
+          </div>
+
     </div>
   )
 };

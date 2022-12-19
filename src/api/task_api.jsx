@@ -23,7 +23,8 @@ function convertTaskGet(taskInfo) {
     let t = new Date(taskInfo.time_to_do);
 
     return {
-        checked: false,
+
+        checked: taskInfo.done,
         dateOfTask: new Date(taskInfo.time_to_do),
         id: taskInfo.id,
         selectedCategory: taskInfo.priority,
@@ -107,4 +108,23 @@ export async function apiGetAllTasks() {
     });
     console.log("all tasks", allConvtasks);
     return allConvtasks;
+}
+
+export function apiEditTask(taskInfo) {
+
+    // taskInfo=mockTaskInfo;
+
+    const converted_task= convertTaskPost(taskInfo);
+    converted_task.deadline=converted_task.time_to_do
+
+    AxiosClient.put('/task/' + taskInfo.id, 
+    converted_task
+    ).then((response) => {
+        console.log(response);
+        return 1;
+    }).catch((error) => {
+        console.log(error);
+        return 0;
+    });
+
 }
