@@ -21,7 +21,7 @@ const mockTaskInfo = {
 
 function convertTaskGet(taskInfo) {
     let t = new Date(taskInfo.time_to_do);
-    console.log(taskInfo.done)
+
     return {
         checked: taskInfo.done,
         dateOfTask: new Date(taskInfo.time_to_do),
@@ -35,10 +35,9 @@ function convertTaskGet(taskInfo) {
         //deadline : taskInfo.deadline
     }
 }
-
 function convertTaskPost(taskInfo) {
     const dateTimeToDo = combineDateTime(taskInfo.dateOfTask, taskInfo.time_hours, taskInfo.time_mins);
-    
+
     return {
         title: taskInfo.task, // 20 symb 
         deadline: /*deadline*/ taskInfo.dateOfTask,
@@ -114,10 +113,11 @@ export function apiEditTask(taskInfo) {
 
     // taskInfo=mockTaskInfo;
 
-    console.log("task info", taskInfo);
+    const converted_task= convertTaskPost(taskInfo);
+    converted_task.deadline=converted_task.time_to_do
 
-    AxiosClient.put('/task', 
-        convertTaskPost(taskInfo)
+    AxiosClient.put('/task/' + taskInfo.id, 
+    converted_task
     ).then((response) => {
         console.log(response);
         return 1;

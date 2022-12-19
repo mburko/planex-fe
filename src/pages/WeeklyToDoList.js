@@ -127,6 +127,7 @@ const WeeklyToDoList = () => {
    
      return (
        <div style={{ 'margin-top':'10%'}}> 
+       {console.log(currTask)};
                   <MonthCalendarHeader
                        today={today} 
                        prevHandler={prevHandler} 
