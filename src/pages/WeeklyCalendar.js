@@ -13,7 +13,7 @@ import { apiAddTask, apiDeleteTask, apiGetAllTasks, apiEditTask } from "../api/t
 
 
 
-const WeeklyCalendar = () => {
+const WeeklyCalendar = (props) => {
 
      moment.updateLocale('en', { week: { dow: 1 } });
      const [today, setToday] = useState(moment());
@@ -29,16 +29,16 @@ const WeeklyCalendar = () => {
      const [showRepeatMessage, setShowRepeatMessage] = useState(false);
      const [showAllocationMessage, setShowAllocationMessage] = useState(false);
      const [access, setAccess] = useState(false);
-     const [currTask, setCurrTask]=useState(null);
-     const [currTaskDate, setCurrTaskDate]=useState(null);
+     const [currTask, setCurrTask] = useState(null);
+     const [currTaskDate, setCurrTaskDate] = useState(null);
 
-    
+
      async function myGetEvents(curr_date) {
           let moment_str = curr_date.clone().startOf('week');
           let moment_end = curr_date.clone().endOf('week');
-          
+
           const m_format = 'YYYY-MM-DD[T]HH:mm:ss';
-          let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format),moment_end.format(m_format));
+          let events2 = await apiGetAllEventsPeriod(moment_str.format(m_format), moment_end.format(m_format));
 
           console.log("get events", events2);
           let new_events = {};
@@ -56,7 +56,6 @@ const WeeklyCalendar = () => {
      }
 
 
-
      const prevHandler = async () => {
 
           console.log('prev');
@@ -64,7 +63,7 @@ const WeeklyCalendar = () => {
 
           await myGetEvents(today.clone().subtract(1, 'week'));
      }
-     const nextHandler =async () => {
+     const nextHandler = async () => {
           console.log('next');
           setToday(prev => prev.clone().add(1, 'week'))
 
@@ -77,65 +76,8 @@ const WeeklyCalendar = () => {
           setClickToDoList(!clickedToDoList);
 
      }
-     
-     function getEvents() {
-          return events;
-     }
-
-     
-     async function addEvent(e) {
-
-          await apiAddEvent(e);
-
-          await myGetEvents(today);
-
-          const event_list = moment(e.dateOfEvent).format('DDMMYYYY') in events ? events[moment(e.dateOfEvent).format('DDMMYYYY')] : [];
-          event_list.push(e);
-          setEvents({
-               ...events,
-               [moment(e.dateOfEvent).format('DDMMYYYY')]: event_list
-          });
-          console.log(events);
-          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !== '' && e.selectedRepeat !== 'None') {
-               setShowRepeatMessage(true);
-          }
-     }
 
 
-
-     async function deleteEvent(id, date) {
-          
-          const ev_list = events[date];
-          
-          let i = ev_list.findIndex(ev => ev.event_id === id);
-          
-          await apiDeleteEvent(ev_list[i].orig_event_id);
-
-          ev_list.splice(i, 1);
-     }
-
-     async function editEvent(id, date, newEvent) {
-          newEvent.event_id = id;
-          await apiUpdateEvent(newEvent);
-          
-          const ev_list = events[date];
-          let i = ev_list.findIndex(ev => ev.event_id === id);
-
-          const ev_date = moment(newEvent.dateOfEvent).format('DDMMYYYY');
-          if (date != ev_date) {
-               ev_list.splice(i, 1);
-               const event_list = ev_date in events ? events[ev_date] : [];
-               event_list.push(newEvent);
-               setEvents({
-                    ...events,
-                    [ev_date]: event_list
-               });
-          } else {
-               Object.assign(ev_list[i], newEvent);
-          }
-
-
-     }
 
 
      const editStatus = (a) => {
@@ -160,25 +102,25 @@ const WeeklyCalendar = () => {
           return tasks;
      }
 
-     
-   async function myGetTasks() {
-     let tasks_temp = await apiGetAllTasks();
 
-     console.log("get tasks", tasks_temp);
-     let new_tasks = {};
-     tasks_temp.forEach(tsk => {
+     async function myGetTasks() {
+          let tasks_temp = await apiGetAllTasks();
 
-          let task_list = moment(tsk.dateOfTask).format('DDMMYYYY') in new_tasks ? new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] : [];
+          console.log("get tasks", tasks_temp);
+          let new_tasks = {};
+          tasks_temp.forEach(tsk => {
 
-          task_list.push(tsk);
-          new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] = task_list;
-     });
+               let task_list = moment(tsk.dateOfTask).format('DDMMYYYY') in new_tasks ? new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] : [];
 
-     // console.log("res new tasks", new_tasks);
-     setTasks(new_tasks);
+               task_list.push(tsk);
+               new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] = task_list;
+          });
 
-     
-}
+          // console.log("res new tasks", new_tasks);
+          setTasks(new_tasks);
+
+
+     }
 
      const [tempTask, setTempTask] = useState({});
      async function addTask(e) {
@@ -202,11 +144,11 @@ const WeeklyCalendar = () => {
 
 
      async function deleteTask(id) {
-          
+
           const task_list = tasks[currColumn];
           console.log(currTaskDate)
           let i = task_list.findIndex(task => task.id === id);
-          
+
           await apiDeleteTask(task_list[i]);
           task_list.splice(i, 1);
      }
@@ -214,7 +156,7 @@ const WeeklyCalendar = () => {
      async function editTask(id, date, newTask) {
           newTask.id = id;
           await apiEditTask(newTask);
-          
+
           const t_list = tasks[moment(date).format('DDMMYYYY')];
           let i = t_list.findIndex(task => task.id === id);
 
@@ -233,22 +175,22 @@ const WeeklyCalendar = () => {
 
 
      }
-  
-     const handleCheck = async(id) => {
+
+     const handleCheck = async (id) => {
 
           let t = tasks[currColumn].find(temp => temp.id === id);
           t.checked = !t.checked;
           await apiEditTask(t);
           console.log(t.checked);
-      
-        };
+
+     };
 
      useEffect(() => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowAllocationMessage(false);
           }
      }, [showRepeatMessage]);
-     
+
      useEffect(() => {
           if (showRepeatMessage && showAllocationMessage) {
                setShowRepeatMessage(false);
@@ -258,67 +200,67 @@ const WeeklyCalendar = () => {
 
      return (
           <>
-            
-                    <div className="weekly-calendar-page">
-                         <RepeatMessage text={'Reload page to see all repeats'} showMessage={showRepeatMessage} setShowMessage={setShowRepeatMessage} />
-                         <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={showAllocationMessage} setShowMessage={setShowAllocationMessage} />
 
-                         <DailyToDoList
-                              clickedToDoList={clickedToDoList}
-                              showToDoList={showToDoList}
-                              tasks={currColumn in tasks ? tasks[currColumn]:[]}
-                              clickedColumn={currColumn}
-                              handleCheck={handleCheck}
+               <div className="weekly-calendar-page">
+               <RepeatMessage text={'Reload page to see all repeats'} showMessage={props.showRepeatMessage} setShowMessage={props.setShowRepeatMessage} />
+               <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={props.showAllocationMessage} setShowMessage={props.setShowAllocationMessage} />
+                    <DailyToDoList
+                         clickedToDoList={clickedToDoList}
+                         showToDoList={showToDoList}
+                         tasks={currColumn in tasks ? tasks[currColumn] : []}
+                         clickedColumn={currColumn}
+                         handleCheck={handleCheck}
+                         currTask={currTask}
+                         setCurrTask={setCurrTask}
+                         setCurrTaskDate={setCurrTaskDate}
+                         editStatus={(a) => editStatus(a)}
+                         delStatus={(a) => delStatus(a)} />
+
+
+                    <div style={{ 'margin': '10% 2% 0 20%' }}>
+                         <MonthCalendarHeader
+                              events={props.getEvents}
+                              today={today}
+                              prevHandler={prevHandler}
+                              nextHandler={nextHandler}
+                              currCalendar="week"
+                              addEvent={props.addEvent}
+                              editEvent={props.editEvent}
+                              deleteEvent={props.deleteEvent}
+                              deleteTask={deleteTask}
+                              addTask={addTask}
+                              editTask={editTask}
+                              activateDel={activateDel}
+                              activateEdit={activateEdit}
+                              currEvent={currEvent}
+                              setCurrEvent={setCurrEvent}
+                              currEvDate={currEvDate}
+                              setShowAllocationMessage={props.setShowAllocationMessage}
                               currTask={currTask}
                               setCurrTask={setCurrTask}
-                              setCurrTaskDate={setCurrTaskDate}
+                              currTaskDate={currTaskDate}
+                              tasks={getTasks}
+                         />
+
+                         <WeeklyCalendarTable
+                              events={props.getEvents}
+                              showToDoList={showToDoList}
+                              today={today}
+                              clickedToDoList={clickedToDoList}
+                              startDay={startDay}
                               editStatus={(a) => editStatus(a)}
-                              delStatus={(a) => delStatus(a)} />
+                              delStatus={(a) => delStatus(a)}
+                              currEvent={currEvent}
+                              currColumn={currColumn}
+                              setCurrEvent={setCurrEvent}
+                              setCurrEvDate={setCurrEvDate}
+                              setCurrColumn={setCurrColumn}
 
-
-                         <div style={{ 'margin': '10% 2% 0 20%' }}>
-                              <MonthCalendarHeader
-                                   events={getEvents}
-                                   today={today}
-                                   prevHandler={prevHandler}
-                                   nextHandler={nextHandler}
-                                   currCalendar="week"
-                                   addEvent={addEvent}
-                                   editEvent={editEvent}                                   
-                                   deleteEvent={deleteEvent}
-                                   deleteTask={deleteTask}
-                                   addTask={addTask}
-                                   activateDel={activateDel}
-                                   activateEdit={activateEdit}
-                                   currEvent={currEvent}
-                                   setCurrEvent={setCurrEvent}
-                                   currEvDate={currEvDate}
-                                   setShowAllocationMessage={setShowAllocationMessage}
-                                   currTask={currTask}
-                                   setCurrTask={setCurrTask}
-                                   currTaskDate={currTaskDate}
-
-                              />
-
-                              <WeeklyCalendarTable
-                                   events={getEvents}
-                                   showToDoList={showToDoList}
-                                   today={today}
-                                   clickedToDoList={clickedToDoList}
-                                   startDay={startDay}
-                                   editStatus={(a) => editStatus(a)}
-                                   delStatus={(a) => delStatus(a)}
-                                   currEvent={currEvent}
-                                   currColumn={currColumn}
-                                   setCurrEvent={setCurrEvent}
-                                   setCurrEvDate={setCurrEvDate}
-                                   setCurrColumn={setCurrColumn}
-
-                              />
-                         </div>
-
+                         />
                     </div>
-                  
+
+               </div>
+
           </>
      )
 

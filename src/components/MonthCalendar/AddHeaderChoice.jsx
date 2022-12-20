@@ -10,11 +10,12 @@ export const AddHeaderChoice = (props) => {
   const [clickedNewTask, setClickedNewTask] = useState(false);
 
   useEffect(() => {
-    if (props.showEventCreator) {
+    if (props.showEventCreator || props.showTaskCreator) {
       setClickedNewEvent(false);
       setClickedNewTask(false);
     }
-  }, [props.showEventCreator])
+  }, [props.showEventCreator, props.showTaskCreator])
+
 
   return (
     <>
@@ -30,6 +31,7 @@ export const AddHeaderChoice = (props) => {
             className="hd_choice_text"
             onClick={() => {
               props.setShowEventCreator(false);
+              props.setShowTaskCreator(false);
               setClickedNewEvent(true);
               setClickedNewTask(false);
               props.setShowPseudoChoice(false)
@@ -42,6 +44,7 @@ export const AddHeaderChoice = (props) => {
             className="hd_choice_text"
             onClick={() => {
               props.setShowEventCreator(false);
+              props.setShowTaskCreator(false);
               setClickedNewTask(true);
               setClickedNewEvent(false);
               props.setShowPseudoChoice(false)
@@ -51,7 +54,7 @@ export const AddHeaderChoice = (props) => {
 
         </div>
       </div>
-      <EventCreator createNew={true} addEvent={props.addEvent} changeState={() => { setClickedNewEvent(false) }} clickedEvent={clickedNewEvent} />
+      <EventCreator events={props.events} createNew={true} addEvent={props.addEvent} changeState={() => { setClickedNewEvent(false) }} clickedEvent={clickedNewEvent} />
       <TaskCreator setShowAllocationMessage={props.setShowAllocationMessage} createNew={true} addTask={props.addTask} changeState={() => { setClickedNewTask(false) }} clickedTask={clickedNewTask} />
     </>
   )

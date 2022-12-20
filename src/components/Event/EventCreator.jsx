@@ -72,13 +72,20 @@ export const EventCreator = (props) => {
             setInpDate(true);
             let ev;
             const ev_list = props.events()[props.currEvDate];
+            if (ev_list === undefined) return;
+
             for (let i = 0; i < ev_list.length; i++) {
                 if (props.currEvent === ev_list[i].event_id) {
                     ev = ev_list[i];
                     break;
                 }
             }
+            console.log(ev);
+            if (!ev.hasOwnProperty('selectedRepeat')) {
+                ev.selectedRepeat = 'None'
+            }
             setStartDate(ev.dateOfEvent);
+
             setState({ ...ev });
         }
     }, [props.showEventCreator])
@@ -171,7 +178,7 @@ export const EventCreator = (props) => {
         });
 
     }
-    
+
     const [toSave, setToSave] = useState(false);
     function handleForm(e) {
         e.preventDefault();
@@ -382,7 +389,7 @@ export const EventCreator = (props) => {
 
 
                 </select>
-                
+
                 <div className="div_option">
                     <p
                         className="ev_creator_text text_option"

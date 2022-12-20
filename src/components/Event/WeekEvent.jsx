@@ -98,10 +98,11 @@ export const WeekEvent = (props) => {
                                 props.category === 'Sport' ? <FaRunning size={25} className='weekevent_icon' /> : null)
 
             }
-            {(props.height < 20) ? null :
+
+            {checkDeadline(props.category) ? '' : ((props.height < 20) ? null :
                 <div className="show_name_weekevent name_weekevent_transition">
                     {ellipsify(props.ev_name)}
-                </div>}
+                </div>)}
         </div>
         <div
             className={`full_info_wc_event wc_event_transition ${checkDeadline(props.category) ? "wc_event_deadline" : "wc_event_basic"} ${showFullEvent ? "" : "full_info_wc_event_hidden"}`}

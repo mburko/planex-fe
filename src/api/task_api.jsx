@@ -49,14 +49,17 @@ function convertTaskPost(taskInfo) {
 }
 
 
+
 function combineDateTime(date, timeH, timeM) {
     let d = date;
 
+    let h= timeH ? timeH : 0;
+    let m= timeM ? timeM : 0;
+
     let fullDate = d.getFullYear().toString() + '-' + (d.getMonth() + 1).toString() + '-' + d.getDate().toString();
-    let res = fullDate + 'T' + timeH.toString() + ":" + timeM.toString() + ":00";
+    let res = fullDate + 'T' + h.toString() + ":" + m.toString() + ":00";
     return res
 }
-
 
 export function apiAddTask(taskInfo) {
 

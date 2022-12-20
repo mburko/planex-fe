@@ -3,57 +3,57 @@ import { MonthCalendarHeader } from "../components/MonthCalendar/MonthCalendarHe
 import { useState, useEffect } from "react";
 import { apiAddTask, apiDeleteTask, apiGetAllTasks, apiEditTask } from "../api/task_api";
 import moment from "moment";
+import { AllocationMessage } from "../components/DailyToDoList/AllocationMessage";
 
 
 
 
+const WeeklyToDoList = (props) => {
 
-const WeeklyToDoList = () => {
-
-     moment.updateLocale('en', {week:{dow:1}});
+     moment.updateLocale('en', { week: { dow: 1 } });
      const [today, setToday] = useState(moment());
      const startDay = today.clone().startOf('week');
      const [tasks, setTasks] = useState({});
      const [activateDel, setActivateDel] = useState(false);
      const [activateEdit, setActivateEdit] = useState(false);
-     const [currTask, setCurrTask]=useState(null);
-     const [currEvent, setCurrEvent]=useState(null);
-     const [currTaskDate, setCurrTaskDate]=useState(null);
+     const [currTask, setCurrTask] = useState(null);
+     const [currEvent, setCurrEvent] = useState(null);
+     const [currTaskDate, setCurrTaskDate] = useState(null);
 
-    
-    const prevHandler = () => {
-         console.log('prev');
-         setToday(prev => prev.clone().subtract(1, 'week'))
-    }
-    const nextHandler = () => {
-         console.log('next');
-         setToday(prev => prev.clone().add(1, 'week'))
-    };
-   
-   function getTasks() {
-        return tasks;
-   }
-   
-   async function myGetTasks() {
-     let tasks_temp = await apiGetAllTasks();
 
-     console.log("get tasks", tasks_temp);
-     let new_tasks = {};
-     tasks_temp.forEach(tsk => {
+     const prevHandler = () => {
+          console.log('prev');
+          setToday(prev => prev.clone().subtract(1, 'week'))
+     }
+     const nextHandler = () => {
+          console.log('next');
+          setToday(prev => prev.clone().add(1, 'week'))
+     };
 
-          let task_list = moment(tsk.dateOfTask).format('DDMMYYYY') in new_tasks ? new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] : [];
+     function getTasks() {
+          return tasks;
+     }
 
-          task_list.push(tsk);
-          new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] = task_list;
-     });
+     async function myGetTasks() {
+          let tasks_temp = await apiGetAllTasks();
 
-     // console.log("res new tasks", new_tasks);
-     setTasks(new_tasks);
+          console.log("get tasks", tasks_temp);
+          let new_tasks = {};
+          tasks_temp.forEach(tsk => {
 
-     
-}
+               let task_list = moment(tsk.dateOfTask).format('DDMMYYYY') in new_tasks ? new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] : [];
 
-     function deleteEvent(){
+               task_list.push(tsk);
+               new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] = task_list;
+          });
+
+          // console.log("res new tasks", new_tasks);
+          setTasks(new_tasks);
+
+
+     }
+
+     function deleteEvent() {
           console.log('event');
      }
 
@@ -79,20 +79,20 @@ const WeeklyToDoList = () => {
 
 
      async function deleteTask(id, date) {
-          
+
           const task_list = tasks[moment(currTaskDate).format('DDMMYYYY')];
           console.log(moment(currTaskDate).format('DDMMYYYY'));
           let i = task_list.findIndex(task => task.id === id);
-          
+
           await apiDeleteTask(task_list[i]);
 
           task_list.splice(i, 1);
      }
 
-     async function editEvent(id, date, newTask) {
+     async function editTask(id, date, newTask) {
           newTask.id = id;
           await apiEditTask(newTask);
-          
+
           const t_list = tasks[moment(date).format('DDMMYYYY')];
           let i = t_list.findIndex(task => task.id === id);
 
@@ -111,14 +111,14 @@ const WeeklyToDoList = () => {
 
 
      }
-  
-     const handleCheck = async(id, date) => {
+
+     const handleCheck = async (id, date) => {
 
           let t = tasks[date].find(temp => temp.id === id);
           t.checked = !t.checked;
           await apiEditTask(t);
-      
-        };
+
+     };
 
      const editStatus = (a) => {
           setActivateEdit(a);
@@ -130,43 +130,50 @@ const WeeklyToDoList = () => {
 
      }
 
-   
+
      return (
-       <div style={{ 'margin-top':'10%'}}> 
-       {console.log(currTask)};
-                  <MonthCalendarHeader
-                       today={today} 
-                       prevHandler={prevHandler} 
-                       nextHandler={nextHandler}
-                       currCalendar="week"
-                       addTask={addTask}
-                       deleteTask={deleteTask}
-                       deleteEvent={deleteEvent}
-                       currTask={currTask}
-                       setCurrTask={setCurrTask}
-                       setCurrEvent={setCurrEvent}
-                       currTaskDate={currTaskDate}
-                       activateDel={activateDel}
-                       activateEdit={activateEdit}
+          <div style={{ 'margin-top': '10%' }}>
+               {console.log(currTask)};
+               <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={props.showAllocationMessage} setShowMessage={props.setShowAllocationMessage} />
+               <MonthCalendarHeader
+                    events={props.getEvents}
+                    tasks={getTasks}
+                    editTask={editTask}
+                    addEvent={props.addEvent}
+                    today={today}
+                    prevHandler={prevHandler}
+                    nextHandler={nextHandler}
+                    currCalendar="week"
+                    addTask={addTask}
+                    deleteTask={deleteTask}
+                    deleteEvent={props.deleteEvent}
+                    currTask={currTask}
+                    setCurrTask={setCurrTask}
+                    setCurrEvent={setCurrEvent}
+                    currTaskDate={currTaskDate}
+                    activateDel={activateDel}
+                    activateEdit={activateEdit}
+                    setShowAllocationMessage={props.setShowAllocationMessage}
 
-                       />
-                       
-                  <WeeklyToDoListTable
-                       tasks={getTasks}
-                       handleCheck={handleCheck}
-                       today={today}
 
-                       startDay={startDay}
-                       currTask={currTask}
-                       setCurrTask={setCurrTask}
-                       setCurrTaskDate={setCurrTaskDate}
-                       editStatus={(a) => editStatus(a)}
-                       delStatus={(a) => delStatus(a)}/> 
-       </div>
-   
+               />
+
+               <WeeklyToDoListTable
+                    tasks={getTasks}
+                    handleCheck={handleCheck}
+                    today={today}
+
+                    startDay={startDay}
+                    currTask={currTask}
+                    setCurrTask={setCurrTask}
+                    setCurrTaskDate={setCurrTaskDate}
+                    editStatus={(a) => editStatus(a)}
+                    delStatus={(a) => delStatus(a)} />
+          </div>
+
      )
-   
-}; 
+
+};
 
 
 export { WeeklyToDoList };

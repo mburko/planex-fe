@@ -24,15 +24,18 @@ function convertEvent(eventInfo) {
 
 	let t1 = new Date(eventInfo.start);
 	let t2 = new Date(eventInfo.finish);
-
+	console.log(eventInfo)
 	return {
+
 		event: eventInfo.title,
 		notes: eventInfo.description,
 		dateOfEvent: new Date(eventInfo.start),
-		time_from: (t1.getHours().toString() + ":" + t1.getMinutes().toString()),
-		time_to: (t2.getHours().toString() + ":" + t2.getMinutes().toString()),
+		time_from: String(t1.getHours().toString()).padStart(2, '0') + ":" + String(t1.getMinutes().toString()).padStart(2, '0'),
+		time_to: String(t2.getHours().toString()).padStart(2, '0') + ":" + String(t2.getMinutes().toString()).padStart(2, '0'),
 
 		selectedCategory: category[eventInfo.category_id - 1],
+		
+		selectedRepeat: eventInfo.repeat===null ? 'None': eventInfo.repeat[0].toUpperCase()+eventInfo.repeat.slice(1).toLowerCase(),
 		orig_event_id: eventInfo.id,
 
 		event_id: eventInfo.id * 10000 + Math.floor(Math.random() * 1000)
@@ -48,15 +51,21 @@ function convertDateTime(date, time) {
 	const timeH = parseInt(time.split(':')[0]);
 	const timeM = parseInt(time.split(':')[1]);
 	let res = fullDate + 'T' + timeH.toString() + ":" + timeM.toString() + ":00";
+
 	return res
+
 }
 
 
 export function apiAddEvent(eventInfo) {
 	/*'2022-11-23T18:00:00';//*/
-	const dateTimeStart = convertDateTime(eventInfo.dateOfEvent, eventInfo.time_from);
-	const dateTimeFinish = convertDateTime(eventInfo.dateOfEvent, eventInfo.time_to);
+	let dateTimeStart = convertDateTime(eventInfo.dateOfEvent, eventInfo.time_from);
+	let dateTimeFinish = convertDateTime(eventInfo.dateOfEvent, eventInfo.time_to);
 
+
+	if (eventInfo.selectedCategory === "Deadline") {
+		dateTimeFinish = dateTimeStart;
+	}
 	console.log(eventInfo);
 	AxiosClient.post('/event', {
 

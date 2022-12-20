@@ -22,6 +22,7 @@ const MyTask = (props) => {
           key={props.task.id}
           onClick={() => {
               props.dateOfClickedTask();
+            
               if(props.currTask===null){props.setCurrTask(props.task.id)}else{props.setCurrTask(null)};
               }}>
         <input

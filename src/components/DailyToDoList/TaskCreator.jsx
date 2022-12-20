@@ -2,11 +2,12 @@ import React, { useEffect, useState, setState } from 'react'
 import DatePicker from "react-datepicker"
 import 'react-time-picker/dist/TimePicker.css'
 import 'react-clock/dist/Clock.css'
-import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css"; 
 
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 
 import './TaskCreator.css'
+import moment from "moment";
 
 const TASK_REGEX = /^[A-Za-z0-9_ ,.'`"()-;]{2,45}$/u;
 ///^[\p{L} ,.'-()]+$/u;
@@ -36,8 +37,8 @@ export const TaskCreator = (props) => {
 
     });
     useEffect(() => {
-        //console.log(newTask);
-        if (taskError || !newTask.task || !newTask.selectedCategory) {
+      
+        if (taskError || !newTask.task || !newTask.selectedCategory || (!newTask.time_hours && !newTask.time_mins)) {
             setFormValid(false)
         } else {
             setFormValid(true)
@@ -114,19 +115,71 @@ export const TaskCreator = (props) => {
 
     }
 
+    const [toSave, setToSave] = useState(false);
     function handleForm(e) {
-
+        e.preventDefault();
         if (formValid) {
-            props.addTask(newTask);
-            handleCancel();
+            if (props.createNew) {
+                let random = Math.floor(Math.random() * 50);
+                setToSave(true);
+                setState({
+                    ...newTask,
+                    task_id: random
+                });
+            } else {
+                props.editTask(props.currTask, props.currTaskDate, newTask);
+                props.setCurrTask(null);
+                handleCancel();
+
+            }
+
+
         }
 
     }
 
+    useEffect(() => {
+        if (toSave) {
+            props.addTask(newTask);
+            console.log(newTask);
+            handleCancel();
+            setToSave(false);
+        }
+    }, [newTask]);
+
+
+    
+
+    useEffect(() => {
+
+        if (!props.createNew && props.showTaskCreator) {
+            setFormValid(true);
+            setTaskError(false);
+            setInpTask(true);
+            let task;
+            const task_list = props.tasks()[moment(props.currTaskDate).format('DDMMYYYY')];
+            if (task_list === undefined) return;
+            for (let i = 0; i < task_list.length; i++) {
+                if (props.currTask === task_list[i].id) {
+                   task = task_list[i];
+                    break;
+                }
+            }
+            setStartDate(task.dateOfTask);
+            setState({ ...task });
+        }
+    }, [props.showTaskCreator])
+
 
 
     const handleCancel = () => {
-        props.changeState();
+        if (props.createNew) {
+            props.changeState();
+        }
+        else {
+
+            props.setShowTaskCreator(false);
+        }
         setStartDate(new Date());
         setState({
             id: newTask.id + 1,

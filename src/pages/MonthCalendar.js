@@ -7,9 +7,10 @@ import { RepeatMessage } from '../components/Event/RepeatMessage';
 import { apiAddEvent, apiGetAllEvents, apiDeleteEvent, apiUpdateEvent, apiGetAllEventsPeriod } from '../api/event_api';
 import { add } from 'date-fns';
 import { AllocationMessage } from '../components/DailyToDoList/AllocationMessage';
+import { apiAddTask, apiDeleteTask, apiGetAllTasks, apiEditTask } from "../api/task_api";
 
 
-const MonthCalendar = () => {
+const MonthCalendar = (props) => {
 
      moment.updateLocale('en', { week: { dow: 1 } });
      const [activateDel, setActivateDel] = useState(false);
@@ -21,9 +22,8 @@ const MonthCalendar = () => {
      const [currEvDate, setCurrEvDate] = useState(null);
      const [tasks, setTasks] = useState({});
      const [clickedDay, setClickedDay] = useState(null);
-     const [showRepeatMessage, setShowRepeatMessage] = useState(false);
-     const [showAllocationMessage, setShowAllocationMessage] = useState(false);
-
+     const [currTask, setCurrTask] = useState(null);
+     const [currTaskDate, setCurrTaskDate] = useState(null);
      async function myGetEvents(curr_date) {
           let moment_str = curr_date.clone()/*.subtract(1, 'month')*/.startOf('month');
           let moment_end = curr_date.clone()/*.add(1, 'month')*/.endOf('month');
@@ -72,58 +72,6 @@ const MonthCalendar = () => {
           setClickedDay(dayItem);
 
      }
-     function getEvents() {
-          return events;
-     }
-
-
-
-     async function addEvent(e) {
-          await apiAddEvent(e);
-
-          await myGetEvents(today);
-
-          const event_list = moment(e.dateOfEvent).format('DDMMYYYY') in events ? events[moment(e.dateOfEvent).format('DDMMYYYY')] : [];
-          event_list.push(e);
-          setEvents({
-               ...events,
-               [moment(e.dateOfEvent).format('DDMMYYYY')]: event_list
-          });
-          console.log(events);
-          if (e.hasOwnProperty('selectedRepeat') && e.selectedRepeat !== '' && e.selectedRepeat !== 'None') {
-               setShowRepeatMessage(true);
-          }
-     }
-
-     async function deleteEvent(id, date) {
-          const ev_list = events[date];
-          let i = ev_list.findIndex(ev => ev.event_id === id);
-
-          await apiDeleteEvent(ev_list[i].orig_event_id);
-
-          ev_list.splice(i, 1);
-     }
-
-     async function editEvent(id, date, newEvent) {
-          newEvent.event_id = id;
-          await apiUpdateEvent(newEvent);
-
-          const ev_list = events[date];
-          let i = ev_list.findIndex(ev => ev.event_id === id);
-
-          const ev_date = moment(newEvent.dateOfEvent).format('DDMMYYYY');
-          if (date != ev_date) {
-               ev_list.splice(i, 1);
-               const event_list = ev_date in events ? events[ev_date] : [];
-               event_list.push(newEvent);
-               setEvents({
-                    ...events,
-                    [ev_date]: event_list
-               });
-          } else {
-               Object.assign(ev_list[i], newEvent);
-          }
-     }
 
 
      const editStatus = (a) => {
@@ -136,70 +84,134 @@ const MonthCalendar = () => {
 
      }
 
-     useEffect(() => async () => {
-          console.log("useEffect");
-          await myGetEvents(today);
-     }, []);
 
-     function addTask(e) {
+     function getTasks() {
+          return tasks;
+     }
+
+
+     async function myGetTasks() {
+          let tasks_temp = await apiGetAllTasks();
+
+          console.log("get tasks", tasks_temp);
+          let new_tasks = {};
+          tasks_temp.forEach(tsk => {
+
+               let task_list = moment(tsk.dateOfTask).format('DDMMYYYY') in new_tasks ? new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] : [];
+
+               task_list.push(tsk);
+               new_tasks[moment(tsk.dateOfTask).format('DDMMYYYY')] = task_list;
+          });
+
+          // console.log("res new tasks", new_tasks);
+          setTasks(new_tasks);
+
+
+     }
+
+     const [tempTask, setTempTask] = useState({});
+     async function addTask(e) {
+          // console.log("task", e);
+          await apiAddTask(e);
+          await apiGetAllTasks();
+
           const task_list = moment(e.dateOfTask).format('DDMMYYYY') in tasks ? tasks[moment(e.dateOfTask).format('DDMMYYYY')] : [];
           task_list.push(e);
           setTasks({
                ...tasks,
                [moment(e.dateOfTask).format('DDMMYYYY')]: task_list
           });
+
           console.log(tasks);
      }
 
-     const handleCheck = (id) => {
-          const listTasks = tasks[clickedDay].map((task) => task.id === id ? { ...task, checked: !task.checked } : task);
-          setTasks({
-               ...tasks,
-               [clickedDay]: listTasks
-          })
+     useEffect(() => async () => {
+          await myGetTasks();
+     }, []);
+
+
+     async function deleteTask(id) {
+
+          const task_list = tasks[moment(clickedDay).format('DDMMYYYY')];
+          let i = task_list.findIndex(task => task.id === id);
+
+          await apiDeleteTask(task_list[i]);
+          task_list.splice(i, 1);
      }
 
-     useEffect(() => {
-          if (showRepeatMessage && showAllocationMessage) {
-               setShowAllocationMessage(false);
-          }
-     }, [showRepeatMessage]);
+     async function editTask(id, date, newTask) {
+          newTask.id = id;
+          await apiEditTask(newTask);
 
-     useEffect(() => {
-          if (showRepeatMessage && showAllocationMessage) {
-               setShowRepeatMessage(false);
+          const t_list = tasks[moment(date).format('DDMMYYYY')];
+          let i = t_list.findIndex(task => task.id === id);
+
+          const t_date = moment(newTask.dateOfTask).format('DDMMYYYY');
+          if (date != t_date) {
+               t_list.splice(i, 1);
+               const task_list = t_date in tasks ? tasks[t_date] : [];
+               task_list.push(newTask);
+               setTasks({
+                    ...tasks,
+                    [t_date]: task_list
+               });
+          } else {
+               Object.assign(t_list[i], newTask);
           }
-     }, [showAllocationMessage]);
+
+
+     }
+
+     const handleCheck = async (id) => {
+
+          let t = tasks[currTask].find(temp => temp.id === id);
+          t.checked = !t.checked;
+          await apiEditTask(t);
+          console.log(t.checked);
+
+     };
+
 
      return (
           <div >
-               <RepeatMessage text={'Reload page to see all repeats'} showMessage={showRepeatMessage} setShowMessage={setShowRepeatMessage} />
-               <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={showAllocationMessage} setShowMessage={setShowAllocationMessage} />
+               <RepeatMessage text={'Reload page to see all repeats'} showMessage={props.showRepeatMessage} setShowMessage={props.setShowRepeatMessage} />
+               <AllocationMessage text={'Your task will be auto allocated in available time before deadline '} showMessage={props.showAllocationMessage} setShowMessage={props.setShowAllocationMessage} />
                <DailyToDoList
+                    currTask={currTask}
+                    setCurrTask={setCurrTask}
+                    setCurrTaskDate={setCurrTaskDate}
                     clickedToDoList={clickedToDoList}
                     showToDoList={showToDoList}
-                    //handleCheck={handleCheck} 
+                    editStatus={(a) => editStatus(a)}
+                    delStatus={(a) => delStatus(a)}
+                    handleCheck={handleCheck}
                     clickedDay={clickedDay}
                     tasks={clickedDay !== null && moment(clickedDay).format('DDMMYYYY') in tasks ? tasks[moment(clickedDay).format('DDMMYYYY')] : []}
                />
                <div style={{ 'margin': '10% 2% 0 20%' }}>
 
                     <MonthCalendarHeader
-                         events={getEvents}
+                         events={props.getEvents}
                          today={today}
                          prevHandler={prevHandler}
                          nextHandler={nextHandler}
                          currCalendar="month"
-                         addEvent={addEvent}
+                         addEvent={props.addEvent}
                          addTask={addTask}
-                         editEvent={editEvent}
-                         deleteEvent={deleteEvent}
+                         deleteTask={deleteTask}
+                         editTask={editTask}
+                         editEvent={props.editEvent}
+                         deleteEvent={props.deleteEvent}
                          activateDel={activateDel}
                          activateEdit={activateEdit}
                          currEvent={currEvent}
                          setCurrEvent={setCurrEvent}
                          currEvDate={currEvDate}
-                         setShowAllocationMessage={setShowAllocationMessage}
+                         setShowAllocationMessage={props.setShowAllocationMessage}
+                         currTask={currTask}
+                         setCurrTask={setCurrTask}
+                         currTaskDate={clickedDay}
+                         tasks={getTasks}
 
                     />
                     <MonthCalendarGrid
@@ -207,7 +219,7 @@ const MonthCalendar = () => {
                          startDay={startDay}
                          showToDoList={showToDoList}
                          clickedToDoList={clickedToDoList}
-                         events={getEvents}
+                         events={props.getEvents}
                          editStatus={(a) => editStatus(a)}
                          delStatus={(a) => delStatus(a)}
                          currEvent={currEvent}
